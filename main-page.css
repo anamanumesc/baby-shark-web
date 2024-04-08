@@ -1,0 +1,116 @@
+body, html {
+    height: 100%;
+    margin: 0;
+  }
+  
+  .container {
+    display: grid;
+    grid-template-columns: 1fr 6fr;
+    grid-template-rows: 1fr 1fr 5fr;
+    grid-gap: 0.5em;
+    justify-content: stretch;
+    margin: 0.5em;
+    height: 100vh;
+  
+  }
+  
+  .header, .pic-buttons, .left-sidebar, .main-page{
+  background-color:#eecfcf;
+  margin: 0.3em;
+  }
+  
+  .header {
+    grid-column: 1 / 3;
+    grid-row: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    width: 100%;
+    border-color: white;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .logo {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    height: 60px; 
+  }
+  
+  .logo img {
+    max-height: 100%; 
+    width: auto;
+  }
+  
+  .pic-buttons {
+    grid-column: 2;
+    grid-row: 2;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; 
+    align-items: stretch; 
+    padding: 1em;
+    padding-left: 15em;
+    padding-right: 15em;
+  }
+  
+  .pic-buttons div {
+    display: flex; /* Make each button a flex container */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    flex-grow: 1; /* Allows each button to grow and fill the available space */
+    color: #1c0909;
+    background-color: white;
+    margin: 1em; /* Space between buttons */
+    cursor: pointer;
+    text-align: center;
+    padding: 10px; /* Adjust padding as needed */
+  }
+  
+  .left-sidebar{
+  grid-column:1 ;
+  grid-row: 2/4;
+  display:flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: space-around;
+  padding:1em;
+  }
+  
+  .left-sidebar div{
+    color: #1c0909; 
+    text-decoration: none; 
+    padding: 10px; 
+    display: block; 
+    transition: background-color 0.2s ease-in-out; 
+    margin:0.7em;
+    text-align: center;
+    background-color: white;
+  }
+  
+  .left-sidebar div:hover {
+    background-color: #f1f1f1; 
+  }
+  
+  .header, .pic-buttons div, .left-sidebar div, .main-page, .left-sidebar, .pic-buttons {
+    margin: 0.3em;
+    border-radius: 5px;
+  }
+  
+  .main-page {
+    grid-column: 2; 
+    grid-row: 3; 
+    overflow-y: auto; 
+    max-height: calc(100vh - (headerHeight + picButtonsHeight + containerMargin + gridGap)); 
+  }
+
+  .feed-item {
+    background-color: rgb(184, 184, 232);
+    color: white;
+    margin: 10px 0;
+    padding: 20px;
+    border-radius: 5px;
+    height: 100px;
+    width: 80%; 
+  }
