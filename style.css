@@ -1,0 +1,127 @@
+body {
+  font-family: Verdana, sans-serif;
+  line-height: 1.5;
+  color: #151B8D;
+  background-color: #72b0c9;
+  width: 90%;
+  margin: 0 auto;
+  font-size: 1em;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: sans-serif;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 3px solid #333;
+  padding: 10px;
+
+  background-color: #72b0c9;
+}
+
+.logo {
+  flex: 0 0 15%;
+  text-align: center;
+
+}
+
+.logo img {
+  width: 15%;
+}
+
+.about-button {
+  flex: 0 0 15%;
+  margin-left: auto;
+  margin-right: 10px;
+}
+
+.content {
+  background-image: url('images/wallpaper.jpg');
+  background-size: contain;
+  background-repeat: repeat;
+}
+
+.log-in,
+.sign-up {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+  margin: 50px;
+  padding: 100px;
+  background-color: #d0efee;
+  margin-top: 5px; 
+  margin-bottom: 5px;
+  margin-left: 400px;
+  margin-right: 400px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  border-radius: 10px;
+}
+
+h1 {
+  text-align: center;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+.buttons {
+  width: 200px;
+  padding: 15px;
+  text-align: center;
+  margin: 20px 20px;
+
+  border-radius: 25px;
+  font-weight: bold;
+  border: 2px solid #009688;
+  background: transparent;
+  cursor: pointer;     
+  margin-top: 10px;
+}
+
+.buttons:hover {
+  background-color: #6790e7;
+}
+
+.about-us {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 5vw;
+  margin: 30px;
+  padding: 20px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.info {
+  width: 97vw;
+  height: 25vw;
+  background-color: rgba(245, 236, 226, 0.687);
+  margin: 0.5vw;
+  border-radius: 10px;
+}

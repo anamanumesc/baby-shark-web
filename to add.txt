@@ -1,0 +1,42 @@
+required:
+
+butoane:
+
+1. sleeping schedule creator
+
+    it will ask this questions and will make the schedule:
+    when does baby go to sleep?
+    when does baby wake up
+    how many naps?
+    interval of naps
+
+2. eating schedule creator
+
+3. medical history creator
+
+4. posting pictures/videos/audio
+   -tagging other children in it
+
+5. vizualizare cele mei importante momente (top 5 recente) 
+
+
+
+6. postare pe favebook
+
+7. sectiune de prieteni
+
+
+ ?? . about us
+
+
+
+
+
+optional:
+dark mode
+
+
+to ask:
+
+- daca trebuie sa adaugam doua limbi
+-
