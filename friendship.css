@@ -1,0 +1,41 @@
+body{
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.page-header{
+    height: 50px; 
+    background-color: #f4f4f4; 
+}
+
+.menu-bar{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 50px;
+    background-color: #ddd; 
+}
+
+.menu-bar button{
+    padding: 10px 20px;
+    background-color: #aaa;
+    border: none;
+    cursor: pointer;
+}
+
+.menu-bar button:hover{
+    background-color: #888;
+}
+
+.grid-container{
+    display: grid;
+    grid-column: 1fr 1 fr1r;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); 
+}
+
+
+.square{
+    background-color: #822525; 
+    margin: 30px;
+    
+}
