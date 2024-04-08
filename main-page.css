@@ -56,16 +56,16 @@ body, html {
   }
   
   .pic-buttons div {
-    display: flex; /* Make each button a flex container */
-    justify-content: center; /* Center content horizontally */
-    align-items: center; /* Center content vertically */
-    flex-grow: 1; /* Allows each button to grow and fill the available space */
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1; 
     color: #1c0909;
     background-color: white;
-    margin: 1em; /* Space between buttons */
+    margin: 1em; 
     cursor: pointer;
     text-align: center;
-    padding: 10px; /* Adjust padding as needed */
+    padding: 10px; 
   }
   
   .left-sidebar{
