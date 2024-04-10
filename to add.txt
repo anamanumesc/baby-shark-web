@@ -1,42 +1,49 @@
 required:
 
-butoane:
+butoane/pagini todo:
 
 1. sleeping schedule creator
-
-    it will ask this questions and will make the schedule:
-    when does baby go to sleep?
-    when does baby wake up
-    how many naps?
-    interval of naps
+    it will ask these questions and will make the schedule:
+        when does baby go to sleep?
+        when does baby wake up
+        how many naps?
+        interval of naps
+    -based on these questions it will create a schedule and display it in agraphic way
 
 2. eating schedule creator
+    -how many meals
+    -what time are they?
+    -describe the meals(content of it)
 
 3. medical history creator
+    -last visit
+    -information about it
+    -the ability to attach a pdf or smth
 
 4. posting pictures/videos/audio
    -tagging other children in it
+   -adding the date of it
+   -adding a description
 
-5. vizualizare cele mei importante momente (top 5 recente) 
+5. visualising most important moments
+    -simple: show 5 most recent pictures
+    -complcated: show pictures based on friend (cousin etc)
 
+6. post on favebook
+    -button to attach pic and post it
 
+7. friend section
+    it has 4 pages:
+    1.friend list
+    2.add friend based on code
+    3.get code
+    4.friend requests
 
-6. postare pe favebook
+ 8. about us
 
-7. sectiune de prieteni
-
-
- ?? . about us
-
-
-
-
-
-optional:
-dark mode
 
 
 to ask:
 
 - daca trebuie sa adaugam doua limbi
--
+- daca trebuie pagina de administrator

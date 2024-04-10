@@ -45,7 +45,7 @@ header {
 }
 
 .content {
-  background-image: url('images/wallpaper.jpg');
+  background-image: url('../images/wallpaper.jpg');
   background-size: contain;
   background-repeat: repeat;
 }
