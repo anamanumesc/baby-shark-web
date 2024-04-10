@@ -1,53 +1,51 @@
+* {
+  margin: 0;
+  border: 0;
+}
+
 body {
   font-family: Verdana, sans-serif;
   line-height: 1.5;
   color: #151B8D;
   background-color: #72b0c9;
-  width: 90%;
-  margin: 0 auto;
-  font-size: 1em;
+  width: 90vw;
+  margin: 0;
+  font-size: 1.6vw; /* Adjusted for readability across devices */
 }
 
-main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-family: sans-serif;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-header {
+.header {
+  height: 10vh;
+  width: 100vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 3px solid #333;
-  padding: 10px;
+  border: 0.3vw solid #333; /* Convert border size to vw */
+  padding: 1vw; /* Converted padding to vw for scalability */
 
   background-color: #72b0c9;
 }
 
 .logo {
-  flex: 0 0 15%;
-  text-align: center;
 
 }
 
 .logo img {
-  width: 15%;
+  width: 20%; /* Ensure image scales with its container */
 }
 
 .about-button {
-  flex: 0 0 15%;
+  flex: 0 0 15vw; /* Adjust button size relative to viewport width */
   margin-left: auto;
-  margin-right: 10px;
+  margin-right: 1vw;
 }
-
-.content {
-  background-image: url('../images/wallpaper.jpg');
-  background-size: contain;
-  background-repeat: repeat;
+.content{
+  height: 90vh; /* Use a percentage of the viewport height */
+  width: 100vw; /* Use a percentage of the viewport width */
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  justify-content: center; /* Center items vertically */
+  align-items: center; /* Center items horizontally */
+  
 }
 
 .log-in,
@@ -56,18 +54,12 @@ header {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  position: relative;
-  margin: 50px;
-  padding: 100px;
+  margin: 5vw; /* Adjust margin to be responsive */
+  padding: 5vw; /* Convert padding to be responsive */
+  margin-left: 10vw;
+  margin-right: 10vw;
   background-color: #d0efee;
-  margin-top: 5px; 
-  margin-bottom: 5px;
-  margin-left: 400px;
-  margin-right: 400px;
-  padding-top: 50px;
-  padding-bottom: 50px;
-  border-radius: 10px;
+  border-radius: 1vw; /* Border radius in vw for consistency */
 }
 
 h1 {
@@ -76,31 +68,30 @@ h1 {
 
 label {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 0.5vw; /* Adjust label margin to vw */
 }
 
 input[type="text"],
 input[type="email"],
 input[type="password"] {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
+  padding: 1vw; /* Convert padding to viewport units */
+  border: 0.1vw solid #ccc; /* Border size in vw */
+  border-radius: 0.3vw; /* Border radius in vw */
   box-sizing: border-box;
 }
 
 .buttons {
-  width: 200px;
-  padding: 15px;
+  width: 25vw; /* Convert button width to viewport width for responsiveness */
+  padding: 1.5vw; /* Convert padding to viewport units */
   text-align: center;
-  margin: 20px 20px;
+  margin: 2vw; /* Convert margin to viewport units for responsiveness */
 
-  border-radius: 25px;
+  border-radius: 2.5vw; /* Convert border-radius to viewport units */
   font-weight: bold;
-  border: 2px solid #009688;
+  border: 0.2vw solid #009688; /* Convert border width to viewport units */
   background: transparent;
-  cursor: pointer;     
-  margin-top: 10px;
+  cursor: pointer;
 }
 
 .buttons:hover {
@@ -111,17 +102,14 @@ input[type="password"] {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-bottom: 5vw;
-  margin: 30px;
-  padding: 20px;
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin: 3vw; /* Adjust overall margin to viewport units */
+  padding: 2vw; /* Convert padding to viewport units for consistency */
 }
 
 .info {
-  width: 97vw;
-  height: 25vw;
+  width: 97vw; /* Make info blocks responsive to viewport width */
+  height: 25vh; /* Adjust info block height relative to viewport height */
   background-color: rgba(245, 236, 226, 0.687);
-  margin: 0.5vw;
-  border-radius: 10px;
+  margin: 0.5vw; /* Adjust margin to viewport units */
+  border-radius: 1vw; /* Convert border-radius to viewport units */
 }
