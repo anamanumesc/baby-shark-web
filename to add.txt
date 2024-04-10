@@ -2,6 +2,14 @@ required:
 
 butoane/pagini todo:
 
+0. header
+    -header has the username in it
+    -the logout button
+    -
+
+3. adding on website button
+    -it is a popup
+
 1. sleeping schedule creator
     it will ask these questions and will make the schedule:
         when does baby go to sleep?
@@ -20,9 +28,12 @@ butoane/pagini todo:
     -information about it
     -the ability to attach a pdf or smth
 
-4. posting pictures/videos/audio
+
+4.
+   -popup page, not new page
+   -posting pictures/videos/audio
    -tagging other children in it
-   -adding the date of it
+   -adding the date of it (default if info is blank)
    -adding a description
 
 5. visualising most important moments
@@ -45,5 +56,5 @@ butoane/pagini todo:
 
 to ask:
 
-- daca trebuie sa adaugam doua limbi
+- daca trebuie logout
 - daca trebuie pagina de administrator
