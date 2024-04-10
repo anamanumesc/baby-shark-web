@@ -7,7 +7,6 @@
         width: 80px; /* Adjust the width as needed */
         height: auto; /* Maintain aspect ratio */
     }
-    
     body{
         margin: 0px;
     }
@@ -41,10 +40,6 @@
         width: 25%;
         border: 10px;
         border-color: black;
-    }
-    .navbar li:nth-child(odd) {
-        background-color:rgb(211, 176, 182);
-    
     }
     
     
