@@ -78,7 +78,7 @@ body, html {
   padding:1em;
   }
   
-  .left-sidebar div{
+  .left-sidebar *{
     color: #1c0909; 
     text-decoration: none; 
     padding: 10px; 
