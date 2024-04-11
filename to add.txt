@@ -45,5 +45,5 @@ butoane/pagini todo:
 
 to ask:
 
-- daca trebuie sa adaugam doua limbi
 - daca trebuie pagina de administrator
+-

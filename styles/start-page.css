@@ -13,6 +13,7 @@ body {
   font-size: 1.6vw; /* Adjusted for readability across devices */
 }
 
+git 
 .header {
   height: 10vh;
   width: 100vw;
@@ -30,7 +31,7 @@ body {
 }
 
 .logo img {
-  width: 20%; /* Ensure image scales with its container */
+  width: 10vw;
 }
 
 .about-button {
@@ -38,29 +39,37 @@ body {
   margin-left: auto;
   margin-right: 1vw;
 }
-.content{
-  height: 90vh; /* Use a percentage of the viewport height */
-  width: 100vw; /* Use a percentage of the viewport width */
+/* Existing CSS for body, .header, .logo, etc. remains unchanged */
+
+.content {
   display: flex;
-  flex-direction: column; /* Stack elements vertically */
-  justify-content: center; /* Center items vertically */
-  align-items: center; /* Center items horizontally */
-  
+  flex-direction: column;
+  justify-content: flex-start; /* Start content alignment from the top */
+  align-items: center;
+  height: auto; /* Allow content to define its height */
+  min-height: 90vh; /* Ensure content is at least 90vh tall */
+  width: 100vw;
+  padding-top: 20vh; /* Add padding to the top to push content down */
 }
 
 .log-in,
 .sign-up {
+  position: absolute;
+  top: 15vh; /* Adjust this value so it doesn't overlap with about-us */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 5vw; /* Adjust margin to be responsive */
-  padding: 5vw; /* Convert padding to be responsive */
-  margin-left: 10vw;
-  margin-right: 10vw;
+  padding: 5vw;
   background-color: #d0efee;
-  border-radius: 1vw; /* Border radius in vw for consistency */
+  border-radius: 1vw;
+  width: 50vw;
+  left: 25vw;
+  z-index: 3; /* Ensure they appear above other content */
 }
+
+/* Styles for .buttons, .about-us, .info remain unchanged */
+
 
 h1 {
   text-align: center;
