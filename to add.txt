@@ -46,4 +46,4 @@ butoane/pagini todo:
 to ask:
 
 - daca trebuie pagina de administrator
--
+-daca trebuie sa facem sign up
