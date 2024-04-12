@@ -41,6 +41,8 @@ butoane/pagini todo:
 
  8. about us
 
+9. buton de log out
+
 
 
 to ask:

@@ -4,34 +4,66 @@
 }
 
 body {
-  font-family: Verdana, sans-serif;
-  line-height: 1.5;
   color: #151B8D;
   background-color: #72b0c9;
-  width: 90vw;
+  width: 100%;
+  height: 100%;
   margin: 0;
-  font-size: 1.6vw; /* Adjusted for readability across devices */
 }
 
-git 
-.header {
-  height: 10vh;
-  width: 100vw;
+.container{
+    height: 100vh; /* Use a percentage of the viewport height */
+    width: 100vw; /* Use a percentage of the viewport width */   
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    justify-content: center; /* Center items vertically */
+    align-items: center; /* Center items horizontally */
+    
+}
+
+
+nav{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-image: linear-gradient(to top, #240727, #240628, #250529, #25052a, #25042b, #23042a, #220429, #200428, #1d0425, #1a0321, #17031e, #14021a);
+  box-shadow: 3px 3px 5px rgba(0,0,0,0.3);
+  border-bottom: 2px solid #000;
+}
+
+
+nav ul{
+  width: 100%;
+  list-style: none;   
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
+  align-items: center;    
+}
+
+nav li{
+ height: 50px;
+}
+
+nav a{
+  height: 100%;
+  padding: 0 30px;
+  text-decoration: none;
+  display: flex;
   align-items: center;
-  border: 0.3vw solid #333; /* Convert border size to vw */
-  padding: 1vw; /* Converted padding to vw for scalability */
-
-  background-color: #72b0c9;
+  color: white;
 }
 
-.logo {
-
+nav li img{
+  height: 100%;
+}
+nav a:hover{
+  background-color: black;
 }
 
-.logo img {
-  width: 10vw;
+
+nav li:first-child{
+  margin-right: auto;
+  margin-left: 50px;
 }
 
 .about-button {
@@ -41,35 +73,32 @@ git
 }
 /* Existing CSS for body, .header, .logo, etc. remains unchanged */
 
-.content {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start; /* Start content alignment from the top */
-  align-items: center;
-  height: auto; /* Allow content to define its height */
-  min-height: 90vh; /* Ensure content is at least 90vh tall */
-  width: 100vw;
-  padding-top: 20vh; /* Add padding to the top to push content down */
-}
-
 .log-in,
 .sign-up {
-  position: absolute;
-  top: 15vh; /* Adjust this value so it doesn't overlap with about-us */
+
+
+  width: 40vw; /* Consistent width with the header */
+  height: 40vh; /* Adjust the height as needed */
+  display: flex;
+  justify-content: center;
+  
+  align-items: center;
+
+  
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  padding: 5vw;
+
+
   background-color: #d0efee;
   border-radius: 1vw;
   width: 50vw;
-  left: 25vw;
+ 
   z-index: 3; /* Ensure they appear above other content */
+  height: 50vh;
+  margin-top: 20vh;
+
 }
-
-/* Styles for .buttons, .about-us, .info remain unchanged */
-
 
 h1 {
   text-align: center;
@@ -84,7 +113,7 @@ input[type="text"],
 input[type="email"],
 input[type="password"] {
   width: 100%;
-  padding: 1vw; /* Convert padding to viewport units */
+
   border: 0.1vw solid #ccc; /* Border size in vw */
   border-radius: 0.3vw; /* Border radius in vw */
   box-sizing: border-box;
@@ -92,7 +121,7 @@ input[type="password"] {
 
 .buttons {
   width: 25vw; /* Convert button width to viewport width for responsiveness */
-  padding: 1.5vw; /* Convert padding to viewport units */
+
   text-align: center;
   margin: 2vw; /* Convert margin to viewport units for responsiveness */
 
@@ -108,11 +137,14 @@ input[type="password"] {
 }
 
 .about-us {
+
+  width: 99vw; /* Consistent width with the header */
+  height: 50vh; /* Adjust the height as needed */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   margin: 3vw; /* Adjust overall margin to viewport units */
-  padding: 2vw; /* Convert padding to viewport units for consistency */
+
 }
 
 .info {
