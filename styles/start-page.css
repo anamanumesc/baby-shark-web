@@ -6,18 +6,18 @@
 body {
   color: #151B8D;
   background-color: #72b0c9;
-  width: 100%;
-  height: 100%;
+  width: 100wh;
+  height: 100vh;
   margin: 0;
 }
 
 .container{
-    height: 100vh; /* Use a percentage of the viewport height */
-    width: 100vw; /* Use a percentage of the viewport width */   
+    height: 100vh; 
+    width: 100vw; 
     display: flex;
     flex-direction: column; /* Stack elements vertically */
-    justify-content: center; /* Center items vertically */
-    align-items: center; /* Center items horizontally */
+    justify-content: center; /* toate la mijloc*/
+    align-items: center; /* C */
     
 }
 
@@ -25,7 +25,7 @@ body {
 nav{
   position: fixed;
   top: 0;
-  width: 100%;
+  width: 100vw;
   background-image: linear-gradient(to top, #240727, #240628, #250529, #25052a, #25042b, #23042a, #220429, #200428, #1d0425, #1a0321, #17031e, #14021a);
   box-shadow: 3px 3px 5px rgba(0,0,0,0.3);
   border-bottom: 2px solid #000;
@@ -34,19 +34,22 @@ nav{
 
 nav ul{
   width: 100%;
-  list-style: none;   
   display: flex;
-  justify-content: flex-end;
+
+  justify-content: space-between; 
   align-items: center;    
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 nav li{
  height: 50px;
+ width: 100vw;
 }
 
 nav a{
   height: 100%;
-  padding: 0 30px;
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -60,10 +63,12 @@ nav a:hover{
   background-color: black;
 }
 
-
 nav li:first-child{
-  margin-right: auto;
-  margin-left: 50px;
+
+}
+
+nav li:last-child{
+
 }
 
 .about-button {
