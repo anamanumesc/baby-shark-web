@@ -6,103 +6,71 @@
 body {
   color: #151B8D;
   background-color: #72b0c9;
-  width: 100wh;
   height: 100vh;
   margin: 0;
 }
 
 .container{
-    height: 100vh; 
     width: 100vw; 
     display: flex;
     flex-direction: column; /* Stack elements vertically */
     justify-content: center; /* toate la mijloc*/
     align-items: center; /* C */
-    
 }
-
-
-nav{
+.header {
+  top:0;
   position: fixed;
-  top: 0;
   width: 100vw;
-  background-image: linear-gradient(to top, #240727, #240628, #250529, #25052a, #25042b, #23042a, #220429, #200428, #1d0425, #1a0321, #17031e, #14021a);
-  box-shadow: 3px 3px 5px rgba(0,0,0,0.3);
-  border-bottom: 2px solid #000;
-}
-
-
-nav ul{
-  width: 100%;
   display: flex;
-
-  justify-content: space-between; 
-  align-items: center;    
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-
-nav li{
- height: 50px;
- width: 100vw;
-}
-
-nav a{
-  height: 100%;
-  text-decoration: none;
-  display: flex;
+  justify-content: space-between;
   align-items: center;
+  padding: 1em; /* using ems for padding */
+  background-image: linear-gradient(to bottom, #ffffff, #72b0c9);
+}
+
+.header .logo img {
+  height: 7vw; /* Responsive based on viewport width */
+  width: auto; /* Maintain aspect ratio */
+}
+
+.header .navigation a {
+  text-decoration: none;
+  color: #007BFF; /* Bright blue, adjust color as needed */
+  font-size: 1.2em; /* Responsive font size using em */
+  padding: 0.5em 1em; /* Padding using ems */
+  border-radius: 0.3em;
+  transition: background-color 0.3s;
+}
+
+.header .navigation a:hover {
+  background-color: #0056b3; /* Darker blue on hover */
   color: white;
-}
-
-nav li img{
-  height: 100%;
-}
-nav a:hover{
-  background-color: black;
-}
-
-nav li:first-child{
-
-}
-
-nav li:last-child{
-
 }
 
 .about-button {
   flex: 0 0 15vw; /* Adjust button size relative to viewport width */
   margin-left: auto;
-  margin-right: 1vw;
 }
 /* Existing CSS for body, .header, .logo, etc. remains unchanged */
+.navigation{
+  margin-right: 10px;
+}
 
 .log-in,
 .sign-up {
 
-
-  width: 40vw; /* Consistent width with the header */
-  height: 40vh; /* Adjust the height as needed */
-  display: flex;
-  justify-content: center;
-  
+  padding: 10px;
   align-items: center;
-
-  
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-
   background-color: #d0efee;
   border-radius: 1vw;
   width: 50vw;
  
   z-index: 3; /* Ensure they appear above other content */
-  height: 50vh;
-  margin-top: 20vh;
-
+  height: 40vh;
+  margin-top: 15vh;
 }
 
 h1 {
@@ -110,7 +78,7 @@ h1 {
 }
 
 label {
-  display: block;
+
   margin-bottom: 0.5vw; /* Adjust label margin to vw */
 }
 
@@ -154,7 +122,7 @@ input[type="password"] {
 
 .info {
   width: 97vw; /* Make info blocks responsive to viewport width */
-  height: 25vh; /* Adjust info block height relative to viewport height */
+  height: 30vh; /* Adjust info block height relative to viewport height */
   background-color: rgba(245, 236, 226, 0.687);
   margin: 0.5vw; /* Adjust margin to viewport units */
   border-radius: 1vw; /* Convert border-radius to viewport units */
