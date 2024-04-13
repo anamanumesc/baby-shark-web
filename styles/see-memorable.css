@@ -1,0 +1,56 @@
+/* memorable-page.css */
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+  }
+  
+  .grid-box {
+    display: grid;
+    grid-template-columns: 1fr; /* Single column layout */
+    grid-template-rows: 1fr 8fr; /* Header and media section */
+    height: 100vh;
+    gap: 10px;
+    padding: 10px;
+  }
+  
+  .grid-section {
+    background-color: #e5f6ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+  
+  .header, .media-section {
+    grid-column: 1; /* Spans all columns */
+  }
+  
+  .header {
+    grid-row: 1; /* Header in the first row */
+  }
+  
+  .logo {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    height: 60px; 
+  }
+  
+  .logo img {
+    max-height: 100%; 
+    width: auto;
+  }
+  
+  .media-section {
+    grid-row: 2; /* Media section in the second row */
+    overflow-y: auto; /* Enable scrolling for media content */
+  }
+  
+  .media-section img {
+    max-width: 100%; /* Ensure images fit within container */
+    height: auto; /* Maintain aspect ratio */
+  }
+  
