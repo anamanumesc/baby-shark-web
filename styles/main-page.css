@@ -42,13 +42,14 @@ body, html {
   width: auto;
 }
 
-
 .pic-buttons {
-  grid-column: 2;
+  display: flex;
+  flex-wrap: wrap; /* Allows buttons to wrap to the next line if there is not enough space */
+  justify-content: space-around; /* Distributes buttons evenly */
+  align-items: center; /* Vertically centers the buttons */
+  padding: 10px; /* Padding around the container for some space */
+  grid-column: 2; /* Correct positioning within the grid */
   grid-row: 2;
-  flex-direction: row; 
-  justify-content: space-evenly; 
-  align-items: center; 
 }
 
 .left-sidebar {
@@ -92,15 +93,19 @@ body, html {
 .button {
   padding: 10px 20px;
   margin: 5px;
-  background-color: #007BFF; /* Blue background for buttons */
+  background-color: #007BFF; /* Blue background for visibility */
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  width: 100%; /* Ensures uniform button width */
+  flex: 1 1 auto; /* Flex grow and shrink enabled, basis auto */
+  max-width: calc(100% / 3 - 10px); /* Max three items per row, minus margin */
+  box-sizing: border-box; /* Include padding and borders in the width */
+  text-align: center; /* Center the text */
 }
 
 .button:hover {
   background-color: #0056b3; /* Darker blue on hover */
 }
+
