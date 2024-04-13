@@ -112,7 +112,7 @@ input[type="password"] {
 .about-us {
 
   width: 99vw; /* Consistent width with the header */
-  height: 50vh; /* Adjust the height as needed */
+  height: 70vh; /* Adjust the height as needed */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
