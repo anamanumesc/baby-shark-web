@@ -1,120 +1,99 @@
-*{
+body, html {
+  height: 100%;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
-body, html {
+.grid-box {
+  display: grid;
+  grid-template-columns: 1fr 8fr; /* Creates two columns, one narrow, one wide */
+  grid-template-rows: 1fr 1fr 8fr; /* Adjusts rows to fit content with the last one flexible */
   height: 100vh;
-  width: 100vw;
-  margin: 0;
-  padding: 0;
-  }
-  
-  .container {
-    height: 100vh;
-    width: 100vw;
-    display: grid;
-    grid-template-columns: 1fr 6fr;
-    grid-template-rows: 1fr 1fr 5fr;
-    justify-content: stretch;
-  
-  }
-  
-  .header, .pic-buttons, .left-sidebar, .main-page{
-  background-color:#eecfcf;
-  margin: 0.3em;
-  }
-  
-  .header {
-    grid-column: 1 / 3;
-    grid-row: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center; 
-    width: 100%;
-    border-color: white;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .logo {
-    display: flex;
-    justify-content: center; 
-    align-items: center;
-    height: 60px; 
-  }
-  
-  .logo img {
-    max-height: 100%; 
-    width: auto;
-  }
-  
-  .pic-buttons {
-    grid-column: 2;
-    grid-row: 2;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between; 
-    align-items: stretch; 
-    padding: 1em;
-    padding-left: 15em;
-    padding-right: 15em;
-  }
-  
-  .pic-buttons div {
-    display: flex; 
-    justify-content: center;
-    align-items: center;
-    flex-grow: 1; 
-    color: #1c0909;
-    background-color: white;
-    margin: 1em; 
-    cursor: pointer;
-    text-align: center;
-    padding: 10px; 
-  }
-  
-  .left-sidebar{
-  grid-column:1 ;
-  grid-row: 2/4;
-  display:flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-content: space-around;
-  padding:1em;
-  }
-  
-  .left-sidebar *{
-    color: #1c0909; 
-    text-decoration: none; 
-    padding: 10px; 
-    display: block; 
-    transition: background-color 0.2s ease-in-out; 
-    margin:0.7em;
-    text-align: center;
-    background-color: white;
-  }
-  
-  .left-sidebar div:hover {
-    background-color: #f1f1f1; 
-  }
-  
-  .header, .pic-buttons div, .left-sidebar div, .main-page, .left-sidebar, .pic-buttons {
-    margin: 0.3em;
-    border-radius: 5px;
-  }
-  
-  .main-page {
-    grid-column: 2; 
-    grid-row: 3; 
-  }
+  gap: 10px;
+  padding: 10px;
+}
 
-  .feed-item {
-    background-color: rgb(184, 184, 232);
-    color: white;
-    margin: 10px 0;
-    padding: 20px;
-    border-radius: 5px;
-    height: 100px;
-    width: 80%; 
-  }
+.grid-section {
+  background-color: #e5f6ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.header, .pic-buttons, .left-sidebar, .scroll-section {
+  grid-column: 1 / -1; /* Makes header span all columns */
+  grid-row: 1;
+}
+
+
+.logo {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  height: 60px; 
+}
+
+.logo img {
+  max-height: 100%; 
+  width: auto;
+}
+
+
+.pic-buttons {
+  grid-column: 2;
+  grid-row: 2;
+  flex-direction: row; 
+  justify-content: space-evenly; 
+  align-items: center; 
+}
+
+.left-sidebar {
+  grid-column: 1;
+  grid-row: 2 / 4; /* Spans from the second to the last row */
+  flex-direction: column; /* Stacks buttons vertically */
+  align-items: center; /* Centers buttons */
+  justify-content: start; /* Aligns items to the start */
+  overflow-y: auto; /* Adds scrolling capability if needed */
+}
+
+.scroll-section {
+  grid-column: 2;
+  grid-row: 3;
+  overflow-y: auto; /* Enables scrolling within this section */
+}
+
+.square-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.square {
+  width: 80%; /* Relative width for responsiveness */
+  height: 100px; /* Fixed height for each square */
+  background-color: #000; /* Black color */
+  margin: 5px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button {
+  padding: 10px 20px;
+  margin: 5px;
+  background-color: #007BFF; /* Blue background for buttons */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%; /* Ensures uniform button width */
+}
+
+.button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
