@@ -43,6 +43,7 @@ butoane/pagini todo:
 
 9. buton de log out
 
+10. home logo takes you to home page from anywhere
 
 
 to ask:
