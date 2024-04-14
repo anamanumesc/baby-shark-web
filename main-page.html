@@ -11,12 +11,12 @@
         <div class="grid-section header">
 
             <div class="logo">
-                <img src="logo/logo.png" alt="Logo" >
+                <img src="logo/logo.png" alt="Logo">
               </div> 
 
         </div>
         <div class="grid-section pic-buttons">
-            <div class="button add-on-this-website">Add on this website</div>
+            <div class="button add-on-this-website" id="addButton">Add on this website</div>
             <a href="html/see-memorable.html" class="button see-memorable">See Memorable</a>
             <div class="button add-on-social-media">Add on social media</div>
         </div>
@@ -51,5 +51,22 @@
             </div>
         </div>
     </div>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <h2>Add Picture/Video</h2>
+            <form id="addItemForm" enctype="multipart/form-data">
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" required></textarea>
+                <br><br>
+                <label for="file" class="buttons">Choose a file:</label>
+                <input type="file" id="file" name="file" accept=".jpg, .jpeg, .png" required>
+                <input type="submit" value="Submit" class="buttons">
+            </form>
+        </div>
+    </div>     
+
+    <script src="scripts/popUp.js"></script>
 </body>
 </html>
