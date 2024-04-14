@@ -42,13 +42,15 @@ body, html {
   width: auto;
 }
 
-
 .pic-buttons {
-  grid-column: 2;
-  grid-row: 2;
-  flex-direction: row; 
-  justify-content: space-evenly; 
-  align-items: center; 
+  display: flex;
+  flex-wrap: wrap; /* Ensures buttons can wrap to the next line */
+  justify-content: center; /* Centers buttons horizontally */
+  align-items: center; /* Aligns buttons vertically */
+  padding: 10px; /* Adds padding within the container */
+  grid-column: 2; /* Ensures the section spans the correct column */
+  grid-row: 2; /* Positions the section in the correct row */
+  gap: 10px; /* Adds space between flex items */
 }
 
 .left-sidebar {
@@ -64,6 +66,7 @@ body, html {
   text-align: center;
   max-width: 10vh;
   font-size: 1.5vw;
+  
 }
 
 .scroll-section {
@@ -91,16 +94,49 @@ body, html {
 
 .button {
   padding: 10px 20px;
-  margin: 5px;
-  background-color: #007BFF; /* Blue background for buttons */
+  margin: 5px; /* Consistent spacing around each button */
+  background-color: #007BFF; /* Primary blue background color */
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  width: 100%; /* Ensures uniform button width */
+  flex: 1 1 calc(33% - 20px); /* Each button can grow and shrink, with base size set */
+  max-width: calc(100% / 3 - 10px); /* Maximum width to fit three items per row, minus margin */
+  box-sizing: border-box; /* Padding and border included in width calculations */
+  text-align: center;
+  overflow: hidden; /* Prevents text from overflowing */
+  text-overflow: ellipsis; /* Adds ellipsis if text overflows */
+  white-space: nowrap; /* Keeps text on a single line */
+  font-size: calc(2% + 0.5vw); /* Dynamically adjusts font size based on width */
 }
+
 
 .button:hover {
   background-color: #0056b3; /* Darker blue on hover */
+}
+/* Ensures font size does not get too small on very small screens */
+@media (max-width: 300px) {
+  .button {
+    font-size: 8px; /* Minimum font size */
+  }
+}
+
+/* Ensures font size does not get too large on very large screens */
+@media (min-width: 1200px) {
+  .button {
+    font-size: 16px; /* Maximum font size */
+  }
+}
+
+@media (max-width: 800px) {
+  .left-sidebar .button {
+    font-size: calc(4% + 1vh); /* Slightly larger font size for very small screens */
+  }
+}
+
+@media (min-width: 1200px) {
+  .left-sidebar .button {
+    font-size: calc(2% + 1vh); /* Slightly smaller font size for very large screens */
+  }
 }
