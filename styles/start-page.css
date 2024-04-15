@@ -13,9 +13,9 @@ body {
 .container{
     width: 100vw; 
     display: flex;
-    flex-direction: column; /* Stack elements vertically */
-    justify-content: center; /* toate la mijloc*/
-    align-items: center; /* C */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .header {
   top:0;
@@ -24,34 +24,33 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1em; /* using ems for padding */
+  padding: 1em;
   background-image: linear-gradient(to bottom, #ffffff, #72b0c9);
 }
 
 .header .logo img {
-  height: 7vw; /* Responsive based on viewport width */
-  width: auto; /* Maintain aspect ratio */
+  height: 7vw;
+  width: auto;
 }
 
 .header .navigation a {
   text-decoration: none;
-  color: #007BFF; /* Bright blue, adjust color as needed */
-  font-size: 1.2em; /* Responsive font size using em */
-  padding: 0.5em 1em; /* Padding using ems */
+  color: #007BFF;
+  font-size: 1.2em;
+  padding: 0.5em 1em;
   border-radius: 0.3em;
   transition: background-color 0.3s;
 }
 
 .header .navigation a:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+  background-color: #0056b3;
   color: white;
 }
 
 .about-button {
-  flex: 0 0 15vw; /* Adjust button size relative to viewport width */
+  flex: 0 0 15vw;
   margin-left: auto;
 }
-/* Existing CSS for body, .header, .logo, etc. remains unchanged */
 .navigation{
   margin-right: 10px;
 }
@@ -68,7 +67,7 @@ body {
   border-radius: 1vw;
   width: 50vw;
  
-  z-index: 3; /* Ensure they appear above other content */
+  z-index: 3;
   height: 40vh;
   margin-top: 15vh;
 }
@@ -79,7 +78,7 @@ h1 {
 
 label {
 
-  margin-bottom: 0.5vw; /* Adjust label margin to vw */
+  margin-bottom: 0.5vw;
 }
 
 input[type="text"],
@@ -87,20 +86,20 @@ input[type="email"],
 input[type="password"] {
   width: 100%;
 
-  border: 0.1vw solid #ccc; /* Border size in vw */
-  border-radius: 0.3vw; /* Border radius in vw */
+  border: 0.1vw solid #ccc;
+  border-radius: 0.3vw;
   box-sizing: border-box;
 }
 
 .buttons {
-  width: 25vw; /* Convert button width to viewport width for responsiveness */
+  width: 25vw;
 
   text-align: center;
-  margin: 2vw; /* Convert margin to viewport units for responsiveness */
+  margin: 2vw;
 
-  border-radius: 2.5vw; /* Convert border-radius to viewport units */
+  border-radius: 2.5vw;
   font-weight: bold;
-  border: 0.2vw solid #009688; /* Convert border width to viewport units */
+  border: 0.2vw solid #009688;
   background: transparent;
   cursor: pointer;
 }
@@ -110,20 +109,30 @@ input[type="password"] {
 }
 
 .about-us {
-
-  width: 99vw; /* Consistent width with the header */
-  height: 70vh; /* Adjust the height as needed */
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  margin: 3vw; /* Adjust overall margin to viewport units */
-
 }
 
 .info {
-  width: 97vw; /* Make info blocks responsive to viewport width */
-  height: 30vh; /* Adjust info block height relative to viewport height */
+  width: 90vw;
+  min-height: 40vh;
   background-color: rgba(245, 236, 226, 0.687);
-  margin: 0.5vw; /* Adjust margin to viewport units */
-  border-radius: 1vw; /* Convert border-radius to viewport units */
+  margin: 2vh auto;
+  border-radius: 2vw;
+  padding: 2vw; 
+  position: relative;
 }
+
+.info p {
+  margin-bottom: 2vh;
+}
+
+.info-image {
+  position: absolute;
+  top: 2vh;
+  right: 2vh;
+  width: 30vw;
+  height: auto;
+  border-radius: 1vw;
+}
+

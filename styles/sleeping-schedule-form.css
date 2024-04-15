@@ -38,7 +38,7 @@ nav a {
 
 h2 {
     text-align: center;
-    margin-top: calc(100vh - (10 * var(--numNaps)));
+    margin-top: 20vw;
 }
 
 form {
