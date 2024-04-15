@@ -39,6 +39,37 @@ body, html {
 .logo img {
   max-height: 100%; 
   width: auto;
+  margin: 0 auto;
+  flex-grow: 1; /* Allow the logo to grow and take up remaining space */
+  text-align: center; /* Center the logo */
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-right {
+  display: flex;
+  flex-direction: column;
+}
+
+.username,
+.logout-button {
+  margin-right: 10px;
+}
+
+.logout-button {
+  padding: 5px 10px;
+  background-color: #84bdf9;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  background-color: #c82333;
 }
 
 .pic-buttons {
