@@ -23,4 +23,6 @@ document.getElementById('generateButton').addEventListener('click', function() {
     var submitButton = document.getElementById('submitButton');
     submitButton.classList.remove('hidden');
     napTimesContainer.appendChild(submitButton);
+    var isMobile = window.matchMedia('(max-width: 600px)').matches;
+    document.querySelector('h2').style.marginTop = isMobile ? '50vh' : '100vh';
 });

@@ -7,12 +7,17 @@
     <link rel="stylesheet" href="../styles/sleeping-schedule-form.css">
 </head>
 <body>
+    <header>
+        <nav>
+            <a href="../main-page.html"><img src="../logo/logo.png" alt="Baby Shark Logo" class="logo"></a>
+        </nav>
+    </header>
     <h2>Sleep Schedule Form</h2>
     <form id="sleepScheduleForm">
-        <label for="napTime">When does the baby wake up?</label>
-        <input type="time" id="napTime" name="napTime" required>
-        <label for="napTime">When does the baby go to sleep?</label>
-        <input type="time" id="napTime" name="napTime" required>
+        <label for="wakeUpTime">When does the baby wake up?</label>
+        <input type="time" id="wakeUpTime" name="wakeUpTime" required>
+        <label for="sleepTime">When does the baby go to sleep?</label>
+        <input type="time" id="sleepTime" name="sleepTime" required>
         <label for="numNaps">How many naps:</label>
         <input type="number" id="numNaps" name="numNaps" min="0" max="7" required>
         <button type="button" id="generateButton">Generate</button>
