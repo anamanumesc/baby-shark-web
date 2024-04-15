@@ -1,0 +1,76 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #72b0c9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+header {
+    background-image: linear-gradient(to bottom, #ffffff, #72b0c9);
+    color: #fff;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+nav {
+    text-align: center;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 1em;
+}
+
+nav a.active {
+    font-weight: bold;
+}
+
+main {
+    flex: 1;
+    padding: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.logo{
+    max-width: 20vh;
+}
+
+.search-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 2em;
+}
+
+.search-column button {
+    display: block;
+    width: auto;
+    padding: 0.5em 1em;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 0.5em;
+}
+
+.search-column button:hover {
+    background-color: #0056b3;
+}
+
+.ban-button,
+.freeze-button,
+.delete-button {
+    margin-top: 0.5em;
+}
