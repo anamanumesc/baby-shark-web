@@ -1,3 +1,59 @@
+<><><><><><><><><><><><><><><><><>todo in front (must):<><><><><><><><><><><><><><><><>
+-add button for editing schedules
+
+
+<><><><><><><><><><><><><><><><><>todo in back:<><><><><><><><><><><><><><><><><><><><>
+1. sign up
+
+-backend sign up logic : done
+-add name when u sign up not just email and password : done
+-add token when you log in : todo
+-hash the password to be anon : done
+-connect backend with frontend : done
+
+
+2. log in
+
+-backend login logic : done
+
+
+3. add picture/audio/video on feed
+
+
+4. add picture/autio/video on facebook
+
+
+5. make feeding schedule
+
+
+6. make sleeping schedule
+
+
+7. make medical history section
+
+
+8. add friend
+
+
+9. make view most memorable
+
+8. make functions for admin
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------
 required:
 
 butoane/pagini todo:
