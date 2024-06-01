@@ -1,25 +1,29 @@
 const http = require('http');
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-const path = require('path');
+const url = require('url');
 const fs = require('fs');
+const path = require('path');
+const mongoose = require('mongoose');
 const handleApiRequest = require('./controllers/api-controller');
 const { handleViewRequest } = require('./views/view-controller');
 
-dotenv.config();
-
-const PORT = 7080;
+const PORT = 7081;
 const MONGOURL = "mongodb://localhost:27017/baby-shark";
 
-mongoose.connect(MONGOURL).then(() => {
-    console.log("Database connected successfully.");
-    server.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`);
-    });
-}).catch((err) => {
-    console.error("Error connecting to the database:", err);
+// Connect to MongoDB
+mongoose.connect(MONGOURL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
 });
 
+mongoose.connection.on('connected', () => {
+    console.log('Connected to MongoDB');
+});
+
+mongoose.connection.on('error', (err) => {
+    console.error(`Failed to connect to MongoDB: ${err.message}`);
+});
+
+// Function to serve static files
 const serveStaticFile = (filePath, contentType, res) => {
     fs.readFile(filePath, (err, data) => {
         if (err) {
@@ -32,10 +36,12 @@ const serveStaticFile = (filePath, contentType, res) => {
     });
 };
 
+// Create server and handle requests
 const server = http.createServer((req, res) => {
-    if (req.url.startsWith('/api')) {
-        handleApiRequest(req, res);
-    } else if (req.url.startsWith('/frontend/styles')) {
+    const parsedUrl = url.parse(req.url, true);
+    const { pathname } = parsedUrl;
+
+    if (req.url.startsWith('/frontend/styles')) {
         const filePath = path.join(__dirname, '../', req.url);
         serveStaticFile(filePath, 'text/css', res);
     } else if (req.url.startsWith('/frontend/scripts')) {
@@ -44,7 +50,15 @@ const server = http.createServer((req, res) => {
     } else if (req.url.startsWith('/frontend/images')) {
         const filePath = path.join(__dirname, '../', req.url);
         serveStaticFile(filePath, 'image/png', res);
+    } else if (req.url.startsWith('/api')) {
+        // Handle API requests (signup, login, friendships)
+        handleApiRequest(req, res);
     } else {
+        // Handle other view requests
         handleViewRequest(req, res);
     }
+});
+
+server.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });
