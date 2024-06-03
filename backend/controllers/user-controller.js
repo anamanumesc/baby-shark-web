@@ -15,11 +15,23 @@ async function signUp(req, res) {
         // hash the password using bcrypt
         const hashedPassword = await bcrypt.hash(password, 10);
 
+        let uid;
+        let isUnique = false;
+
+        while (!isUnique) {
+            uid = String(Math.floor(Math.random() * 9999 + 1)).padStart(4, '0');
+            const existingUID = await User.findOne({ name, uid });
+            if (!existingUID) {
+                isUnique = true;
+            }
+        }
+
         // create a new user with the hashed password
         const newUser = new User({
             name,
             email,
-            password: hashedPassword
+            password: hashedPassword,
+            uid
         });
 
         // save the new user to the database
