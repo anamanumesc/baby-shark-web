@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
+const jwt = require("jsonwebtoken");
 
 async function signUp(req, res) {
     const { name, email, password } = req.body;
@@ -65,9 +66,18 @@ async function login(req, res) {
             res.end(JSON.stringify({ error: 'Password is incorrect.' }));
             return;
         }
+        
+        ///token
+        console.log(user);
+        const token = jwt.sign({ userId: user._id, userName: user.name, userUid: user.uid }, "babyshark", { expiresIn: '1h' });
 
-        // if password matches, it works
-        res.writeHead(200, { 'Content-Type': 'application/json' });
+        ///cookie
+        res.writeHead(200, {
+            'Set-Cookie': `token=${token}; HttpOnly; Path=/; Max-Age=3600`,
+            'Content-Type': 'application/json'
+        });
+
+        // Send the response after setting the cookie
         res.end(JSON.stringify({ success: 'User authenticated successfully.' }));
     } catch (error) {
         res.writeHead(500, { 'Content-Type': 'application/json' });
