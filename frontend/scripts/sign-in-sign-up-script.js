@@ -34,6 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const result = await response.json();
             if (response.ok) {
                 alert('Login successful');
+                window.location.href = '/frontend/main-page.html';
             } else {
                 alert('Login failed: ' + result.error);
             }
@@ -67,6 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const result = await response.json();
             if (response.ok) {
                 alert('Signup successful');
+                window.location.href = '/frontend/main-page.html';
             } else {
                 alert('Signup failed: ' + result.error);
             }

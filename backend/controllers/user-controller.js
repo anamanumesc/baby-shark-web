@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 async function signUp(req, res) {
     const { name, email, password } = req.body;
     try {
-        // check if user exists already
+        // Check if user exists already
         const existingUser = await User.findOne({ email });
         if (existingUser) {
             res.writeHead(400, { 'Content-Type': 'application/json' });
@@ -13,7 +13,7 @@ async function signUp(req, res) {
             return;
         }
 
-        // hash the password using bcrypt
+        // Hash the password using bcrypt
         const hashedPassword = await bcrypt.hash(password, 10);
 
         let uid;
@@ -27,7 +27,7 @@ async function signUp(req, res) {
             }
         }
 
-        // create a new user with the hashed password
+        // Create a new user with the hashed password
         const newUser = new User({
             name,
             email,
@@ -35,14 +35,22 @@ async function signUp(req, res) {
             uid
         });
 
-        // save the new user to the database
+        // Save the new user to the database
         await newUser.save();
 
-        // respond with success message
-        res.writeHead(201, { 'Content-Type': 'application/json' });
+        // Generate JWT token for the newly signed up user
+        const token = jwt.sign({ userId: newUser._id, userName: newUser.name, userUid: newUser.uid }, "babyshark", { expiresIn: '1h' });
+
+        // Set the token as a cookie in the response
+        res.writeHead(201, { 
+            'Set-Cookie': `token=${token}; HttpOnly; Path=/; Max-Age=3600`, // Expires in 1 hour
+            'Content-Type': 'application/json' 
+        });
+        
+        // Respond with success message
         res.end(JSON.stringify({ message: 'User created successfully.' }));
     } catch (error) {
-        // handle any errors
+        // Handle any errors
         res.writeHead(500, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ error: error.message }));
     }
