@@ -29,7 +29,6 @@
             <a href="html/medical.html" class="button medical">Medical</a>
             <a href="html/friend-list.html" class="button friendship">Friends</a>
             <a href="html/about-us.html" class="button about-us">About us</a>
-
         </div>
         <div class="grid-section scroll-section">
             <div class="square-container">
@@ -55,18 +54,19 @@
 
     <div id="myModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closePopup()">&times;</span>
+            <span class="close" id="closeButton">&times;</span>
             <h2>Add Picture/Video</h2>
-            <form id="addItemForm" enctype="multipart/form-data">
+            <form id="uploadForm" enctype="multipart/form-data">
                 <label for="description">Description:</label>
                 <textarea id="description" name="description" required></textarea>
-                <br><br>
+                <label for="tags">Tags (use @username#code, optional):</label>
+                <input type="text" id="tags" name="tags" placeholder="@username#code">
                 <label for="file" class="buttons">Choose a file:</label>
-                <input type="file" id="file" name="file" accept=".jpg, .jpeg, .png" required>
+                <input type="file" id="file" name="file" accept="image/*,video/*,audio/*" required>
                 <input type="submit" value="Submit" class="buttons">
             </form>
         </div>
-    </div>     
+    </div>
 
     <script src="scripts/popUp.js"></script>
 </body>

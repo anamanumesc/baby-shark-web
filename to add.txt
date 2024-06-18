@@ -18,6 +18,11 @@
 
 
 3. add picture/audio/video on feed
+ when i tag a friend i write @username#code and when i parse the content of the post i autmatically detect the friend
+ if i made a typo i ignore the friend
+
+i have a table with all the posts with: post_id, user_id, url_to_database, description, url_to_database
+and i have a table with all the tagged: tag_id, post_id, tagged_user_id
 
 
 4. add picture/autio/video on facebook
