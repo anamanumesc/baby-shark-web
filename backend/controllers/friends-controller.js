@@ -2,9 +2,8 @@ const Friend = require('../models/friends');
 const User = require('../models/user');
 
 async function createFriendship(req, res) {
-    const { user1_id, user2_id, status = 'pending' } = req.body; // default status is 'pending'
+    const { user1_id, user2_id, status = 'pending' } = req.body;
     try {
-        // validate user1 and user2
         const user1 = await User.findById(user1_id);
         const user2 = await User.findById(user2_id);
 
@@ -14,7 +13,6 @@ async function createFriendship(req, res) {
             return;
         }
 
-        // check if the friendship already exists in either order by comparing all fields
         const existingFriendship = await Friend.findOne({
             $or: [
                 {
@@ -42,7 +40,6 @@ async function createFriendship(req, res) {
             return;
         }
 
-        // Create a new friendship with user details
         const friendship = new Friend({
             user1: { _id: user1._id, name: user1.name, uid: user1.uid },
             user2: { _id: user2._id, name: user2.name, uid: user2.uid },
@@ -50,11 +47,9 @@ async function createFriendship(req, res) {
         });
         await friendship.save();
 
-        // Respond with success message
         res.writeHead(201, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ message: 'Friendship created successfully.' }));
     } catch (error) {
-        // Handle any errors
         res.writeHead(500, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ error: error.message }));
     }
@@ -62,14 +57,20 @@ async function createFriendship(req, res) {
 
 async function getFriendships(req, res) {
     try {
-        // fetch all friendships
-        const friendships = await Friend.find();
-        
-        // respond with the list of friendships
+        const userId = req.userId;
+        const friendships = await Friend.find({
+            status: 'accepted',
+            $or: [
+                { 'user1._id': userId },
+                { 'user2._id': userId },
+                { user1_id: userId },
+                { user2_id: userId }
+            ]
+        });
+
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify(friendships));
     } catch (error) {
-        // handle any errors
         res.writeHead(500, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ error: error.message }));
     }
