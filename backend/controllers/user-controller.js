@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
 
 async function signUp(req, res) {
     const { name, email, password } = req.body;
@@ -13,7 +13,6 @@ async function signUp(req, res) {
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
-
         let uid;
         let isUnique = false;
 
@@ -25,8 +24,14 @@ async function signUp(req, res) {
             }
         }
 
+        // solit name into username and code
+        const username = name;
+        const code = uid;
+
         const newUser = new User({
             name,
+            username, // added username
+            code, // added code
             email,
             password: hashedPassword,
             uid
@@ -36,17 +41,21 @@ async function signUp(req, res) {
 
         const token = jwt.sign({ userId: newUser._id, userName: newUser.name, userUid: newUser.uid }, "babyshark", { expiresIn: '1h' });
 
+        console.log("Token generated:", token);
+
         res.writeHead(201, { 
             'Set-Cookie': `token=${token}; HttpOnly; Path=/; Max-Age=3600`,
+            'Set-Cookie': `clientToken=${token}; Path=/; Max-Age=3600`,
             'Content-Type': 'application/json' 
         });
-        
+
         res.end(JSON.stringify({ message: 'User created successfully.' }));
     } catch (error) {
         res.writeHead(500, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ error: error.message }));
     }
 }
+
 
 async function login(req, res) {
     const { email, password } = req.body;
@@ -64,11 +73,14 @@ async function login(req, res) {
             res.end(JSON.stringify({ error: 'Password is incorrect.' }));
             return;
         }
-        
+
         const token = jwt.sign({ userId: user._id, userName: user.name, userUid: user.uid }, "babyshark", { expiresIn: '1h' });
+
+        console.log("Token generated:", token);
 
         res.writeHead(200, {
             'Set-Cookie': `token=${token}; HttpOnly; Path=/; Max-Age=3600`,
+            'Set-Cookie': `clientToken=${token}; Path=/; Max-Age=3600`,
             'Content-Type': 'application/json'
         });
 
@@ -80,3 +92,5 @@ async function login(req, res) {
 }
 
 module.exports = { login, signUp };
+
+

@@ -7,4 +7,4 @@ export function getCookie(name) {
         }
     }
     return null;
-}   
+}   ///codul bun

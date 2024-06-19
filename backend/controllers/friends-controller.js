@@ -2,9 +2,9 @@ const Friend = require('../models/friends');
 const User = require('../models/user');
 
 async function createFriendship(req, res) {
-    const { user1_id, user2_id, status = 'pending' } = req.body; // Default status is 'pending'
+    const { user1_id, user2_id, status = 'pending' } = req.body; // default status is 'pending'
     try {
-        // Validate user1 and user2
+        // validate user1 and user2
         const user1 = await User.findById(user1_id);
         const user2 = await User.findById(user2_id);
 
@@ -14,7 +14,7 @@ async function createFriendship(req, res) {
             return;
         }
 
-        // Check if the friendship already exists in either order by comparing all fields
+        // check if the friendship already exists in either order by comparing all fields
         const existingFriendship = await Friend.findOne({
             $or: [
                 {
@@ -62,14 +62,14 @@ async function createFriendship(req, res) {
 
 async function getFriendships(req, res) {
     try {
-        // Fetch all friendships
+        // fetch all friendships
         const friendships = await Friend.find();
         
-        // Respond with the list of friendships
+        // respond with the list of friendships
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify(friendships));
     } catch (error) {
-        // Handle any errors
+        // handle any errors
         res.writeHead(500, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ error: error.message }));
     }
