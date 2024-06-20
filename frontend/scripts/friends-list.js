@@ -38,16 +38,18 @@ document.addEventListener('DOMContentLoaded', async () => {
                 friend.classList.add('friend');
 
                 const userId = getCookie('userId');
+                let friendInfo;
 
                 if (friendship.user1._id === userId) {
-                    friend.textContent = friendship.user2.name || 'Unknown';
+                    friendInfo = friendship.user2;
                 } else if (friendship.user2._id === userId) {
-                    friend.textContent = friendship.user1.name || 'Unknown';
+                    friendInfo = friendship.user1;
                 } else {
                     console.error('User ID not found in friendship:', friendship);
                     return;
                 }
 
+                friend.textContent = `${friendInfo.name} (${friendInfo.code})`;
                 gridContainer.appendChild(friend);
             }
         });

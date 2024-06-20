@@ -3,12 +3,12 @@ const bcrypt = require('bcryptjs');
 
 const userSchema = new mongoose.Schema({
     name: { type: String, required: true },
-    username: { type: String, required: true, unique: true }, // Added username
-    code: { type: String, required: true }, // Added code
+    code: { type: String, required: true },
     email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
-    uid: { type: String, unique: true }
+    password: { type: String, required: true }
 });
+
+userSchema.index({ name: 1, code: 1 }, { unique: true });
 
 userSchema.statics.login = async function(email, password) {
     try {

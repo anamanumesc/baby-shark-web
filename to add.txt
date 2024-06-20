@@ -105,6 +105,12 @@ butoane/pagini todo:
 9. buton de log out
 
 
+chestii mici dar care sunt easy de facut si importante:
+-cand esti pe friends page sa poti sa apesi pe logo ca sa te intorci pe main page
+-in general sa poti sa apesi pe logo...
+
+
+
 
 to ask:
 

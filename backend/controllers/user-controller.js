@@ -2,6 +2,9 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 
+// Hardcoded secret key
+const JWT_SECRET = 'baby-shark';
+
 async function signUp(req, res) {
     const { name, email, password } = req.body;
     try {
@@ -13,33 +16,27 @@ async function signUp(req, res) {
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        let uid;
+        let code;
         let isUnique = false;
 
         while (!isUnique) {
-            uid = String(Math.floor(Math.random() * 9999 + 1)).padStart(4, '0');
-            const existingUID = await User.findOne({ name, uid });
-            if (!existingUID) {
+            code = String(Math.floor(Math.random() * 9999 + 1)).padStart(4, '0');
+            const existingUserWithCode = await User.findOne({ name, code });
+            if (!existingUserWithCode) {
                 isUnique = true;
             }
         }
 
-        // solit name into username and code
-        const username = name;
-        const code = uid;
-
         const newUser = new User({
             name,
-            username, // added username
-            code, // added code
+            code,
             email,
-            password: hashedPassword,
-            uid
+            password: hashedPassword
         });
 
         await newUser.save();
 
-        const token = jwt.sign({ userId: newUser._id, userName: newUser.name, userUid: newUser.uid }, "babyshark", { expiresIn: '1h' });
+        const token = jwt.sign({ userId: newUser._id, userName: newUser.name, userCode: newUser.code }, JWT_SECRET, { expiresIn: '1h' });
 
         console.log("Token generated:", token);
 
@@ -51,11 +48,11 @@ async function signUp(req, res) {
 
         res.end(JSON.stringify({ message: 'User created successfully.' }));
     } catch (error) {
+        console.error('Error during signup:', error.message);
         res.writeHead(500, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ error: error.message }));
     }
 }
-
 
 async function login(req, res) {
     const { email, password } = req.body;
@@ -74,7 +71,7 @@ async function login(req, res) {
             return;
         }
 
-        const token = jwt.sign({ userId: user._id, userName: user.name, userUid: user.uid }, "babyshark", { expiresIn: '1h' });
+        const token = jwt.sign({ userId: user._id, userName: user.name, userCode: user.code }, JWT_SECRET, { expiresIn: '1h' });
 
         console.log("Token generated:", token);
 
@@ -86,11 +83,10 @@ async function login(req, res) {
 
         res.end(JSON.stringify({ success: 'User authenticated successfully.' }));
     } catch (error) {
+        console.error('Error during login:', error.message);
         res.writeHead(500, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ error: error.message }));
     }
 }
 
 module.exports = { login, signUp };
-
-
