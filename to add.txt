@@ -1,0 +1,118 @@
+<><><><><><><><><><><><><><><><><>todo in front (must):<><><><><><><><><><><><><><><><>
+-add button for editing schedules
+
+
+<><><><><><><><><><><><><><><><><>todo in back:<><><><><><><><><><><><><><><><><><><><>
+1. sign up
+
+-backend sign up logic : done
+-add name when u sign up not just email and password : done
+-add token when you log in : todo
+-hash the password to be anon : done
+-connect backend with frontend : done
+
+
+2. log in
+
+-backend login logic : done
+
+
+3. add picture/audio/video on feed
+ when i tag a friend i write @username#code and when i parse the content of the post i autmatically detect the friend
+ if i made a typo i ignore the friend
+
+i have a table with all the posts with: post_id, user_id, url_to_database, description, url_to_database
+and i have a table with all the tagged: tag_id, post_id, tagged_user_id
+
+
+4. add picture/autio/video on facebook
+
+
+5. make feeding schedule
+
+
+6. make sleeping schedule
+
+
+7. make medical history section
+
+
+8. add friend
+
+
+9. make view most memorable
+
+8. make functions for admin
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------
+required:
+
+butoane/pagini todo:
+
+1. sleeping schedule creator
+    it will ask these questions and will make the schedule:
+        when does baby go to sleep?
+        when does baby wake up
+        how many naps?
+        interval of naps
+    -based on these questions it will create a schedule and display it in agraphic way
+
+2. eating schedule creator
+    -how many meals
+    -what time are they?
+    -describe the meals(content of it)
+
+3. medical history creator
+    -last visit
+    -information about it
+    -the ability to attach a pdf or smth
+
+4. posting pictures/videos/audio
+   -tagging other children in it
+   -adding the date of it
+   -adding a description
+
+5. visualising most important moments
+    -simple: show 5 most recent pictures
+    -complcated: show pictures based on friend (cousin etc)
+
+6. post on favebook
+    -button to attach pic and post it
+
+7. friend section
+    it has 4 pages:
+    1.friend list
+    2.add friend based on code
+    3.get code
+    4.friend requests
+
+ 8. about us
+
+9. buton de log out
+
+
+chestii mici dar care sunt easy de facut si importante:
+-cand esti pe friends page sa poti sa apesi pe logo ca sa te intorci pe main page
+-in general sa poti sa apesi pe logo...
+
+
+
+
+to ask:
+
+- daca trebuie pagina de administrator
+-daca trebuie sa facem sign up

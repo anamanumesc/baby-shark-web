@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sleep Schedule Form</title>
+    <link rel="stylesheet" href="../styles/sleeping-schedule-form.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="../main-page.html"><img src="../logo/logo.png" alt="Baby Shark Logo" class="logo"></a>
+        </nav>
+    </header>
+    <h2>Sleep Schedule Form</h2>
+    <form id="sleepScheduleForm">
+        <label for="wakeUpTime">When does the baby wake up?</label>
+        <input type="time" id="wakeUpTime" name="wakeUpTime" required>
+        <label for="sleepTime">When does the baby go to sleep?</label>
+        <input type="time" id="sleepTime" name="sleepTime" required>
+        <label for="numNaps">How many naps:</label>
+        <input type="number" id="numNaps" name="numNaps" min="0" max="7" required>
+        <button type="button" id="generateButton">Generate</button>
+    </form>
+
+    <div id="napTimesContainer"></div>
+
+    <a id="submitButton" class="hidden" href="../html/sleeping-schedule.html">Submit</a>
+
+    <script src="../scripts/generateNaps.js"></script>
+</body>
+</html>

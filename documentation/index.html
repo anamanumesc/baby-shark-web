@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baby Shark Childcare Management System: Software Requirements Specification</title>
+    <link rel = "stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="content-summary">
+            <h2 class = "purple-text">Baby Shark - Childcare Manager</h2>
+            <ul>
+                <li><a href="#1.0">1. Introduction</a></li>
+                <li>
+                    <a href="#2.0">2. Description</a>
+                    <ul>
+                        <li><a href="#2.1">2.1 Product Perspective</a></li>
+                        <li><a href="#2.2">2.2 Product Functions</a></li>
+                        <li><a href="#2.3">2.3 User Classes</a></li>
+                        <li><a href="#2.4">2.4 Operating Environment</a></li>
+                        <li><a href="#2.5">2.5 Assumptions</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#3.0">3. Interface</a>
+                    <ul></ul>
+                <li>
+                    <a href="#4.0">4. System Features</a></li>
+                    <ul>
+                        <li><a href="#4.1">4.1 Feeding Schedule</a>
+                        <li><a href="#4.2">4.2 Sleep Schedule</a></li>
+                        <li><a href="#4.3">4.3 Multimedia</a></li>
+                        <li><a href="#4.4">4.4 Medical History</a></li>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#5.0">5. Other Requirements</a>
+                    <ul>
+                        <li><a href="#5.1">5.1 Performance</a></li>
+                        <li><a href="#5.2">5.2 Safety</a></li>
+                        <li><a href="#5.3">5.3 Security</a></li>
+                        <li><a href="#5.4">5.4 Software Quality</a></li>
+                        <li><a href="#5.5">5.5 Business Rules</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    <p><strong>Product Name:</strong> Baby Shark Childcare Management System</p>
+    <p><strong>Revision/Release Number:</strong> 1.0</p>
+
+    <h1 id="1.0" class="purple-text">1. Introduction</h1>
+    <h2 id="1.1">1.1 Intended Audience:</h2>
+    <p>The Software Requirements Specification (SRS) document for the Baby Shark Childcare Management System is intended for:</p>
+    <ul>
+        <li>Conf. dr. Panu Andrei</li>
+    </ul>
+
+    <h2 id="1.2">1.2 Scope</h2>
+    <p>The software requirements specified in this document pertain to the development of the Baby Shark Childcare Management System. This system aims to provide a comprehensive platform for families or couples to manage various aspects of childcare for children ranging from infancy to puberty. The scope of the product encompasses the following key functionalities:</p>
+    <ol>
+        <li><strong>Authentication:</strong> The system will allow authenticated users, namely families or couples, to access and manage resources related to childcare.</li>
+        <li><strong>Childcare Resources Management:</strong> Users will be able to manage various resources crucial for childcare, including feeding schedules, sleep schedules, multimedia resources such as photos, videos, and audio recordings documenting the child's development, medical history, and relationship with other children (e.g., cousins, kindergarten/school classmates).</li>
+        <li><strong>Chronological View (Timeline):</strong> The system will provide a chronological view or timeline of the most important moments captured for each child. This feature will allow users to track and review significant milestones and events in the child's life.</li>
+        <li><strong>Sharing Functionality:</strong> Users will have the option to share significant moments captured within the system through social applications or via an RSS news feed. This sharing feature enhances social interaction and facilitates sharing cherished memories with family and friends.</li>
+        <li><strong>REST/GraphQL Web API:</strong> The system functionalities will be exposed through a REST/GraphQL Web API, allowing for seamless integration with other applications and services.</li>
+    </ol>
+
+    <h2 id="1.3">1.3 References</h2>
+    <ol>
+        <li><strong>Logo Generator</strong><a href="https://www.design.com"> design.com</a></li>
+        <li><strong>Guide about using CSS Box Model</strong><a href="https://www.youtube.com/watch?v=rIO5326FgPE&ab_channel=WebDevSimplified"> Youtube Link</a></li>
+        <li><strong>Inspiration:</strong> a similar website that handles infant well-being with many tools that facilitate taking care of a newborn: <a href="https://www.babycenter.com">babycenter.com</a></li>
+    </ol>
+
+    <h1 id="2.0" class="purple-text">2. Description</h1>
+    <h2 id="2.1">2.1 Product Perspective</h2>
+        <p><strong>The child care management application</strong> is designed as a standalone system, catering to the unique needs of families or couples responsible for the care of children. It is not intended to be a replacement for existing systems but rather a comprehensive solution tailored specifically for child care management.</p>
+        <p><strong>System Components:</strong>The application comprises various modules including <strong>feeding schedules</strong>, <strong>sleep patterns</strong>, <strong>multimedia management</strong>, <strong>medical history</strong>, and <strong>relationship tracking</strong>. These modules interact seamlessly within the application framework to provide a holistic view of the child's well-being.</p>
+        <p><strong>Interfaces:</strong>While the application functions independently, it may interface with external systems or services, such as <strong>social media platforms</strong> for sharing significant moments or <strong>RSS news feeds</strong> for broader dissemination of child care updates.</p>
+    </ol>
+    <h2 id="2.2">2.2 Product Functions</h2>
+    <img src="images/diagram.drawio.png" alt="Description of the diagram">
+    <h1 id="2.3">2.3 User Classes</h1>
+    <ul>
+        <li>
+          <strong>Parents:</strong>
+          <ul>
+            <li>Use: Daily, full access.</li>
+            <li>Tech: Varied.</li>
+            <li>Security: Full access.</li>
+            <li>Experience: Varied.</li>
+            <li>Importance: Primary users, satisfaction key.</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Family/Caregivers:</strong>
+          <ul>
+            <li>Use: Occasional, specific features.</li>
+            <li>Tech: Varied.</li>
+            <li>Security: Limited access.</li>
+            <li>Experience: Varied.</li>
+            <li>Importance: Secondary users, access may vary.</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Health Professionals:</strong>
+          <ul>
+            <li>Use: Periodic, medical history.</li>
+            <li>Tech: Moderate to advanced.</li>
+            <li>Security: Privacy measures.</li>
+            <li>Experience: Healthcare professionals.</li>
+            <li>Importance: Critical for accurate care.</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Educators/School Staff:</strong>
+          <ul>
+            <li>Use: Occasional, school-related info.</li>
+            <li>Tech: Varied.</li>
+            <li>Security: Limited access.</li>
+            <li>Experience: Education background.</li>
+            <li>Importance: Facilitate home-school coordination.</li>
+          </ul>
+        </li>
+        <li>
+          <strong>System Administrators:</strong>
+          <ul>
+            <li>Use: Regular, system management.</li>
+            <li>Tech: Advanced.</li>
+            <li>Security: Elevated privileges.</li>
+            <li>Experience: Technical expertise.</li>
+            <li>Importance: Critical for system reliability.</li>
+          </ul>
+        </li>
+      </ul>
+    <h2 id="2.4">2.4 Operating Environment</h2>
+    <h3>Frontend:</h3>
+  <ul>
+    <li><strong>HTML and CSS:</strong> The frontend of the application will be built using HTML and CSS for structuring and styling the user interface. (via Visual Studio Code)</li>
+  </ul>
+
+  <h3>Backend:</h3>
+  <ul>
+    <li><strong>JavaScript:</strong> The backend of the application will be developed using JavaScript, particularly with Node.js runtime environment. (also with Visual Studio Code)</li>
+  </ul>
+
+  <h3>Database:</h3>
+  <ul>
+    <li><strong>GraphQL:</strong> The database will be implemented using GraphQL, which provides a query language for interacting with the database.</li>
+  </ul>
+
+  <h3>Operating System:</h3>
+  <ul>
+    <li>The software should be compatible with various operating systems including Windows, macOS, and Linux distributions.</li>
+  </ul>
+
+  <h3>Web Browser Compatibility:</h3>
+  <ul>
+    <li>The frontend should be compatible with popular web browsers such as Google Chrome, Mozilla Firefox, Safari, and Microsoft Edge.</li>
+  </ul>
+  <h2 id="2.5">2.5 Assumptions</h2>
+  <ul>
+    <li>The project assumes a certain level of scalability in terms of user base and data volume. However, specific scalability requirements may evolve over time and need to be addressed accordingly.</li>
+    <li>It is assumed that appropriate measures will be taken to ensure data privacy and security, including encryption of sensitive information and adherence to relevant regulations such as GDPR.</li>
+    <li>The project assumes the availability and functionality of third-party components or libraries for certain features, such as authentication, user interface components, and GraphQL server implementation.</li>
+  </ul>
+  <h1 id="3.0" class="purple-text">3. Interface</h1>
+  <img src="images/image1.png" alt="Image1" style="width: 50%; height: auto;">
+  <img src="images/image2.png" alt="Image2" style="width: 50%; height: auto;">
+  <img src="images/image3.png" alt="Image3" style="width: 50%; height: auto;">
+  <img src="images/image4.png" alt="Image4" style="width: 50%; height: auto;">
+  <img src="images/image5.png" alt="Image5" style="width: 50%; height: auto;">
+  <img src="images/image6.png" alt="Image6" style="width: 50%; height: auto;">
+  <img src="images/image7.png" alt="Image7" style="width: 50%; height: auto;">  
+  <h1 id="4.0" class="purple-text">4. System Features</h1>
+  <h3 id="4.1">4.1 Feature 1: Feeding Schedule Management</h3>
+  <p><strong>Description and Priority:</strong> Track and manage feeding schedules for children. Priority: High.</p>
+  <ul>
+    <li>View and edit feeding events on a calendar.</li>
+    <li>Add new feeding events with date, time, type, and quantity.</li>
+    <li>Validate inputs and handle errors gracefully.</li>
+    <li>Ensure data persistence.</li>
+  </ul>
+
+  <h3 id="4.2">4.2 Sleep Schedule Management</h3>
+  <p><strong>Description and Priority:</strong> Monitor and manage sleep schedules for children. Priority: Medium.</p>
+  <ul>
+    <li>Display timeline view of sleep events.</li>
+    <li>Add new sleep events with start and end times.</li>
+    <li>Validate inputs and handle errors.</li>
+    <li>Enable editing and deletion of sleep events.</li>
+    <li>Ensure data persistence.</li>
+  </ul>
+
+  <h3 id="4.3">4.3 Feature 3: Multimedia Management</h3>
+  <p><strong>Description and Priority:</strong> Upload and organize multimedia content related to child's development. Priority: Low.</p>
+  <ul>
+    <li>Support uploading of photos, videos, and audio recordings.</li>
+    <li>Validate file formats and sizes.</li>
+    <li>Provide metadata options for each multimedia item.</li>
+    <li>Display multimedia content in gallery format.</li>
+    <li>Implement browsing and searching features.</li>
+    <li>Ensure data security and privacy.</li>
+  </ul>
+
+  <h3 id="4.4">4.4 Feature 4: Medical History Tracking</h3>
+  <p><strong>Description and Priority:</strong> Maintain comprehensive medical history for the child. Priority: High.</p>
+  <ul>
+    <li>Enter various types of medical records.</li>
+    <li>Validate input and handle errors.</li>
+    <li>Enable viewing, editing, and deleting of medical records.</li>
+    <li>Implement reminders for appointments and vaccines.</li>
+    <li>Support exporting and printing of medical records.</li>
+    <li>Ensure data confidentiality and compliance.</li>
+  </ul>
+  <h1 id="5.0"class="purple-text">5. Other Requirements</h1>
+  <h2 id="5.1">5.1 Performance Requirements</h2>
+  <ol>
+    <li><strong>Response Time:</strong> System response time: &lt; 1 second under normal conditions.</li>
+    <li><strong>Concurrent Users:</strong> Support: Minimum 100 concurrent users.</li>
+    <li><strong>Data Retrieval Speed:</strong> Database queries: &lt; 500 milliseconds.</li>
+    <li><strong>Data Storage Capacity:</strong> Capacity: Minimum 10,000 records per data category.</li>
+    <li><strong>Peak Load Handling:</strong> Handle peak loads without crashing.</li>
+    <li><strong>Error Handling Time:</strong> Error handling: &lt; 200 milliseconds.</li>
+    <li><strong>Network Latency:</strong> Network latency: &lt; 100 milliseconds.</li>
+    <li><strong>Real-Time Updates:</strong> Real-time updates delivery: &lt; 1 second.</li>
+  </ol>
+  <h2 id="5.2">5.2 Safety Requirements</h2>
+  <ol>
+    <li><strong>Data Security:</strong> Safeguard sensitive user information through encryption and access control.</li>
+    <li><strong>User Authentication:</strong> Implement strong password policies and multi-factor authentication.</li>
+    <li><strong>Backup and Recovery:</strong> Establish regular data backup procedures and reliable recovery processes.</li>
+    <li><strong>Error Handling:</strong> Implement comprehensive error handling mechanisms.</li>
+    <li><strong>Regulatory Compliance:</strong> Ensure compliance with relevant regulations like GDPR.</li>
+    <li><strong>Child Safety Guidelines:</strong> Adhere to child safety guidelines for uploaded content.</li>
+    <li><strong>System Reliability:</strong> Conduct thorough testing for reliability and stability.</li>
+    <li><strong>Safety Certifications:</strong> Obtain necessary safety certifications.</li>
+  </ol>
+  <h2 id="5.3">5.3 Security Requirements</h2>
+  <ol>
+    <li><strong>Data Encryption:</strong> Encrypt sensitive user data during storage and transmission.(as stated previously)</li>
+    <li><strong>Access Control:</strong> Implement role-based access control (RBAC) for data protection.</li>
+    <li><strong>User Authentication:</strong> Enforce strong user authentication mechanisms.</li>
+    <li><strong>Audit Trails:</strong> Maintain logs of user activities for monitoring and detection.</li>
+    <li><strong>Data Minimization:</strong> Minimize collection and storage of personally identifiable information (PII).</li>
+    <li><strong>Secure Communication:</strong> Use HTTPS for secure data transmission.</li>
+    <li><strong>Regular Updates:</strong> Keep software and dependencies updated for security.</li>
+    <li><strong>Regulatory Compliance:</strong> Ensure compliance with security and privacy regulations.</li>
+    <li><strong>Security Testing:</strong> Conduct regular security assessments and penetration testing.</li>
+    <li><strong>Privacy Certifications:</strong> Obtain relevant privacy certifications for assurance.</li>
+  </ol>
+  <h2 id="5.4">5.4 Software Quality Attributes</h2>
+  <ol>
+    <li><strong>Reliability:</strong> Ensure a system reliability rating of at least 99%.</li>
+    <li><strong>Usability:</strong> Maintain a user interface usability score above 85%.</li>
+    <li><strong>Maintainability:</strong> Aim for a maintainability index of at least 80%.</li>
+    <li><strong>Scalability:</strong> Support a 50% increase in concurrent users without performance degradation.</li>
+    <li><strong>Security:</strong> Achieve a security score of 90% or higher in vulnerability assessments.</li>
+    <li><strong>Interoperability:</strong> Ensure compatibility with external systems with an interoperability rating above 85%.</li>
+    <li><strong>Testability:</strong> Implement comprehensive testing strategies for thorough test coverage.</li>
+    <li><strong>Adaptability:</strong> Adapt to evolving user needs and technological advancements.</li>
+    <li><strong>Availability:</strong> Maintain a system availability of 99.9%.</li>
+    <li><strong>Correctness:</strong> Ensure a correctness rating of 95% or higher based on thorough testing.</li>
+  </ol>
+  <h2 id="5.5">5.5 Business Rules</h2>
+  <ol>
+    <li><strong>User Roles and Permissions:</strong> Administrators have full access, while regular users have restricted access based on their roles.</li>
+    <li><strong>Data Privacy:</strong> Personal and medical information must be kept confidential.</li>
+    <li><strong>Collaboration and Sharing:</strong> Users can share access to child profiles or information, ensuring accuracy and validity.</li>
+    <li><strong>Compliance with Regulations:</strong> The application must comply with relevant data privacy and security regulations.</li>
+  </ol>
+  <br>
+  <p><strong>Thank you for reading!</strong></p>
+  </div>
+</body>
+</html>

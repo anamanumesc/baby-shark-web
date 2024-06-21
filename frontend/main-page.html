@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baby Shark - Main Page</title>
+    <link rel="stylesheet" href="styles/main-page.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+    <script defer src="scripts/logout.js"></script>
+    <script defer src="scripts/mainPage.js"></script>
+</head>
+<body>
+    <div class="grid-box">
+        <div class="grid-section header">
+            <div class="logo">
+                <img src="logo/logo.png" alt="Logo">
+            </div>
+            <div class="header-right">
+                <span id="usernameDisplay" class="username">@username</span> <!-- Element to display username -->
+                <a href="html/start-page.html" class="logout-button" id="logoutButton">Log out</a> <!-- Updated logout button -->
+            </div>
+        </div>                 
+        <div class="grid-section pic-buttons">
+            <div class="button add-on-this-website" id="addButton">Add on this website</div>
+            <a href="html/see-memorable.html" class="button see-memorable">See Memorable</a>
+            <div class="button add-on-social-media">Add on social media</div>
+        </div>
+        <div class="grid-section left-sidebar">
+            <a href="html/sleeping-schedule-form.html" class="button sleeping-schedule">Sleep </a>
+            <a href="html/eating-schedule-form.html" class="button eating-schedule">Meals</a>
+            <a href="html/medical.html" class="button medical">Medical</a>
+            <a href="html/friend-list.html" class="button friendship">Friends</a>
+            <a href="html/about-us.html" class="button about-us">About us</a>
+        </div>
+        <div class="grid-section scroll-section">
+            <div class="square-container">
+                <div class="square"></div>
+                <div class="square"></div>
+                <div class="square"></div>
+                <div class="square"></div>
+                <div class="square"></div>
+                <div class="square"></div>
+                <div class="square"></div>
+                <div class="square"></div>
+                <div class="square"></div>
+                <div class="square"></div>
+                <div class="square"></div>
+                <div class="square"></div>
+                <div class="square"></div>
+                <div class="square"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeButton">&times;</span>
+            <h2>Add Picture/Video</h2>
+            <form id="uploadForm" enctype="multipart/form-data">
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" required></textarea>
+                <label for="tags">Tags (use @username#code, optional):</label>
+                <input type="text" id="tags" name="tags" placeholder="@username#code">
+                <label for="file" class="buttons">Choose a file:</label>
+                <input type="file" id="file" name="file" accept="image/*,video/*,audio/*" required>
+                <input type="submit" value="Submit" class="buttons">
+            </form>
+        </div>
+    </div>
+
+    <script src="scripts/popUp.js"></script>
+</body>
+</html>

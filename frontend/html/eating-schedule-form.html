@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eating Schedule Form</title>
+    <link rel="stylesheet" href="../styles/eating-schedule-form.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="../main-page.html"><img src="../logo/logo.png" alt="Baby Shark Logo" class="logo"></a>
+        </nav>
+    </header>
+    <h2>Eating Schedule Form</h2>
+    <form id="eatingScheduleForm">
+        <label for="numMeals">How many meals:</label>
+        <input type="number" id="numMeals" name="numMeals" min="0" max="7" required>
+        <button type="button" id="generateButton">Generate</button>
+    </form>
+
+    <div id="mealDescriptionsContainer"></div>
+
+    <a id="submitButton" class="hidden" href="../html/eating-schedule.html">Submit</a>
+
+    <script src="../scripts/generateMeals.js"></script>
+</body>
+</html>

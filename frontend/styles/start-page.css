@@ -1,0 +1,138 @@
+* {
+  margin: 0;
+  border: 0;
+}
+
+body {
+  color: #151B8D;
+  background-color: #72b0c9;
+  height: 100vh;
+  margin: 0;
+}
+
+.container{
+    width: 100vw; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.header {
+  top:0;
+  position: fixed;
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em;
+  background-image: linear-gradient(to bottom, #ffffff, #72b0c9);
+}
+
+.header .logo img {
+  height: 7vw;
+  width: auto;
+}
+
+.header .navigation a {
+  text-decoration: none;
+  color: #007BFF;
+  font-size: 1.2em;
+  padding: 0.5em 1em;
+  border-radius: 0.3em;
+  transition: background-color 0.3s;
+}
+
+.header .navigation a:hover {
+  background-color: #0056b3;
+  color: white;
+}
+
+.about-button {
+  flex: 0 0 15vw;
+  margin-left: auto;
+}
+.navigation{
+  margin-right: 10px;
+}
+
+.log-in,
+.sign-up {
+
+  padding: 10px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #d0efee;
+  border-radius: 1vw;
+  width: 50vw;
+ 
+  z-index: 3;
+  height: 40vh;
+  margin-top: 15vh;
+}
+
+h1 {
+  text-align: center;
+}
+
+label {
+
+  margin-bottom: 0.5vw;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+
+  border: 0.1vw solid #ccc;
+  border-radius: 0.3vw;
+  box-sizing: border-box;
+}
+
+.buttons {
+  width: 25vw;
+
+  text-align: center;
+  margin: 2vw;
+
+  border-radius: 2.5vw;
+  font-weight: bold;
+  border: 0.2vw solid #009688;
+  background: transparent;
+  cursor: pointer;
+}
+
+.buttons:hover {
+  background-color: #6790e7;
+}
+
+.about-us {
+  display: flex;
+  flex-direction: column;
+}
+
+.info {
+  width: 90vw;
+  min-height: 40vh;
+  background-color: rgba(245, 236, 226, 0.687);
+  margin: 2vh auto;
+  border-radius: 2vw;
+  padding: 2vw; 
+  position: relative;
+}
+
+.info p {
+  margin-bottom: 2vh;
+}
+
+.info-image {
+  position: absolute;
+  top: 2vh;
+  right: 2vh;
+  width: 30vw;
+  height: auto;
+  border-radius: 1vw;
+}
+
