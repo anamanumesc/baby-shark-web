@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grid Layout with Scrollable Squares</title>
+    <title>Baby Shark - Main Page</title>
     <link rel="stylesheet" href="styles/main-page.css">
-    <script src="scripts/mainPage.js"></script>  <!-- Include the mainPage.js script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+    <script defer src="scripts/logout.js"></script>
+    <script defer src="scripts/mainPage.js"></script>
 </head>
 <body>
     <div class="grid-box">
@@ -15,7 +17,7 @@
             </div>
             <div class="header-right">
                 <span id="usernameDisplay" class="username">@username</span> <!-- Element to display username -->
-                <a href="html/start-page.html" class="logout-button">Log out</a>
+                <a href="html/start-page.html" class="logout-button" id="logoutButton">Log out</a> <!-- Updated logout button -->
             </div>
         </div>                 
         <div class="grid-section pic-buttons">
@@ -32,7 +34,6 @@
         </div>
         <div class="grid-section scroll-section">
             <div class="square-container">
-                <div class="square"></div>
                 <div class="square"></div>
                 <div class="square"></div>
                 <div class="square"></div>
