@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eating Schedule Form</title>
     <link rel="stylesheet" href="../styles/eating-schedule-form.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script> <!-- Include CryptoJS library -->
-    <script defer src="../scripts/eating-form-auth.js"></script>
+    <script src="../scripts/authorize.js" defer></script>
+    <script src="../scripts/generateMeals.js" defer></script>
 </head>
 <body>
     <header>
@@ -24,7 +24,5 @@
     <div id="mealDescriptionsContainer"></div>
 
     <a id="submitButton" class="hidden" href="../html/eating-schedule.html">Submit</a>
-
-    <script src="../scripts/generateMeals.js"></script>
 </body>
 </html>
