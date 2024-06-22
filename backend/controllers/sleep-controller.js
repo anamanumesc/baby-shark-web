@@ -1,9 +1,10 @@
-const Meal = require('../models/meal');
+const Sleep = require('../models/sleep');
+const Nap = require('../models/nap');
 const jwt = require('jsonwebtoken');
 
 const JWT_SECRET = 'baby-shark'; // Hardcoded JWT secret
 
-exports.addMeals = async (req, res) => {
+exports.addSleep = async (req, res) => {
     const token = req.headers.authorization.split(' ')[1];
     let userId;
 
@@ -22,33 +23,36 @@ exports.addMeals = async (req, res) => {
     });
 
     req.on('end', async () => {
-        const { descriptions } = JSON.parse(body);
+        const { goToSleepTime, wakeUpTime, naps } = JSON.parse(body);
 
-        if (!descriptions || !Array.isArray(descriptions)) {
+        if (!goToSleepTime || !wakeUpTime || !naps || !Array.isArray(naps) || naps.some(nap => !nap.startNapTime || !nap.endNapTime)) {
             res.writeHead(400, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({ message: 'Invalid descriptions' }));
-            return;
-        }
-
-        if (descriptions.some(description => description.trim() === '')) {
-            res.writeHead(400, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({ message: 'Meal description cannot be empty' }));
+            res.end(JSON.stringify({ message: 'Invalid sleep or nap times' }));
             return;
         }
 
         try {
-            const mealPromises = descriptions.map(description => {
-                const newMeal = new Meal({
-                    userId,
-                    description
-                });
-                return newMeal.save();
+            const newSleep = new Sleep({
+                userId,
+                goToSleepTime,
+                wakeUpTime
             });
 
-            await Promise.all(mealPromises);
+            await newSleep.save();
+
+            const napPromises = naps.map(nap => {
+                const newNap = new Nap({
+                    userId,
+                    startNapTime: nap.startNapTime,
+                    endNapTime: nap.endNapTime
+                });
+                return newNap.save();
+            });
+
+            await Promise.all(napPromises);
 
             res.writeHead(201, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({ message: 'Meals added successfully' }));
+            res.end(JSON.stringify({ message: 'Sleep and naps added successfully' }));
         } catch (error) {
             res.writeHead(500, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify({ message: 'Server error' }));

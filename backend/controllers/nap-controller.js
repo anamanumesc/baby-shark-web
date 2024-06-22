@@ -1,9 +1,9 @@
-const Meal = require('../models/meal');
+const Nap = require('../models/nap');
 const jwt = require('jsonwebtoken');
 
 const JWT_SECRET = 'baby-shark'; // Hardcoded JWT secret
 
-exports.addMeals = async (req, res) => {
+exports.addNaps = async (req, res) => {
     const token = req.headers.authorization.split(' ')[1];
     let userId;
 
@@ -22,33 +22,28 @@ exports.addMeals = async (req, res) => {
     });
 
     req.on('end', async () => {
-        const { descriptions } = JSON.parse(body);
+        const { naps } = JSON.parse(body);
 
-        if (!descriptions || !Array.isArray(descriptions)) {
+        if (!naps || !Array.isArray(naps) || naps.some(nap => !nap.startNapTime || !nap.endNapTime)) {
             res.writeHead(400, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({ message: 'Invalid descriptions' }));
-            return;
-        }
-
-        if (descriptions.some(description => description.trim() === '')) {
-            res.writeHead(400, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({ message: 'Meal description cannot be empty' }));
+            res.end(JSON.stringify({ message: 'Invalid nap times' }));
             return;
         }
 
         try {
-            const mealPromises = descriptions.map(description => {
-                const newMeal = new Meal({
+            const napPromises = naps.map(nap => {
+                const newNap = new Nap({
                     userId,
-                    description
+                    startNapTime: nap.startNapTime,
+                    endNapTime: nap.endNapTime
                 });
-                return newMeal.save();
+                return newNap.save();
             });
 
-            await Promise.all(mealPromises);
+            await Promise.all(napPromises);
 
             res.writeHead(201, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({ message: 'Meals added successfully' }));
+            res.end(JSON.stringify({ message: 'Naps added successfully' }));
         } catch (error) {
             res.writeHead(500, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify({ message: 'Server error' }));

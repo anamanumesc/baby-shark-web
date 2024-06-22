@@ -18,14 +18,25 @@ const serveStaticFile = (filePath, contentType, res) => {
 
 const checkAuth = (req, res) => {
   const cookies = req.headers.cookie;
+  console.log('Cookies:', cookies); // Debugging log
   if (!cookies) {
+    console.log('No cookies found');
     res.writeHead(302, { 'Location': '/frontend/html/401.html' });
     res.end();
     return false;
   }
-  const token = cookies.split(';').find(cookie => cookie.trim().startsWith('clientToken=')).split('=')[1];
+  const token = cookies.split(';').find(cookie => cookie.trim().startsWith('clientToken='));
+  if (!token) {
+    console.log('No clientToken found in cookies');
+    res.writeHead(302, { 'Location': '/frontend/html/401.html' });
+    res.end();
+    return false;
+  }
+  const tokenValue = token.split('=')[1];
+  console.log('Token Value:', tokenValue); // Debugging log
   try {
-    const decoded = jwt.verify(token, JWT_SECRET);
+    const decoded = jwt.verify(tokenValue, JWT_SECRET);
+    console.log('Decoded Token:', decoded); // Debugging log
     req.userId = decoded.userId;
     return true;
   } catch (error) {
@@ -55,7 +66,11 @@ const staticRoutes = (req, res) => {
     console.log(`Serving file: ${filePath}`);
     serveStaticFile(filePath, contentType, res);
   } else {
-    if (req.url === '/frontend/main-page.html' || req.url.startsWith('/frontend/html/eating-schedule-form.html')) {
+    if (
+      req.url === '/frontend/main-page.html' ||
+      req.url === '/frontend/html/eating-schedule-form.html' ||
+      req.url === '/frontend/html/sleeping-schedule-form.html'
+    ) {
       if (!checkAuth(req, res)) return;
     }
     const filePath = path.join(__dirname, '../../', req.url);
