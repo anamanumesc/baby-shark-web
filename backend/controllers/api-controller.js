@@ -1,6 +1,7 @@
+// controllers/api-controller.js
 const { signUp, login } = require('./user-controller');
 const { createFriendship, getFriendships, getFriendRequests, acceptFriendRequest, deleteFriendRequest } = require('./friends-controller');
-const { addMeals } = require('./meal-controller'); // Add this line
+const { addMeals } = require('./meal-controller'); // Ensure this line is included if you are adding meals
 const jwt = require('jsonwebtoken');
 const parseJsonBody = require('../utils/parse-json-body');
 
@@ -51,7 +52,7 @@ const handleApiRequest = async (req, res) => {
     } else if (req.url === '/api/delete-friend-request' && req.method === 'POST') {
         await parseJsonBody(req);
         await deleteFriendRequest(req, res);
-    } else if (req.url === '/api/meals' && req.method === 'POST') { // Add this condition
+    } else if (req.url === '/api/meals' && req.method === 'POST') { // Ensure this line is included if you are adding meals
         await addMeals(req, res);
     } else {
         res.writeHead(404, { 'Content-Type': 'application/json' });
