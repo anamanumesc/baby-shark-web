@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
-const sleepSchema = new Schema({
-    userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+const sleepSchema = new mongoose.Schema({
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     goToSleepTime: { type: String, required: true },
     wakeUpTime: { type: String, required: true }
 });
 
-module.exports = mongoose.model('Sleep', sleepSchema);
+const Sleep = mongoose.model('Sleep', sleepSchema);
+module.exports = Sleep;
