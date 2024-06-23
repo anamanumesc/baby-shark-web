@@ -2,10 +2,11 @@ const http = require('http');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const routes = require('./routes');
+const staticRoutes = require('./routes/static-routes');
 
 dotenv.config();
 
-const PORT = process.env.PORT || 7081;
+const PORT = process.env.PORT || 7083;
 const MONGOURL = process.env.MONGO_URL || "mongodb://localhost:27017/baby-shark";
 
 mongoose.connect(MONGOURL, {
@@ -22,7 +23,11 @@ mongoose.connection.on('error', (err) => {
 });
 
 const server = http.createServer((req, res) => {
-  routes(req, res);
+  if (req.url.startsWith('/frontend') || req.url.startsWith('/uploads')) {
+    staticRoutes(req, res);
+  } else {
+    routes(req, res);
+  }
 });
 
 server.listen(PORT, () => {

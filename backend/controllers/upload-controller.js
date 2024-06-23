@@ -3,19 +3,18 @@ const path = require('path');
 const Post = require('../models/post');
 const User = require('../models/user');
 const Friend = require('../models/friends');
-const { getUserIdFromToken } = require('../middlewares/auth'); // Ensure this path is correct
 
 // Set up multer for file storage
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'uploads/');
+        cb(null, path.join(__dirname, '../uploads')); // Store files in backend/uploads
     },
     filename: (req, file, cb) => {
         cb(null, Date.now() + path.extname(file.originalname));
     }
 });
 
-const upload = multer({ storage }); // Correctly defining the upload variable
+const upload = multer({ storage });
 
 // Function to handle upload
 const handleUpload = async (req, res) => {
@@ -81,7 +80,8 @@ const handleUpload = async (req, res) => {
             }
         }
 
-        const existingPost = await Post.findOne({ description, filePath: file.path });
+        const relativeFilePath = path.relative(path.join(__dirname, '../uploads'), file.path); // Store relative path
+        const existingPost = await Post.findOne({ description, filePath: relativeFilePath });
         if (existingPost) {
             console.log('Duplicate post detected'); // Debugging line
             res.writeHead(409, { 'Content-Type': 'application/json' });
@@ -90,8 +90,9 @@ const handleUpload = async (req, res) => {
 
         const post = new Post({
             description,
-            filePath: file.path,
+            filePath: relativeFilePath, // Store relative path
             tags: friendIds,
+            uploader: userId
         });
 
         await post.save();
@@ -106,4 +107,24 @@ const handleUpload = async (req, res) => {
     }
 };
 
-module.exports = { upload, handleUpload };
+// Function to get uploads
+const getUploads = async (req, res) => {
+    try {
+        const userId = req.userId;
+        const uploads = await Post.find({
+            $or: [
+                { uploader: userId },
+                { tags: userId }
+            ]
+        }).populate('uploader', 'name code').populate('tags', 'name code');
+
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(uploads));
+    } catch (error) {
+        console.error('Error fetching uploads:', error.message);
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: error.message }));
+    }
+};
+
+module.exports = { upload, handleUpload, getUploads };

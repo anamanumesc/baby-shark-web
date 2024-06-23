@@ -70,6 +70,8 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
 
+        // Fetch and display uploads
+        fetchUploads(token);
     } catch (e) {
         console.error('Error decoding token:', e);
         window.location.href = 'html/401.html';
@@ -83,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function() {
             event.preventDefault(); // Prevent default form submission
 
             if (isSubmitting) {
-                console.log('Form is already being submitted.'); // Debugging line
+                console.log('Form is already being submitted.');
                 return; // If already submitting, prevent another submission
             }
             isSubmitting = true;
@@ -102,7 +104,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
 
             try {
-                console.log('Submitting form...'); // Debugging line
+                console.log('Submitting form...');
                 const response = await fetch('/api/upload', {
                     method: 'POST',
                     headers: {
@@ -115,7 +117,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 if (response.ok) {
                     alert('File uploaded successfully');
-                    // Optionally, refresh or update the UI
+                    // Refresh uploads after successful upload
+                    fetchUploads(token);
                 } else {
                     alert('Error: ' + result.error);
                 }
@@ -130,3 +133,62 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 });
+
+async function fetchUploads(token) {
+    try {
+        const response = await fetch('/api/uploads', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (response.ok) {
+            const uploads = await response.json();
+            displayUploads(uploads);
+        } else {
+            console.error('Failed to fetch uploads:', await response.json());
+        }
+    } catch (error) {
+        console.error('Error fetching uploads:', error);
+    }
+}
+
+function displayUploads(uploads) {
+    const squareContainer = document.querySelector('.square-container');
+    squareContainer.innerHTML = ''; // Clear existing content
+
+    uploads.forEach(upload => {
+        const square = document.createElement('div');
+        square.className = 'square';
+
+        const fileLink = document.createElement('a');
+        fileLink.href = `/uploads/${upload.filePath}`;
+        fileLink.target = '_blank';
+
+        const fileType = upload.filePath.split('.').pop().toLowerCase();
+        if (['jpg', 'jpeg', 'png', 'gif'].includes(fileType)) {
+            const img = document.createElement('img');
+            img.src = `/uploads/${upload.filePath}`;
+            img.alt = upload.description;
+            img.style.width = "100%"; // Ensure the image fits within the div
+            img.style.height = "auto"; // Maintain aspect ratio
+            fileLink.appendChild(img);
+        } else if (['mp4', 'webm', 'ogg'].includes(fileType)) {
+            const video = document.createElement('video');
+            video.src = `/uploads/${upload.filePath}`;
+            video.controls = true;
+            fileLink.appendChild(video);
+        } else if (['mp3', 'wav', 'ogg'].includes(fileType)) {
+            const audio = document.createElement('audio');
+            audio.src = `/uploads/${upload.filePath}`;
+            audio.controls = true;
+            fileLink.appendChild(audio);
+        } else {
+            fileLink.textContent = upload.description;
+        }
+
+        square.appendChild(fileLink);
+        squareContainer.appendChild(square);
+    });
+}
