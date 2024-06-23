@@ -8,21 +8,16 @@ const apiRoutes = async (req, res) => {
         // Verify JWT token
         try {
             const cookieHeader = req.headers.cookie;
-            console.log('Cookie Header:', cookieHeader); // Debugging line
 
             if (!cookieHeader) throw new Error('Authorization header is missing');
 
             const token = cookieHeader.split(';').find(c => c.trim().startsWith('clientToken='));
-            console.log('Extracted Token:', token); // Debugging line
 
             if (!token) throw new Error('Token not found in cookies');
 
             const tokenValue = token.split('=')[1];
-            console.log('Token Value:', tokenValue); // Debugging line
-
             const decodedToken = jwt.verify(tokenValue, JWT_SECRET);
             req.userId = decodedToken.userId;
-            console.log('Decoded Token:', decodedToken); // Debugging line
 
             // Handle file upload
             upload.single('file')(req, res, (err) => {

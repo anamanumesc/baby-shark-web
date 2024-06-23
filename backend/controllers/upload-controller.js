@@ -15,65 +15,77 @@ const storage = multer.diskStorage({
     }
 });
 
-const upload = multer({ storage });
+const upload = multer({ storage }); // Correctly defining the upload variable
 
 // Function to handle upload
 const handleUpload = async (req, res) => {
+    console.log('handleUpload called'); // Debugging line
     try {
         const { description, tags } = req.body;
         const file = req.file;
 
         if (!file) {
+            console.log('No file uploaded'); // Debugging line
             res.writeHead(400, { 'Content-Type': 'application/json' });
             return res.end(JSON.stringify({ error: 'No file uploaded' }));
         }
 
         const userId = req.userId; // Get userId from token
         if (!userId) {
+            console.log('Unauthorized request'); // Debugging line
             res.writeHead(401, { 'Content-Type': 'application/json' });
             return res.end(JSON.stringify({ error: 'Unauthorized' }));
         }
 
-        // Ensure tags are processed correctly
-        const tagList = tags.split(',').map(tag => {
-            const [name, code] = tag.split('#');
-            return { name: name.replace('@', '').trim(), code: code.trim() };
-        });
+        let friendIds = [];
 
-        console.log('Processed tag list:', tagList);
-
-        const users = await User.find({
-            $or: tagList.map(tag => ({ name: tag.name, code: tag.code }))
-        });
-
-        console.log('Found users:', users);
-
-        if (users.length === 0) {
-            console.log('No matching users found for tags.');
-        }
-
-        // Verify friendships
-        const friendIds = [];
-        for (const user of users) {
-            const isFriend = await Friend.findOne({
-                $or: [
-                    { 'user1._id': userId, 'user2._id': user._id, status: 'accepted' },
-                    { 'user1._id': user._id, 'user2._id': userId, status: 'accepted' }
-                ]
+        if (tags && tags.trim()) {
+            const tagList = tags.split(',').map(tag => {
+                const [name, code] = tag.split('#');
+                return { name: name.replace('@', '').trim(), code: code.trim() };
             });
 
-            console.log(`Checking friendship between ${userId} and ${user._id}:`, isFriend);
+            console.log('Processed tag list:', tagList);
 
-            if (isFriend) {
-                friendIds.push(user._id);
-            } else {
-                console.log(`User ${user.name}#${user.code} is not a friend.`);
+            const users = await User.find({
+                $or: tagList.map(tag => ({ name: tag.name, code: tag.code }))
+            });
+
+            console.log('Found users:', users);
+
+            if (users.length === 0) {
+                console.log('No matching users found for tags.');
+            }
+
+            for (const user of users) {
+                const isFriend = await Friend.findOne({
+                    $or: [
+                        { 'user1._id': userId, 'user2._id': user._id, status: 'accepted' },
+                        { 'user1._id': user._id, 'user2._id': userId, status: 'accepted' }
+                    ]
+                });
+
+                console.log(`Checking friendship between ${userId} and ${user._id}:`, isFriend);
+
+                if (isFriend) {
+                    friendIds.push(user._id);
+                } else {
+                    console.log(`User ${user.name}#${user.code} is not a friend.`);
+                }
+            }
+
+            if (friendIds.length === 0) {
+                console.log('None of the tagged users are friends'); // Debugging line
+                res.writeHead(400, { 'Content-Type': 'application/json' });
+                return res.end(JSON.stringify({ error: 'None of the tagged users are friends' }));
             }
         }
 
-        if (friendIds.length === 0) {
-            res.writeHead(400, { 'Content-Type': 'application/json' });
-            return res.end(JSON.stringify({ error: 'None of the tagged users are friends' }));
+        const existingPost = await Post.findOne({ description, filePath: file.path });
+        if (existingPost) {
+            console.log('Duplicate post detected'); // Debugging line
+            res.writeHead(409, { 'Content-Type': 'application/json' });
+            return res.end(JSON.stringify({ error: 'Duplicate post detected' }));
         }
 
         const post = new Post({
@@ -84,6 +96,7 @@ const handleUpload = async (req, res) => {
 
         await post.save();
 
+        console.log('File uploaded successfully'); // Debugging line
         res.writeHead(201, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ message: 'File uploaded successfully', post }));
     } catch (error) {
