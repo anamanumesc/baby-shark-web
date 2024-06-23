@@ -31,12 +31,14 @@ async function signUp(req, res) {
             name,
             code,
             email,
-            password: hashedPassword
+            password: hashedPassword,
+            sleepForm: false,
+            mealForm: false
         });
 
         await newUser.save();
 
-        const token = jwt.sign({ userId: newUser._id, userName: newUser.name, userCode: newUser.code }, JWT_SECRET, { expiresIn: '1h' });
+        const token = jwt.sign({ userId: newUser._id, userName: newUser.name, userCode: newUser.code, sleepForm: newUser.sleepForm, mealForm: newUser.mealForm }, JWT_SECRET, { expiresIn: '1h' });
 
         console.log("Token generated:", token);
 
@@ -71,7 +73,7 @@ async function login(req, res) {
             return;
         }
 
-        const token = jwt.sign({ userId: user._id, userName: user.name, userCode: user.code }, JWT_SECRET, { expiresIn: '1h' });
+        const token = jwt.sign({ userId: user._id, userName: user.name, userCode: user.code, sleepForm: user.sleepForm, mealForm: user.mealForm }, JWT_SECRET, { expiresIn: '1h' });
 
         console.log("Token generated:", token);
 

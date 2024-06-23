@@ -1,8 +1,7 @@
 const { signUp, login } = require('./user-controller');
 const { createFriendship, getFriendships, getFriendRequests, acceptFriendRequest, deleteFriendRequest } = require('./friends-controller');
-const { addMeals } = require('./meal-controller'); 
-const { addNaps } = require('./nap-controller');
-const { addSleep } = require('./sleep-controller'); // Ensure this line is included if you are adding sleep times
+const { addMeals, resetMealForm } = require('./meal-controller');
+const { addNaps, resetSleepForm } = require('./nap-controller');
 const jwt = require('jsonwebtoken');
 const parseJsonBody = require('../utils/parse-json-body');
 
@@ -52,12 +51,14 @@ const handleApiRequest = async (req, res) => {
     } else if (req.url === '/api/delete-friend-request' && req.method === 'POST') {
         await parseJsonBody(req);
         await deleteFriendRequest(req, res);
-    } else if (req.url === '/api/meals' && req.method === 'POST') { 
+    } else if (req.url === '/api/meals' && req.method === 'POST') {
         await addMeals(req, res);
-    } else if (req.url === '/api/naps' && req.method === 'POST') { // Ensure this line is included if you are adding naps
+    } else if (req.url === '/api/naps' && req.method === 'POST') {
         await addNaps(req, res);
-    } else if (req.url === '/api/sleep' && req.method === 'POST') { // Ensure this line is included if you are adding sleep times
-        await addSleep(req, res);
+    } else if (req.url === '/api/reset-meal-form' && req.method === 'POST') {
+        await resetMealForm(req, res);
+    } else if (req.url === '/api/reset-sleep-form' && req.method === 'POST') {
+        await resetSleepForm(req, res);
     } else {
         res.writeHead(404, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ error: 'Not Found' }));

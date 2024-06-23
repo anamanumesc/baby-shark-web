@@ -12,7 +12,6 @@ function getCookie(name) {
 }
 
 function isValidToken(token) {
-    return true;
     const tokenParts = token.split('.');
     if (tokenParts.length !== 3) {
         return false;
@@ -21,10 +20,45 @@ function isValidToken(token) {
     return true; // Simplified validation for the example
 }
 
+function parseJwt(token) {
+    const base64Url = token.split('.')[1];
+    if (!base64Url) {
+        throw new Error('Invalid token');
+    }
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+    return JSON.parse(jsonPayload);
+}
+
 document.addEventListener("DOMContentLoaded", function() {
     const token = getCookie('clientToken');
     console.log('Retrieved token:', token); // Debugging log
-    ///if (!token || !isValidToken(token)) {
-        ///window.location.href = '/frontend/html/401.html';
-    ///}
+    if (!token || !isValidToken(token)) {
+        console.error('Invalid or missing token');
+        window.location.href = '../html/401.html';
+        return;
+    }
+
+    try {
+        const decodedToken = parseJwt(token);
+        console.log('Decoded token:', decodedToken); // Debugging log
+
+        const sleepForm = decodedToken.sleepForm;
+        const mealForm = decodedToken.mealForm;
+
+        if (sleepForm && window.location.pathname.includes('sleeping-schedule-form.html')) {
+            window.location.href = '../html/sleeping-schedule.html';
+            return;
+        }
+
+        if (mealForm && window.location.pathname.includes('eating-schedule-form.html')) {
+            window.location.href = '../html/eating-schedule.html';
+            return;
+        }
+    } catch (e) {
+        console.error('Error decoding token:', e);
+        window.location.href = '../html/401.html';
+    }
 });

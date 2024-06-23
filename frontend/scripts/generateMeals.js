@@ -60,9 +60,11 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
-// Your existing meal generation logic
+// Meal generation logic
 document.getElementById('generateButton').addEventListener('click', function() {
+    console.log('Generate button clicked'); // Debugging log
     var numMeals = parseInt(document.getElementById('numMeals').value, 10);
+    console.log('Number of meals:', numMeals); // Debugging log
     var mealDescriptionsContainer = document.getElementById('mealDescriptionsContainer');
 
     mealDescriptionsContainer.innerHTML = '';
@@ -81,16 +83,19 @@ document.getElementById('generateButton').addEventListener('click', function() {
     }
 
     var submitButton = document.getElementById('submitButton');
+    console.log('Submit button before class change:', submitButton); // Debugging log
     submitButton.classList.remove('hidden');
-    mealDescriptionsContainer.appendChild(submitButton);
+    console.log('Submit button after class change:', submitButton); // Debugging log
 });
 
 document.getElementById('submitButton').addEventListener('click', async function(event) {
     event.preventDefault();
+    console.log('Submit button clicked'); // Debugging log
     var descriptions = [];
     var mealInputs = document.querySelectorAll('#mealDescriptionsContainer textarea');
 
     mealInputs.forEach(input => descriptions.push(input.value));
+    console.log('Meal descriptions:', descriptions); // Debugging log
 
     if (descriptions.some(description => description.trim() === '')) {
         alert('Meal description cannot be empty');
@@ -99,6 +104,7 @@ document.getElementById('submitButton').addEventListener('click', async function
 
     try {
         const token = getCookie('clientToken');
+        console.log('Submitting meals with token:', token); // Debugging log
         const response = await fetch('/api/meals', {
             method: 'POST',
             headers: {
