@@ -3,7 +3,7 @@ import { getCookie, parseJwt } from './cookieUtils.js';
 document.addEventListener("DOMContentLoaded", async function() {
     const token = getCookie('clientToken');
     if (!token) {
-        window.location.href = 'start-page.html'; // Redirect to login page if not logged in
+        window.location.href = 'start-page.html';
         return;
     }
 
@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", async function() {
     const userId = decodedToken ? decodedToken.userId : null;
 
     if (!userId) {
-        window.location.href = 'start-page.html'; // Redirect to login page if token is invalid
+        window.location.href = 'start-page.html';
         return;
     }
 
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", async function() {
         if (!response.ok) {
             const errorText = await response.text();
             console.error(`Error response: ${errorText}`);
-            window.location.href = '401.html'; // Redirect if the response is not ok
+            window.location.href = '401.html';
             return;
         }
 
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", async function() {
 
         if (data.error) {
             console.error(`API Error: ${data.error}`);
-            window.location.href = '401.html'; // Redirect if there is an API error
+            window.location.href = '401.html';
             return;
         }
 
@@ -72,6 +72,6 @@ document.addEventListener("DOMContentLoaded", async function() {
         }
     } catch (error) {
         console.error('Error fetching friends:', error);
-        window.location.href = '401.html'; // Redirect if there is a fetching error
+        window.location.href = '401.html';
     }
 });
