@@ -6,14 +6,14 @@ const parseJsonBody = (req) => {
       });
       req.on('end', () => {
           if (!body) {
-              req.body = {}; // Handle empty body
+              req.body = {};
               resolve();
           } else {
               try {
                   req.body = JSON.parse(body);
                   resolve();
               } catch (err) {
-                  reject(new SyntaxError('Invalid JSON')); // Provide more specific error message
+                  reject(new SyntaxError('Invalid JSON'));
               }
           }
       });

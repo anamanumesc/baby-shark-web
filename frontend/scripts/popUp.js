@@ -24,7 +24,6 @@ document.getElementById("uploadForm").addEventListener("submit", async function(
     if (response.ok) {
         alert('Upload successful');
         closePopup();
-        // Optionally, refresh the feed or take any other action
     } else {
         alert('Upload failed: ' + result.error);
     }

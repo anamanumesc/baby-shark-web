@@ -2,7 +2,7 @@ const Sleep = require('../models/sleep');
 const Nap = require('../models/nap');
 const jwt = require('jsonwebtoken');
 
-const JWT_SECRET = 'baby-shark'; // Hardcoded JWT secret
+const JWT_SECRET = 'baby-shark';
 
 exports.addSleep = async (req, res) => {
     const token = req.headers.authorization.split(' ')[1];

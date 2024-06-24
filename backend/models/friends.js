@@ -4,12 +4,12 @@ const friendSchema = new mongoose.Schema({
     user1: {
         _id: { type: mongoose.Schema.Types.ObjectId, required: true },
         name: { type: String, required: true },
-        code: { type: String, required: true }  // Changed uid to code
+        code: { type: String, required: true }
     },
     user2: {
         _id: { type: mongoose.Schema.Types.ObjectId, required: true },
         name: { type: String, required: true },
-        code: { type: String, required: true }  // Changed uid to code
+        code: { type: String, required: true }
     },
     status: { type: String, required: true, enum: ['pending', 'accepted', 'rejected'], default: 'pending' }
 }, { timestamps: true });

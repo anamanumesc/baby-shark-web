@@ -2,7 +2,6 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 
-// Hardcoded secret key
 const JWT_SECRET = 'baby-shark';
 
 async function signUp(req, res) {

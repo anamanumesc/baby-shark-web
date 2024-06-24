@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const token = getCookie('clientToken');
 
     if (!token) {
-        window.location.href = '401.html'; // Redirect to 401 page if not logged in
+        window.location.href = '401.html';
         return;
     }
 
@@ -22,11 +22,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             renderFriendRequests(friendRequests);
         } else {
             console.error('Error fetching friend requests:', friendRequests.error);
-            window.location.href = '401.html'; // Redirect to 401 page if the response is not ok
+            window.location.href = '401.html';
         }
     } catch (error) {
         console.error('Error during fetch friend requests:', error);
-        window.location.href = '401.html'; // Redirect to 401 page if there is a fetching error
+        window.location.href = '401.html';
     }
 });
 
@@ -77,10 +77,10 @@ async function handleFriendRequest(friendshipId, action) {
             window.location.reload();
         } else {
             console.error(`Error: ${result.error}`);
-            window.location.href = '401.html'; // Redirect to 401 page if the response is not ok
+            window.location.href = '401.html';
         }
     } catch (error) {
         console.error(`Error during ${action} friend request:`, error);
-        window.location.href = '401.html'; // Redirect to 401 page if there is an error during the request
+        window.location.href = '401.html'; 
     }
 }

@@ -15,8 +15,7 @@ function isValidToken(token) {
     if (tokenParts.length !== 3) {
         return false;
     }
-    // Here we should verify the signature and expiration date if necessary
-    return true; // Simplified validation for the example
+    return true;
 }
 
 document.addEventListener("DOMContentLoaded", function() {

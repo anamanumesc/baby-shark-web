@@ -10,12 +10,12 @@ function getCookie(name) {
     return null;
 }
 
-function isValidToken(token) {
+function isValidToken(token) { ///simplificata momentan, e completa doar la main page
     const tokenParts = token.split('.');
     if (tokenParts.length !== 3) {
         return false;
     }
-    return true; // Simplified validation for the example
+    return true;
 }
 
 function parseJwt(token) {
@@ -61,7 +61,6 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
 
-        // Add conditions for new pages
         if (currentPage.includes('friend-list.html') ||
             currentPage.includes('friend-requests.html') ||
             currentPage.includes('friendship-add-code.html') ||

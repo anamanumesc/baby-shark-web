@@ -1,9 +1,9 @@
 function deleteCookie(name) {
-    console.log('Deleting cookie:', name);  // Debugging log
+    console.log('Deleting cookie:', name);
     document.cookie = name + '=; path=/; domain=' + location.hostname + '; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     document.cookie = name + '=; path=/frontend; domain=' + location.hostname + '; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     document.cookie = name + '=; path=/frontend/html; domain=' + location.hostname + '; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-    console.log('Cookie after deletion:', document.cookie);  // Debugging log
+    console.log('Cookie after deletion:', document.cookie);
 }
 
 document.addEventListener("DOMContentLoaded", function() {
