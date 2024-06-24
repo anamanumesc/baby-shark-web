@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Medical Visit Form</title>
 <link rel="stylesheet" href="../styles/medical-form.css">
+<script src="../scripts/authorize.js" defer></script>
 </head>
 <body>
   <div class="container">
@@ -14,7 +15,7 @@
         </div>  
       </div>
     <h1>Medical Visit Form</h1>
-    <form action="../html/medical.html" method="POST">
+    <form id="medicalForm" enctype="multipart/form-data">
       <div class="form-group">
         <label for="date">Date of Visit:</label>
         <input type="date" id="date" name="date" required>
@@ -28,7 +29,7 @@
         <textarea id="description" name="description" rows="4" required></textarea>
       </div>
       <div class="form-group">
-        <label for="pdf">Upload PDF:</label>
+        <label for="pdf">Upload File:</label>
         <input type="file" id="pdf" name="pdf">
       </div>
       <div class="form-group">
@@ -36,5 +37,46 @@
       </div>
     </form>
   </div>
+  <script>
+    document.getElementById('medicalForm').addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const formData = new FormData(event.target);
+      const token = getCookie('clientToken');
+
+      try {
+        const response = await fetch('/api/medical', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          },
+          body: formData
+        });
+
+        if (response.ok) {
+          alert('Medical visit added successfully');
+          window.location.href = 'medical.html';
+        } else {
+          const result = await response.json();
+          alert('Error: ' + result.message);
+        }
+      } catch (error) {
+        console.error('Error adding medical visit:', error);
+        alert('Error adding medical visit: ' + error.message);
+      }
+    });
+
+    function getCookie(name) {
+      const cookies = document.cookie.split(';');
+      for (let cookie of cookies) {
+        const [cookieName, ...cookieParts] = cookie.split('=');
+        const trimmedCookieName = cookieName.trim();
+        if (trimmedCookieName === name) {
+          return decodeURIComponent(cookieParts.join('='));
+        }
+      }
+      return null;
+    }
+  </script>
 </body>
 </html>

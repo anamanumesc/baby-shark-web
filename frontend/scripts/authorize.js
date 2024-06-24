@@ -47,14 +47,22 @@ document.addEventListener("DOMContentLoaded", function() {
 
         const sleepForm = decodedToken.sleepForm;
         const mealForm = decodedToken.mealForm;
+        const medicalForm = decodedToken.medicalForm;
 
-        if (sleepForm && window.location.pathname.includes('sleeping-schedule-form.html')) {
+        const currentPage = window.location.pathname;
+
+        if (sleepForm && currentPage.includes('sleeping-schedule-form.html')) {
             window.location.href = '../html/sleeping-schedule.html';
             return;
         }
 
-        if (mealForm && window.location.pathname.includes('eating-schedule-form.html')) {
+        if (mealForm && currentPage.includes('eating-schedule-form.html')) {
             window.location.href = '../html/eating-schedule.html';
+            return;
+        }
+
+        if (medicalForm && currentPage.includes('medical-form.html')) {
+            window.location.href = '../html/medical.html';
             return;
         }
     } catch (e) {
