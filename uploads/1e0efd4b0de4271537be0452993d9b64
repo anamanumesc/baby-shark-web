@@ -1,0 +1,191 @@
+import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import java.awt.*;
+import java.awt.event.*;
+import java.sql.*;
+
+public class StaffHolidaysGUI extends JFrame {
+    private JPanel employeesPanel;
+    private boolean buttonsVisible = false;
+    private JButton showEmployeesButton;
+    private JTextField searchField;
+    private JPanel searchPanel;
+    private final String PLACEHOLDER_TEXT = "Search...";
+
+    public StaffHolidaysGUI() {
+        setTitle("Staff Holidays");
+        setSize(400, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        showEmployeesButton = new JButton("Show All Employees");
+        showEmployeesButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (!buttonsVisible) {
+                    displayEmployees();
+                    buttonsVisible = true;
+                    updateButton();
+                    addSearchComponents();
+                } else {
+                    hideEmployeeButtons();
+                    buttonsVisible = false;
+                    updateButton();
+                    removeSearchComponents();
+                }
+            }
+        });
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new BorderLayout());
+        buttonPanel.add(showEmployeesButton, BorderLayout.CENTER);
+
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BorderLayout());
+        mainPanel.add(buttonPanel, BorderLayout.NORTH);
+
+        employeesPanel = new JPanel();
+        employeesPanel.setLayout(new BoxLayout(employeesPanel, BoxLayout.Y_AXIS));
+
+        JScrollPane scrollPane = new JScrollPane(employeesPanel);
+        mainPanel.add(scrollPane, BorderLayout.CENTER);
+
+        getContentPane().add(mainPanel);
+    }
+
+    private void updateButton() {
+        if (buttonsVisible) {
+            showEmployeesButton.setText("Go Back");
+        } else {
+            showEmployeesButton.setText("Show All Employees");
+        }
+    }
+
+    private void displayEmployees() {
+        try {
+            Connection connection = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/staffholidays",
+                    "root",
+                    "web2024");
+
+            Employee employee = new Employee(connection);
+            ResultSet resultSet = employee.getAllEmployees();
+
+            employeesPanel.removeAll(); // Clear existing employee buttons
+            employeesPanel.setLayout(new BoxLayout(employeesPanel, BoxLayout.Y_AXIS)); // Set alignment to Y_AXIS
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+
+                JButton employeeButton = new JButton(name);
+                employeeButton.setAlignmentX(Component.CENTER_ALIGNMENT); // Center align the button
+                employeeButton.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        performNewAction(name);
+                    }
+                });
+
+                employeesPanel.add(employeeButton);
+            }
+
+            connection.close(); // Close the connection
+            employeesPanel.revalidate(); // Refresh the panel
+            employeesPanel.repaint();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Failed to fetch employees from the database!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void performNewAction(String employeeName) {
+        // Your new functionality here
+        JOptionPane.showMessageDialog(this, "New functionality for " + employeeName, "Info", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void hideEmployeeButtons() {
+        Component[] components = employeesPanel.getComponents();
+        for (Component component : components) {
+            component.setVisible(false);
+        }
+    }
+
+    private void addSearchComponents() {
+        searchField = new JTextField(20);
+        searchField.setText(PLACEHOLDER_TEXT);
+        searchField.setForeground(Color.GRAY);
+        searchField.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (searchField.getText().equals(PLACEHOLDER_TEXT)) {
+                    searchField.setText("");
+                    searchField.setForeground(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (searchField.getText().isEmpty()) {
+                    searchField.setText(PLACEHOLDER_TEXT);
+                    searchField.setForeground(Color.GRAY);
+                }
+            }
+        });
+
+        searchField.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) {
+                searchEmployees();
+            }
+
+            public void removeUpdate(DocumentEvent e) {
+                searchEmployees();
+            }
+
+            public void insertUpdate(DocumentEvent e) {
+                searchEmployees();
+            }
+        });
+
+        searchPanel = new JPanel();
+        searchPanel.add(searchField);
+
+        JPanel buttonPanel = (JPanel) getContentPane().getComponent(0);
+        buttonPanel.add(searchPanel, BorderLayout.SOUTH);
+        buttonPanel.revalidate();
+        buttonPanel.repaint();
+    }
+
+    private void removeSearchComponents() {
+        JPanel buttonPanel = (JPanel) getContentPane().getComponent(0);
+        buttonPanel.remove(searchPanel);
+        buttonPanel.revalidate();
+        buttonPanel.repaint();
+    }
+
+    private void searchEmployees() {
+        // Get the search text
+        String queryText = searchField.getText().trim().toLowerCase();
+
+        // Iterate over the employee buttons
+        Component[] components = employeesPanel.getComponents();
+        for (Component component : components) {
+            if (component instanceof JButton) {
+                JButton button = (JButton) component;
+                String buttonText = button.getText().toLowerCase();
+                // Check if the button text contains the search text
+                if (buttonText.contains(queryText)) {
+                    button.setVisible(true);
+                } else {
+                    button.setVisible(false);
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            StaffHolidaysGUI gui = new StaffHolidaysGUI();
+            gui.setVisible(true);
+        });
+    }
+}

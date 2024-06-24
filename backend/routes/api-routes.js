@@ -2,7 +2,7 @@ const handleApiRequest = require('../controllers/api-controller');
 const { upload, handleUpload } = require('../controllers/upload-controller');
 const { getUploads } = require('../controllers/upload-controller');
 const jwt = require('jsonwebtoken');
-const JWT_SECRET = process.env.JWT_SECRET || 'baby-shark';
+const JWT_SECRET = 'baby-shark';
 
 const apiRoutes = async (req, res) => {
     if (req.url === '/api/upload' && req.method === 'POST') {
