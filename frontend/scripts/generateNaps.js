@@ -1,4 +1,3 @@
-// Nap generation logic
 document.getElementById('generateButton').addEventListener('click', function() {
     var numNaps = parseInt(document.getElementById('numNaps').value, 10);
     var napTimesContainer = document.getElementById('napTimesContainer');
@@ -103,4 +102,16 @@ async function resetForm(formType) {
         console.error('Error resetting form:', error);
         alert('Error resetting form: ' + error.message);
     }
+}
+
+function getCookie(name) {
+    const cookies = document.cookie.split(';');
+    for (let cookie of cookies) {
+        const [cookieName, ...cookieParts] = cookie.split('=');
+        const trimmedCookieName = cookieName.trim();
+        if (trimmedCookieName === name) {
+            return decodeURIComponent(cookieParts.join('='));
+        }
+    }
+    return null;
 }

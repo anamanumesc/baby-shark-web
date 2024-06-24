@@ -1,4 +1,3 @@
-// Authorization and Token Validation Logic
 function getCookie(name) {
     const cookies = document.cookie.split(';');
     console.log('Cookies:', cookies); // Debugging log
@@ -13,7 +12,6 @@ function getCookie(name) {
 }
 
 function isValidToken(token) {
-    return true;
     const tokenParts = token.split('.');
     if (tokenParts.length !== 3) {
         return false;

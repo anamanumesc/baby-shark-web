@@ -46,16 +46,12 @@ const handleApiRequest = async (req, res) => {
             await parseJsonBody(req);
             await friendsController.deleteFriendRequest(req, res);
         } else if (req.url === '/api/meals' && req.method === 'POST') {
-            await parseJsonBody(req);
             await mealController.addMeals(req, res);
         } else if (req.url === '/api/naps' && req.method === 'POST') {
-            await parseJsonBody(req);
             await napController.addNaps(req, res);
         } else if (req.url === '/api/reset-meal-form' && req.method === 'POST') {
-            await parseJsonBody(req);
             await mealController.resetMealForm(req, res);
         } else if (req.url === '/api/reset-sleep-form' && req.method === 'POST') {
-            await parseJsonBody(req);
             await napController.resetSleepForm(req, res);
         } else if (req.url === '/api/medical' && req.method === 'POST') {
             upload.single('pdf')(req, res, async (err) => {
