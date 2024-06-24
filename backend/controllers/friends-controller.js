@@ -1,7 +1,6 @@
+const jwt = require('jsonwebtoken');
 const Friend = require('../models/friends');
 const User = require('../models/user');
-const jwt = require('jsonwebtoken');
-
 const JWT_SECRET = 'baby-shark';
 
 async function createFriendship(req, res) {

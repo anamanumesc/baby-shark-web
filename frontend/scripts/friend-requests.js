@@ -1,9 +1,10 @@
+import { getCookie, parseJwt } from './cookieUtils.js';
+
 document.addEventListener('DOMContentLoaded', async () => {
     const token = getCookie('clientToken');
-    
+
     if (!token) {
-        alert('You need to be logged in to view friend requests');
-        window.location.href = 'start-page.html';
+        window.location.href = '401.html'; // Redirect to 401 page if not logged in
         return;
     }
 
@@ -21,18 +22,13 @@ document.addEventListener('DOMContentLoaded', async () => {
             renderFriendRequests(friendRequests);
         } else {
             console.error('Error fetching friend requests:', friendRequests.error);
+            window.location.href = '401.html'; // Redirect to 401 page if the response is not ok
         }
     } catch (error) {
         console.error('Error during fetch friend requests:', error);
+        window.location.href = '401.html'; // Redirect to 401 page if there is a fetching error
     }
 });
-
-function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-    return null;
-}
 
 function renderFriendRequests(friendRequests) {
     const container = document.getElementById('friendRequestsContainer');
@@ -78,13 +74,13 @@ async function handleFriendRequest(friendshipId, action) {
         const result = await response.json();
 
         if (response.ok) {
-            alert(result.message);
             window.location.reload();
         } else {
-            alert(`Error: ${result.error}`);
+            console.error(`Error: ${result.error}`);
+            window.location.href = '401.html'; // Redirect to 401 page if the response is not ok
         }
     } catch (error) {
         console.error(`Error during ${action} friend request:`, error);
-        alert(`An error occurred while trying to ${action} the friend request`);
+        window.location.href = '401.html'; // Redirect to 401 page if there is an error during the request
     }
 }

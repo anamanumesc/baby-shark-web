@@ -41,7 +41,8 @@ document.addEventListener("DOMContentLoaded", async function() {
     }
 
     try {
-        const response = await fetch('http://localhost:7081/api/friends', {
+        console.log('Fetching friends with token:', token);
+        const response = await fetch('http://localhost:7083/api/friends', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`

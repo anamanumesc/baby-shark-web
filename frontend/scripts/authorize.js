@@ -1,6 +1,5 @@
 function getCookie(name) {
     const cookies = document.cookie.split(';');
-    console.log('Cookies:', cookies); // Debugging log
     for (let cookie of cookies) {
         const [cookieName, ...cookieParts] = cookie.split('=');
         const trimmedCookieName = cookieName.trim();
@@ -16,7 +15,6 @@ function isValidToken(token) {
     if (tokenParts.length !== 3) {
         return false;
     }
-    // Here we should verify the signature and expiration date if necessary
     return true; // Simplified validation for the example
 }
 
@@ -34,16 +32,13 @@ function parseJwt(token) {
 
 document.addEventListener("DOMContentLoaded", function() {
     const token = getCookie('clientToken');
-    console.log('Retrieved token:', token); // Debugging log
     if (!token || !isValidToken(token)) {
-        console.error('Invalid or missing token');
         window.location.href = '../html/401.html';
         return;
     }
 
     try {
         const decodedToken = parseJwt(token);
-        console.log('Decoded token:', decodedToken); // Debugging log
 
         const sleepForm = decodedToken.sleepForm;
         const mealForm = decodedToken.mealForm;
@@ -65,8 +60,15 @@ document.addEventListener("DOMContentLoaded", function() {
             window.location.href = '../html/medical.html';
             return;
         }
+
+        // Add conditions for new pages
+        if (currentPage.includes('friend-list.html') ||
+            currentPage.includes('friend-requests.html') ||
+            currentPage.includes('friendship-add-code.html') ||
+            currentPage.includes('friendship-code.html')) {
+            return;
+        }
     } catch (e) {
-        console.error('Error decoding token:', e);
         window.location.href = '../html/401.html';
     }
 });
