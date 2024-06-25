@@ -23,7 +23,7 @@ function base64UrlEncode(input) {
     return base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 }
 
-function validateSignature(token, secret) {
+function validateSignature(token, secret) { ///corecta si completa
     const [header, payload, signature] = token.split('.');
 
     const data = `${header}.${payload}`;

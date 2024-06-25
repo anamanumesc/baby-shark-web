@@ -62,7 +62,7 @@ document.getElementById('submitButton').addEventListener('click', async function
 
         if (response.ok) {
             alert('Naps and sleep added successfully');
-            window.location.href = '../html/sleeping-schedule.html'; // Redirect after successful submission
+            window.location.href = '../html/sleeping-schedule.html';
         } else {
             const result = await response.json();
             alert('Error: ' + result.message);
@@ -73,7 +73,6 @@ document.getElementById('submitButton').addEventListener('click', async function
     }
 });
 
-// Reset form logic
 async function resetForm(formType) {
     const token = getCookie('clientToken');
     if (!token) {

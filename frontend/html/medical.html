@@ -21,13 +21,12 @@
       <a href="../html/medical-form.html" class="add-medical-record">Add Medical Record</a>
     </div>
     <div class="main-page" id="medical-feed"> 
-        <!-- Medical entries will be appended here by JavaScript -->
     </div>
   </div>
   <script>
     document.addEventListener('DOMContentLoaded', async () => {
       const token = getCookie('clientToken');
-      console.log('Retrieved token:', token); // Debugging log
+      console.log('Retrieved token:', token);
       if (!token) {
         console.error('Token not found');
         window.location.href = '../html/401.html';

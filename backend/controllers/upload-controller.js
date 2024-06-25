@@ -4,10 +4,9 @@ const Post = require('../models/post');
 const User = require('../models/user');
 const Friend = require('../models/friends');
 
-// Set up multer for file storage
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, path.join(__dirname, '../uploads')); // Store files in backend/uploads
+        cb(null, path.join(__dirname, '../uploads'));
     },
     filename: (req, file, cb) => {
         cb(null, Date.now() + path.extname(file.originalname));
@@ -16,22 +15,21 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-// Function to handle upload
 const handleUpload = async (req, res) => {
-    console.log('handleUpload called'); // Debugging line
+    console.log('handleUpload called');
     try {
         const { description, tags } = req.body;
         const file = req.file;
 
         if (!file) {
-            console.log('No file uploaded'); // Debugging line
+            console.log('No file uploaded');
             res.writeHead(400, { 'Content-Type': 'application/json' });
             return res.end(JSON.stringify({ error: 'No file uploaded' }));
         }
 
-        const userId = req.userId; // Get userId from token
+        const userId = req.userId;
         if (!userId) {
-            console.log('Unauthorized request'); // Debugging line
+            console.log('Unauthorized request');
             res.writeHead(401, { 'Content-Type': 'application/json' });
             return res.end(JSON.stringify({ error: 'Unauthorized' }));
         }
@@ -74,30 +72,30 @@ const handleUpload = async (req, res) => {
             }
 
             if (friendIds.length === 0) {
-                console.log('None of the tagged users are friends'); // Debugging line
+                console.log('None of the tagged users are friends');
                 res.writeHead(400, { 'Content-Type': 'application/json' });
                 return res.end(JSON.stringify({ error: 'None of the tagged users are friends' }));
             }
         }
 
-        const relativeFilePath = path.relative(path.join(__dirname, '../uploads'), file.path); // Store relative path
+        const relativeFilePath = path.relative(path.join(__dirname, '../uploads'), file.path);
         const existingPost = await Post.findOne({ description, filePath: relativeFilePath });
         if (existingPost) {
-            console.log('Duplicate post detected'); // Debugging line
+            console.log('Duplicate post detected');
             res.writeHead(409, { 'Content-Type': 'application/json' });
             return res.end(JSON.stringify({ error: 'Duplicate post detected' }));
         }
 
         const post = new Post({
             description,
-            filePath: relativeFilePath, // Store relative path
+            filePath: relativeFilePath,
             tags: friendIds,
             uploader: userId
         });
 
         await post.save();
 
-        console.log('File uploaded successfully'); // Debugging line
+        console.log('File uploaded successfully');
         res.writeHead(201, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ message: 'File uploaded successfully', post }));
     } catch (error) {
@@ -107,7 +105,6 @@ const handleUpload = async (req, res) => {
     }
 };
 
-// Function to get uploads
 const getUploads = async (req, res) => {
     try {
         const userId = req.userId;

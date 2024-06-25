@@ -1,6 +1,6 @@
 function getCookie(name) {
     const cookies = document.cookie.split(';');
-    console.log('Cookies:', cookies); // Debugging log
+    console.log('Cookies:', cookies);
     for (let cookie of cookies) {
         const [cookieName, ...cookieParts] = cookie.split('=');
         const trimmedCookieName = cookieName.trim();
@@ -16,8 +16,7 @@ function isValidToken(token) {
     if (tokenParts.length !== 3) {
         return false;
     }
-    // Here we should verify the signature and expiration date if necessary
-    return true; // Simplified validation for the example
+    return true;
 }
 
 function parseJwt (token) {
@@ -35,7 +34,7 @@ function parseJwt (token) {
 
 document.addEventListener("DOMContentLoaded", function() {
     const token = getCookie('clientToken');
-    console.log('Retrieved token:', token); // Debugging log
+    console.log('Retrieved token:', token);
     if (!token || !isValidToken(token)) {
         console.error('Invalid or missing token');
         window.location.href = '../html/401.html';
@@ -44,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     try {
         const decodedToken = parseJwt(token);
-        console.log('Decoded token:', decodedToken); // Debugging log
+        console.log('Decoded token:', decodedToken);
         const username = decodedToken.userName;
 
         if (!username) {
@@ -58,11 +57,10 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
-// Meal generation logic
 document.getElementById('generateButton').addEventListener('click', function() {
-    console.log('Generate button clicked'); // Debugging log
+    console.log('Generate button clicked');
     var numMeals = parseInt(document.getElementById('numMeals').value, 10);
-    console.log('Number of meals:', numMeals); // Debugging log
+    console.log('Number of meals:', numMeals);
     var mealDescriptionsContainer = document.getElementById('mealDescriptionsContainer');
 
     mealDescriptionsContainer.innerHTML = '';
@@ -81,19 +79,19 @@ document.getElementById('generateButton').addEventListener('click', function() {
     }
 
     var submitButton = document.getElementById('submitButton');
-    console.log('Submit button before class change:', submitButton); // Debugging log
+    console.log('Submit button before class change:', submitButton);
     submitButton.classList.remove('hidden');
-    console.log('Submit button after class change:', submitButton); // Debugging log
+    console.log('Submit button after class change:', submitButton);
 });
 
 document.getElementById('submitButton').addEventListener('click', async function(event) {
     event.preventDefault();
-    console.log('Submit button clicked'); // Debugging log
+    console.log('Submit button clicked');
     var descriptions = [];
     var mealInputs = document.querySelectorAll('#mealDescriptionsContainer textarea');
 
     mealInputs.forEach(input => descriptions.push(input.value));
-    console.log('Meal descriptions:', descriptions); // Debugging log
+    console.log('Meal descriptions:', descriptions);
 
     if (descriptions.some(description => description.trim() === '')) {
         alert('Meal description cannot be empty');
@@ -102,7 +100,7 @@ document.getElementById('submitButton').addEventListener('click', async function
 
     try {
         const token = getCookie('clientToken');
-        console.log('Submitting meals with token:', token); // Debugging log
+        console.log('Submitting meals with token:', token);
         const response = await fetch('/api/meals', {
             method: 'POST',
             headers: {
@@ -114,7 +112,7 @@ document.getElementById('submitButton').addEventListener('click', async function
 
         if (response.ok) {
             alert('Meals added successfully');
-            window.location.href = '../html/eating-schedule.html'; // Redirect after successful submission
+            window.location.href = '../html/eating-schedule.html';
         } else {
             const result = await response.json();
             alert('Error: ' + result.message);

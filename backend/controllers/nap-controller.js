@@ -3,8 +3,7 @@ const Sleep = require('../models/sleep');
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 
-const JWT_SECRET = 'baby-shark'; // Hardcoded JWT secret
-
+const JWT_SECRET = 'baby-shark';
 exports.addNaps = async (req, res) => {
     const token = req.headers.authorization.split(' ')[1];
     let userId;
@@ -12,7 +11,7 @@ exports.addNaps = async (req, res) => {
     try {
         const decodedToken = jwt.verify(token, JWT_SECRET);
         userId = decodedToken.userId;
-        console.log('Decoded Token:', decodedToken); // Added logging
+        console.log('Decoded Token:', decodedToken);
     } catch (error) {
         console.error('JWT verification error:', error.message);
         res.writeHead(401, { 'Content-Type': 'application/json' });
@@ -57,9 +56,8 @@ exports.addNaps = async (req, res) => {
             await Promise.all(napPromises);
             await newSleep.save();
 
-            console.log('Naps and sleep saved successfully'); // Added logging
+            console.log('Naps and sleep saved successfully');
 
-            // Update user sleepForm field
             const user = await User.findByIdAndUpdate(userId, { sleepForm: true }, { new: true });
 
             console.log('Updated user:', user);

@@ -4,7 +4,6 @@ document.getElementById('friendRequestForm').addEventListener('submit', async fu
     const name = document.getElementById('name').value;
     const code = document.getElementById('code').value;
 
-    // Function to get a cookie value by name
     function getCookie(name) {
         const value = `; ${document.cookie}`;
         const parts = value.split(`; ${name}=`);
@@ -12,9 +11,8 @@ document.getElementById('friendRequestForm').addEventListener('submit', async fu
         return null;
     }
 
-    // Retrieve token from cookies
     const token = getCookie('clientToken');
-    console.log('Retrieved token:', token);  // Debug log
+    console.log('Retrieved token:', token);
 
     if (!token) {
         alert('You need to be logged in to send a friend request');
@@ -39,7 +37,7 @@ document.getElementById('friendRequestForm').addEventListener('submit', async fu
             alert(`Error: ${result.error}`);
         }
     } catch (error) {
-        console.error('Error during friend request:', error);  // Improved error logging
+        console.error('Error during friend request:', error);
         alert('An error occurred while sending the friend request');
     }
 });

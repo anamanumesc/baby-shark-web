@@ -7,20 +7,20 @@ body, html {
 
 .header {
     background-color: blue;
-    height: 10vh; /* 10% of the viewport height */
+    height: 10vh;
 }
 
 .navigation {
     display: flex;
-    justify-content: center; /* Center the navigation horizontally */
+    justify-content: center;
     background-color: white;
-    padding: 2vh 0; /* Use viewport height units for vertical padding */
+    padding: 2vh 0;
 }
 
 .nav-list {
     list-style: none;
     display: flex;
-    gap: 5vw; /* Use viewport width units for gaps between items */
+    gap: 5vw;
     padding: 0;
 }
 
@@ -28,22 +28,21 @@ body, html {
     text-decoration: none;
     color: black;
     background-color: pink;
-    padding: 2vh 4vw; /* Responsive padding based on viewport size */
+    padding: 2vh 4vw;
     border-radius: 5px;
     transition: background-color 0.3s;
 }
 
 .nav-list li a:hover {
-    background-color: #d147a3; /* Slightly darker pink on hover */
+    background-color: #d147a3;
 }
 
-/* Responsive adjustments for smaller screens */
 @media (max-width: 600px) {
     .nav-list li a {
-        padding: 2vh 3vw; /* Adjust padding for smaller screens */
+        padding: 2vh 3vw;
     }
 
     .nav-list {
-        gap: 4vw; /* Reduce the gap for smaller screens */
+        gap: 4vw;
     }
 }

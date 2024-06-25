@@ -7,7 +7,7 @@ const napController = require('./nap-controller');
 const medicalController = require('./medical-controller');
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
-const JWT_SECRET = 'baby-shark'; // Hardcoded JWT secret
+const JWT_SECRET = 'baby-shark';///hardcodat ca .env nu merge
 
 const handleApiRequest = async (req, res) => {
     if (req.url === '/api/signup' && req.method === 'POST') {
@@ -17,7 +17,6 @@ const handleApiRequest = async (req, res) => {
         await parseJsonBody(req);
         await userController.login(req, res);
     } else {
-        // Verify JWT token for all other API requests
         try {
             const cookieHeader = req.headers.cookie;
             if (!cookieHeader) throw new Error('Authorization header is missing');

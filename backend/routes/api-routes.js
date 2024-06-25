@@ -6,7 +6,6 @@ const JWT_SECRET = 'baby-shark';
 
 const apiRoutes = async (req, res) => {
     if (req.url === '/api/upload' && req.method === 'POST') {
-        // Verify JWT token
         try {
             const cookieHeader = req.headers.cookie;
 

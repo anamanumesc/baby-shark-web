@@ -72,16 +72,43 @@
         <li><strong>Logo Generator</strong><a href="https://www.design.com"> design.com</a></li>
         <li><strong>Guide about using CSS Box Model</strong><a href="https://www.youtube.com/watch?v=rIO5326FgPE&ab_channel=WebDevSimplified"> Youtube Link</a></li>
         <li><strong>Inspiration:</strong> a similar website that handles infant well-being with many tools that facilitate taking care of a newborn: <a href="https://www.babycenter.com">babycenter.com</a></li>
+        <li><strong>The Lab's site</strong>Of course, we used the information presented to us at the course </li>
     </ol>
 
-    <h1 id="2.0" class="purple-text">2. Description</h1>
     <h2 id="2.1">2.1 Product Perspective</h2>
-        <p><strong>The child care management application</strong> is designed as a standalone system, catering to the unique needs of families or couples responsible for the care of children. It is not intended to be a replacement for existing systems but rather a comprehensive solution tailored specifically for child care management.</p>
-        <p><strong>System Components:</strong>The application comprises various modules including <strong>feeding schedules</strong>, <strong>sleep patterns</strong>, <strong>multimedia management</strong>, <strong>medical history</strong>, and <strong>relationship tracking</strong>. These modules interact seamlessly within the application framework to provide a holistic view of the child's well-being.</p>
-        <p><strong>Interfaces:</strong>While the application functions independently, it may interface with external systems or services, such as <strong>social media platforms</strong> for sharing significant moments or <strong>RSS news feeds</strong> for broader dissemination of child care updates.</p>
+    <p><strong>The child care management application</strong> is designed as a standalone system, catering to the unique needs of families or couples responsible for the care of children. It is not intended to be a replacement for existing systems but rather a comprehensive solution tailored specifically for child care management.</p>
+    <p><strong>System Components:</strong>The application comprises various modules including <strong>feeding schedules</strong>, <strong>sleep patterns</strong>, <strong>multimedia management</strong>, <strong>medical history</strong>, and <strong>relationship tracking</strong>. These modules interact seamlessly within the application framework to provide a holistic view of the child's well-being.</p>
+    <p><strong>Interfaces:</strong>While the application functions independently, it may interface with external systems or services, such as <strong>social media platforms</strong> for sharing significant moments or <strong>RSS news feeds</strong> for broader dissemination of child care updates.</p>
     </ol>
+    
+    <h3>Technologies Used</h3>
+    <ul>
+        <li>
+            <strong>Database:</strong>
+            MongoDB is used as the database to store user information, schedules, multimedia files, and medical records.
+        </li>
+        <li>
+            <strong>ORM:</strong>
+            Mongoose is utilized as an Object Data Modeling (ODM) library for MongoDB, providing a straightforward, schema-based solution to model your application data.
+        </li>
+        <li>
+            <strong>Authentication:</strong>
+            JSON Web Tokens (JWT) are used for user authentication, ensuring secure communication between the client and server.
+        </li>
+        <li>
+            <strong>Password Security:</strong>
+            bcrypt is implemented to hash user passwords, adding a layer of security by storing only the hashed version of the passwords in the database.
+        </li>
+        <li>
+            <strong>File Uploads:</strong>
+            Multer is used for handling file uploads, enabling users to upload images, videos, and PDF documents securely.
+        </li>
+    </ul>
     <h2 id="2.2">2.2 Product Functions</h2>
+    <img src="images/diagrama2.png" alt="Description of the diagram" width="75%">
     <img src="images/diagram.drawio.png" alt="Description of the diagram">
+    <img src="images/diagrama3.png" alt="Description of the diagram" width="75%">
+    <img src="images/diagrama4.png" alt="Description of the diagram" width="75%">    
     <h1 id="2.3">2.3 User Classes</h1>
     <ul>
         <li>
@@ -144,11 +171,13 @@
   <h3>Backend:</h3>
   <ul>
     <li><strong>JavaScript:</strong> The backend of the application will be developed using JavaScript, particularly with Node.js runtime environment. (also with Visual Studio Code)</li>
+    <li><strong>JWT:</strong> JSON Web Token is used for secure user authentication.</li>
+    <li><strong>Multer:</strong> used for handling multipart/form-data, primarily for uploading files.</li>
   </ul>
 
   <h3>Database:</h3>
   <ul>
-    <li><strong>GraphQL:</strong> The database will be implemented using GraphQL, which provides a query language for interacting with the database.</li>
+    <li><strong>MongoDB:</strong> The database will be implemented using MongoDB, which creates tables on the hosting computer, which are accessible through both their application MongoDBCompass, but also through integration with the Mongoose Object Data Modeling library.</li>
   </ul>
 
   <h3>Operating System:</h3>
@@ -173,7 +202,9 @@
   <img src="images/image4.png" alt="Image4" style="width: 50%; height: auto;">
   <img src="images/image5.png" alt="Image5" style="width: 50%; height: auto;">
   <img src="images/image6.png" alt="Image6" style="width: 50%; height: auto;">
+  <img src="images/image8.png" alt="Image6" style="width: 50%; height: auto;">
   <img src="images/image7.png" alt="Image7" style="width: 50%; height: auto;">  
+  <img src="images/image9.png" alt="Image7" style="width: 50%; height: auto;">  
   <h1 id="4.0" class="purple-text">4. System Features</h1>
   <h3 id="4.1">4.1 Feature 1: Feeding Schedule Management</h3>
   <p><strong>Description and Priority:</strong> Track and manage feeding schedules for children. Priority: High.</p>
@@ -240,6 +271,9 @@
   </ol>
   <h2 id="5.3">5.3 Security Requirements</h2>
   <ol>
+    <li><strong>Password Security:</strong> User passwords are hashed using bcrypt before being stored in the database, ensuring that plain text passwords are never stored.</li>
+    <li><strong>Authentication:</strong> JWT is used for authenticating users, ensuring secure and stateless authentication for API requests.</li>
+    <li><strong>File Uploads:</strong> Multer is used to securely handle file uploads, ensuring that only authorized users can upload files.</li>
     <li><strong>Data Encryption:</strong> Encrypt sensitive user data during storage and transmission.(as stated previously)</li>
     <li><strong>Access Control:</strong> Implement role-based access control (RBAC) for data protection.</li>
     <li><strong>User Authentication:</strong> Enforce strong user authentication mechanisms.</li>
@@ -257,7 +291,7 @@
     <li><strong>Usability:</strong> Maintain a user interface usability score above 85%.</li>
     <li><strong>Maintainability:</strong> Aim for a maintainability index of at least 80%.</li>
     <li><strong>Scalability:</strong> Support a 50% increase in concurrent users without performance degradation.</li>
-    <li><strong>Security:</strong> Achieve a security score of 90% or higher in vulnerability assessments.</li>
+    <li><strong>Security:</strong> The application implements several security measures, including JWT for authentication, bcrypt for password hashing, and Multer for secure file handling. These technologies help protect user data and ensure that the system complies with relevant security standards.</li>
     <li><strong>Interoperability:</strong> Ensure compatibility with external systems with an interoperability rating above 85%.</li>
     <li><strong>Testability:</strong> Implement comprehensive testing strategies for thorough test coverage.</li>
     <li><strong>Adaptability:</strong> Adapt to evolving user needs and technological advancements.</li>

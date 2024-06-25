@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const JWT_SECRET = 'baby-shark'; // Hardcoded JWT secret
+const JWT_SECRET = 'baby-shark';
 
 const getUserIdFromToken = (req) => {
   const cookieHeader = req.headers.cookie;

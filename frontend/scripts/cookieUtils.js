@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", async function() {
     const token = getCookie('clientToken');
     if (!token) {
         alert("You need to be logged in to view your friends.");
-        window.location.href = 'start-page.html'; // Redirect to login page if not logged in
+        window.location.href = 'start-page.html';
         return;
     }
 
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", async function() {
 
     if (!userId) {
         alert("Error decoding token. Please log in again.");
-        window.location.href = 'start-page.html'; // Redirect to login page if token is invalid
+        window.location.href = 'start-page.html';
         return;
     }
 
@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", async function() {
             return;
         }
 
-        console.log("Fetched friendships data:", data); // Debugging log
+        console.log("Fetched friendships data:", data);
 
         const acceptedFriendships = data.filter(friendship => {
             return friendship.status === 'accepted' && 

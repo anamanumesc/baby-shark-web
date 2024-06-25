@@ -2,7 +2,7 @@ const Meal = require('../models/meal');
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 
-const JWT_SECRET = 'baby-shark'; // Hardcoded JWT secret
+const JWT_SECRET = 'baby-shark';
 
 exports.addMeals = async (req, res) => {
     const token = req.headers.authorization.split(' ')[1];
@@ -42,7 +42,6 @@ exports.addMeals = async (req, res) => {
 
             await Promise.all(mealPromises);
 
-            // Update user mealForm field
             await User.findByIdAndUpdate(userId, { mealForm: true });
 
             const user = await User.findById(userId);
