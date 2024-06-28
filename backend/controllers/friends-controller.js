@@ -72,8 +72,6 @@ async function getFriendships(req, res) {
         const decodedToken = jwt.verify(token, JWT_SECRET);
         const userId = decodedToken.userId;
 
-        console.log('User ID from token:', userId);
-
         const friendships = await Friend.find({
             status: 'accepted',
             $or: [
@@ -82,16 +80,24 @@ async function getFriendships(req, res) {
             ]
         });
 
-        console.log('Retrieved friendships:', friendships);
+        const friendsDetails = friendships.map(friendship => {
+            if (friendship.user1._id.toString() === userId) {
+                return friendship.user2;
+            } else {
+                return friendship.user1;
+            }
+        });
 
         res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify(friendships));
+        res.end(JSON.stringify(friendsDetails));
     } catch (error) {
         console.error('Error fetching friendships:', error.message);
         res.writeHead(500, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ error: error.message }));
     }
 }
+
+
 
 async function getFriendRequests(req, res) {
     try {

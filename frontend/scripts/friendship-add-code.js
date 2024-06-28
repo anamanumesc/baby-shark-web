@@ -12,7 +12,7 @@ document.getElementById('friendRequestForm').addEventListener('submit', async fu
     }
 
     const token = getCookie('clientToken');
-    console.log('Retrieved token:', token);
+    console.log('Retrieved token:', token);  
 
     if (!token) {
         alert('You need to be logged in to send a friend request');
@@ -37,7 +37,7 @@ document.getElementById('friendRequestForm').addEventListener('submit', async fu
             alert(`Error: ${result.error}`);
         }
     } catch (error) {
-        console.error('Error during friend request:', error);
+        console.error('Error during friend request:', error);  
         alert('An error occurred while sending the friend request');
     }
 });
