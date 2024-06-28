@@ -5,9 +5,10 @@ const friendsController = require('./friends-controller');
 const mealController = require('./meal-controller');
 const napController = require('./nap-controller');
 const medicalController = require('./medical-controller');
+const sleepController = require('./sleep-controller');
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
-const JWT_SECRET = 'baby-shark';///hardcodat ca .env nu merge
+const JWT_SECRET = 'baby-shark'; // Hardcoded JWT secret
 
 const handleApiRequest = async (req, res) => {
     if (req.url === '/api/signup' && req.method === 'POST') {
@@ -62,6 +63,8 @@ const handleApiRequest = async (req, res) => {
             });
         } else if (req.url === '/api/medical' && req.method === 'GET') {
             await medicalController.getMedicalVisits(req, res);
+        } else if (req.url === '/api/get-sleep-times' && req.method === 'GET') {
+            await sleepController.getSleepTimes(req, res);
         } else {
             res.writeHead(404, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify({ error: 'Not Found' }));

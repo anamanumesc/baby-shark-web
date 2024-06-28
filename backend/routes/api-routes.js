@@ -3,9 +3,11 @@ const { upload, handleUpload } = require('../controllers/upload-controller');
 const { getUploads } = require('../controllers/upload-controller');
 const jwt = require('jsonwebtoken');
 const JWT_SECRET = 'baby-shark';
+const sleepController = require('../controllers/sleep-controller');
 
 const apiRoutes = async (req, res) => {
     if (req.url === '/api/upload' && req.method === 'POST') {
+        // Verify JWT token
         try {
             const cookieHeader = req.headers.cookie;
 
@@ -53,6 +55,8 @@ const apiRoutes = async (req, res) => {
             res.writeHead(401, { 'Content-Type': 'application/json' });
             return res.end(JSON.stringify({ error: 'Unauthorized' }));
         }
+    } else if (req.url === '/api/get-sleep-times' && req.method === 'GET') {
+        await sleepController.getSleepTimes(req, res);
     } else {
         handleApiRequest(req, res);
     }
