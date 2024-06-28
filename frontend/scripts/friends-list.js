@@ -1,77 +1,44 @@
-import { getCookie, parseJwt } from './cookieUtils.js';
+import { getCookie } from './cookieUtils.js';
 
-document.addEventListener("DOMContentLoaded", async function() {
+document.addEventListener('DOMContentLoaded', async () => {
     const token = getCookie('clientToken');
+
     if (!token) {
-        window.location.href = 'start-page.html';
-        return;
-    }
-
-    const decodedToken = parseJwt(token);
-    const userId = decodedToken ? decodedToken.userId : null;
-
-    if (!userId) {
-        window.location.href = 'start-page.html';
+        console.error('No token found. User is not authenticated.');
         return;
     }
 
     try {
-        const response = await fetch('http://localhost:7083/api/friends', {
+        const response = await fetch('/api/friends', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         });
-        
+
         if (!response.ok) {
-            const errorText = await response.text();
-            console.error(`Error response: ${errorText}`);
-            window.location.href = '401.html';
-            return;
+            throw new Error('Failed to fetch friends list.');
         }
 
-        const data = await response.json();
-        const friendListContainer = document.getElementById('friendListContainer');
+        const friends = await response.json();
+        console.log('Fetched friends data:', friends);
 
-        if (data.error) {
-            console.error(`API Error: ${data.error}`);
-            window.location.href = '401.html';
-            return;
+        const gridContainer = document.querySelector('#friendListContainer');
+
+        if (!gridContainer) {
+            throw new Error('Grid container not found in HTML.');
         }
 
-        const acceptedFriendships = data.filter(friendship => 
-            friendship.status === 'accepted' &&
-            ((friendship.user1 && friendship.user1._id === userId) || 
-            (friendship.user2 && friendship.user2._id === userId) || 
-            (friendship.user1_id === userId) || 
-            (friendship.user2_id === userId))
-        );
+        gridContainer.innerHTML = '';
 
-        if (acceptedFriendships.length === 0) {
-            friendListContainer.innerHTML = "<p>No friends found.</p>";
-        } else {
-            acceptedFriendships.forEach(friendship => {
-                const friendElement = document.createElement('div');
-                friendElement.className = 'friend';
-                
-                let friend;
-                if (friendship.user1 && friendship.user1._id && friendship.user2 && friendship.user2._id) {
-                    friend = friendship.user1._id === userId ? friendship.user2 : friendship.user1;
-                } else if (friendship.user1_id && friendship.user2_id) {
-                    friend = friendship.user1_id === userId ? { _id: friendship.user2_id } : { _id: friendship.user1_id };
-                }
-
-                if (!friend) {
-                    console.error('Error: Friend data is missing:', friendship);
-                    return;
-                }
-
-                friendElement.textContent = `${friend.name || 'Unknown'} (${friend.uid || friend._id})`;
-                friendListContainer.appendChild(friendElement);
-            });
-        }
+        friends.forEach(friend => {
+            const friendDiv = document.createElement('div');
+            friendDiv.classList.add('friend');
+            friendDiv.textContent = `${friend.name} (${friend.code})`;
+            gridContainer.appendChild(friendDiv);
+        });
     } catch (error) {
         console.error('Error fetching friends:', error);
-        window.location.href = '401.html';
+        alert('Error fetching friends. Please try again later.');
     }
 });

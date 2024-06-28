@@ -1,10 +1,9 @@
-import { getCookie, parseJwt } from './cookieUtils.js';
-
 document.addEventListener('DOMContentLoaded', async () => {
     const token = getCookie('clientToken');
-
+    
     if (!token) {
-        window.location.href = '401.html';
+        alert('You need to be logged in to view friend requests');
+        window.location.href = 'start-page.html';
         return;
     }
 
@@ -22,13 +21,18 @@ document.addEventListener('DOMContentLoaded', async () => {
             renderFriendRequests(friendRequests);
         } else {
             console.error('Error fetching friend requests:', friendRequests.error);
-            window.location.href = '401.html';
         }
     } catch (error) {
         console.error('Error during fetch friend requests:', error);
-        window.location.href = '401.html';
     }
 });
+
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    return null;
+}
 
 function renderFriendRequests(friendRequests) {
     const container = document.getElementById('friendRequestsContainer');
@@ -74,13 +78,13 @@ async function handleFriendRequest(friendshipId, action) {
         const result = await response.json();
 
         if (response.ok) {
+            alert(result.message);
             window.location.reload();
         } else {
-            console.error(`Error: ${result.error}`);
-            window.location.href = '401.html';
+            alert(`Error: ${result.error}`);
         }
     } catch (error) {
         console.error(`Error during ${action} friend request:`, error);
-        window.location.href = '401.html'; 
+        alert(`An error occurred while trying to ${action} the friend request`);
     }
 }
