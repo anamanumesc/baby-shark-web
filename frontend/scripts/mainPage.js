@@ -1,40 +1,3 @@
-function getCookie(name) {
-    const cookies = document.cookie.split(';');
-    for (let cookie of cookies) {
-        const [cookieName, ...cookieParts] = cookie.split('=');
-        const trimmedCookieName = cookieName.trim();
-        if (trimmedCookieName === name) {
-            return decodeURIComponent(cookieParts.join('='));
-        }
-    }
-    return null;
-}
-
-function getSignatureFromToken(token) {
-    const tokenParts = token.split('.');
-    if (tokenParts.length !== 3) {
-        throw new Error('Invalid JWT token');
-    }
-    return tokenParts[2];
-}
-
-function base64UrlEncode(input) {
-    const base64 = CryptoJS.enc.Base64.stringify(input);
-    return base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-}
-
-function validateSignature(token, secret) { ///corecta si completa
-    const [header, payload, signature] = token.split('.');
-
-    const data = `${header}.${payload}`;
-    const expectedSignature = base64UrlEncode(CryptoJS.HmacSHA256(data, secret));
-
-    console.log('Actual signature:', signature);
-    console.log('Expected signature:', expectedSignature);
-
-    return signature === expectedSignature;
-}
-
 document.addEventListener("DOMContentLoaded", function() {
     const usernameElement = document.querySelector('.username');
 
@@ -191,4 +154,41 @@ function displayUploads(uploads) {
         square.appendChild(fileLink);
         squareContainer.appendChild(square);
     });
+}
+
+function getCookie(name) {
+    const cookies = document.cookie.split(';');
+    for (let cookie of cookies) {
+        const [cookieName, ...cookieParts] = cookie.split('=');
+        const trimmedCookieName = cookieName.trim();
+        if (trimmedCookieName === name) {
+            return decodeURIComponent(cookieParts.join('='));
+        }
+    }
+    return null;
+}
+
+function getSignatureFromToken(token) {
+    const tokenParts = token.split('.');
+    if (tokenParts.length !== 3) {
+        throw new Error('Invalid JWT token');
+    }
+    return tokenParts[2];
+}
+
+function base64UrlEncode(input) {
+    const base64 = CryptoJS.enc.Base64.stringify(input);
+    return base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+
+function validateSignature(token, secret) {
+    const [header, payload, signature] = token.split('.');
+
+    const data = `${header}.${payload}`;
+    const expectedSignature = base64UrlEncode(CryptoJS.HmacSHA256(data, secret));
+
+    console.log('Actual signature:', signature);
+    console.log('Expected signature:', expectedSignature);
+
+    return signature === expectedSignature;
 }
