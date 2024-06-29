@@ -4,6 +4,7 @@ const { getUploads } = require('../controllers/upload-controller');
 const jwt = require('jsonwebtoken');
 const JWT_SECRET = 'baby-shark';
 const sleepController = require('../controllers/sleep-controller');
+const napController = require('../controllers/nap-controller');
 
 const apiRoutes = async (req, res) => {
     if (req.url === '/api/upload' && req.method === 'POST') {
@@ -57,6 +58,8 @@ const apiRoutes = async (req, res) => {
         }
     } else if (req.url === '/api/get-sleep-times' && req.method === 'GET') {
         await sleepController.getSleepTimes(req, res);
+    } else if (req.url === '/api/get-nap-times' && req.method === 'GET') {
+        await napController.getNapTimes(req, res);
     } else {
         handleApiRequest(req, res);
     }

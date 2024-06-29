@@ -16,21 +16,39 @@ document.addEventListener('DOMContentLoaded', function() {
         events: async function(fetchInfo, successCallback, failureCallback) {
             try {
                 const token = getCookie('clientToken');
-                const response = await fetch('/api/get-sleep-times', {
+
+                // Fetch sleep times
+                const sleepResponse = await fetch('/api/get-sleep-times', {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
                 });
 
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+                // Check if the sleep response is okay
+                if (!sleepResponse.ok) {
+                    throw new Error(`Sleep API error! status: ${sleepResponse.status}`);
                 }
 
-                const sleepTimes = await response.json();
-                console.log('Fetched sleep times:', sleepTimes);
+                // Fetch nap times
+                const napResponse = await fetch('/api/get-nap-times', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
 
-                if (!Array.isArray(sleepTimes)) {
-                    throw new Error('Expected sleepTimes to be an array');
+                // Check if the nap response is okay
+                if (!napResponse.ok) {
+                    throw new Error(`Nap API error! status: ${napResponse.status}`);
+                }
+
+                const sleepTimes = await sleepResponse.json();
+                const napTimes = await napResponse.json();
+
+                console.log('Fetched sleep times:', sleepTimes);
+                console.log('Fetched nap times:', napTimes);
+
+                if (!Array.isArray(sleepTimes) || !Array.isArray(napTimes)) {
+                    throw new Error('Expected sleepTimes and napTimes to be arrays');
                 }
 
                 // Function to extract hour as a number from a time string in HH:MM format
@@ -39,6 +57,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
 
                 const events = [];
+
+                // Add sleep events
                 sleepTimes.forEach(sleepTime => {
                     const goToSleepTimeHour = extractHour(sleepTime.goToSleepTime);
                     const wakeUpTimeHour = extractHour(sleepTime.wakeUpTime);
@@ -84,10 +104,56 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 });
 
+                // Add nap events
+                napTimes.forEach(napTime => {
+                    const startNapTimeHour = extractHour(napTime.startNapTime);
+                    const endNapTimeHour = extractHour(napTime.endNapTime);
+
+                    console.log('startNapTimeHour:', startNapTimeHour, 'endNapTimeHour:', endNapTimeHour);
+
+                    if (startNapTimeHour >= endNapTimeHour) {
+                        console.log('Interval passes through midnight');
+                        // Split event: before and after midnight
+                        events.push({
+                            title: 'Nap',
+                            startTime: '00:00:00',
+                            endTime: napTime.endNapTime,
+                            startRecur: fetchInfo.startStr,
+                            endRecur: fetchInfo.endStr,
+                            daysOfWeek: [0, 1, 2, 3, 4, 5, 6],
+                            display: 'block',
+                            backgroundColor: '#FFD700'
+                        });
+                        events.push({
+                            title: 'Nap',
+                            startTime: napTime.startNapTime,
+                            endTime: '23:59:59',
+                            startRecur: fetchInfo.startStr,
+                            endRecur: fetchInfo.endStr,
+                            daysOfWeek: [0, 1, 2, 3, 4, 5, 6],
+                            display: 'block',
+                            backgroundColor: '#FFD700'
+                        });
+                    } else {
+                        console.log('Interval within a single day');
+                        // Normal event
+                        events.push({
+                            title: 'Nap',
+                            startTime: napTime.startNapTime,
+                            endTime: napTime.endNapTime,
+                            startRecur: fetchInfo.startStr,
+                            endRecur: fetchInfo.endStr,
+                            daysOfWeek: [0, 1, 2, 3, 4, 5, 6],
+                            display: 'block',
+                            backgroundColor: '#FFD700'
+                        });
+                    }
+                });
+
                 successCallback(events);
 
             } catch (error) {
-                console.error('Error fetching sleep times:', error);
+                console.error('Error fetching sleep and nap times:', error);
                 failureCallback(error);
             }
         },
