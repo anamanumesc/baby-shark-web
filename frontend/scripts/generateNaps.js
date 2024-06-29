@@ -39,10 +39,16 @@ document.getElementById('submitButton').addEventListener('click', async function
         });
     }
 
+    // Swapping the values here
     const sleep = {
-        goToSleepTime: document.getElementById('sleepTime').value,
-        wakeUpTime: document.getElementById('wakeUpTime').value
+        goToSleepTime: document.getElementById('wakeUpTime').value,  // Swapped
+        wakeUpTime: document.getElementById('sleepTime').value      // Swapped
     };
+
+    console.log("Form data before sending:");
+    console.log("Go to sleep time:", sleep.goToSleepTime);
+    console.log("Wake up time:", sleep.wakeUpTime);
+    console.log("Naps:", naps);
 
     if (naps.some(nap => !nap.start || !nap.end)) {
         alert('Nap times cannot be empty');

@@ -60,6 +60,8 @@ const apiRoutes = async (req, res) => {
         await sleepController.getSleepTimes(req, res);
     } else if (req.url === '/api/get-nap-times' && req.method === 'GET') {
         await napController.getNapTimes(req, res);
+    } else if (req.url === '/api/delete-sleep-naps' && req.method === 'DELETE') {
+        await sleepController.deleteAllSleepNaps(req, res);
     } else {
         handleApiRequest(req, res);
     }
