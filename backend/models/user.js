@@ -7,7 +7,8 @@ const userSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     sleepForm: { type: Boolean, default: false },
-    mealForm: { type: Boolean, default: false }
+    mealForm: { type: Boolean, default: false },
+    admin: { type: Boolean, default: false }
 });
 
 userSchema.index({ name: 1, code: 1 }, { unique: true });
