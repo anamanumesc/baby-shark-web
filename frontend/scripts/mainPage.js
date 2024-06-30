@@ -18,10 +18,16 @@ document.addEventListener("DOMContentLoaded", function() {
     try {
         const decodedToken = JSON.parse(atob(token.split('.')[1]));
         const username = decodedToken.userName;
+        const isAdmin = decodedToken.admin; // Get the admin field from the token
 
         if (!username) {
             console.error('Username not found in decoded token:', decodedToken);
             window.location.href = 'html/401.html';
+            return;
+        }
+
+        if (isAdmin) {
+            window.location.href = 'html/admin-page.html';
             return;
         }
 

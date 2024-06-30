@@ -15,6 +15,8 @@ header {
     padding: 10px;
     width: 100%;
     box-sizing: border-box;
+    text-align: center; /* Center align the content */
+    position: relative; /* Position relative to center the logout button */
 }
 
 nav {
@@ -31,6 +33,28 @@ nav a.active {
     font-weight: bold;
 }
 
+.logo {
+    max-width: 20vh;
+    margin-bottom: 2em; /* Add margin to separate logo from the buttons */
+}
+
+.logout-button {
+    padding: 5px 10px;
+    background-color: #84bdf9;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    position: absolute;
+    top: 75%; /* Adjust top value to create space */
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.logout-button:hover {
+    background-color: #c82333;
+}
+
 main {
     flex: 1;
     padding: 1em;
@@ -39,10 +63,7 @@ main {
     align-items: center;
     width: 100%;
     box-sizing: border-box;
-}
-
-.logo{
-    max-width: 20vh;
+    flex-direction: column; /* Center align the content */
 }
 
 .search-section {
@@ -50,27 +71,45 @@ main {
     flex-wrap: wrap;
     justify-content: center;
     margin-top: 2em;
+    flex-direction: column; /* Center align the content */
 }
 
-.search-column button {
+.search-column {
+    text-align: center;
+    display: flex;
+    flex-direction: column; /* Align buttons in a column */
+    align-items: center; /* Center align the buttons */
+    margin-right: 2em; /* Add margin to separate from users list column */
+}
+
+.users-list-column {
+    text-align: center;
+}
+
+.users-list-column ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.search-column button,
+.search-button,
+.ban-button,
+.freeze-button {
     display: block;
-    width: auto;
-    padding: 0.5em 1em;
-    background-color: #007bff;
-    color: #fff;
+    padding: 10px 20px;
+    margin: 5px;
+    background-color: #007BFF;
+    color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s;
-    margin-top: 0.5em;
+    transition: background-color 0.3s ease;
+    font-size: calc(2% + 0.5vw);
 }
 
-.search-column button:hover {
+.search-column button:hover,
+.search-button:hover,
+.ban-button:hover,
+.freeze-button:hover {
     background-color: #0056b3;
-}
-
-.ban-button,
-.freeze-button,
-.delete-button {
-    margin-top: 0.5em;
 }

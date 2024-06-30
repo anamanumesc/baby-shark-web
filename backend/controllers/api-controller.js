@@ -65,6 +65,8 @@ const handleApiRequest = async (req, res) => {
             await medicalController.getMedicalVisits(req, res);
         } else if (req.url === '/api/get-sleep-times' && req.method === 'GET') {
             await sleepController.getSleepTimes(req, res);
+        } else if (req.url === '/api/get-non-admin-users' && req.method === 'GET') {
+            await userController.getNonAdminUsers(req, res);
         } else {
             res.writeHead(404, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify({ error: 'Not Found' }));

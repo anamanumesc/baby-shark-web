@@ -5,7 +5,9 @@ const JWT_SECRET = 'baby-shark';
 const sleepController = require('../controllers/sleep-controller');
 const napController = require('../controllers/nap-controller');
 const mealController = require('../controllers/meal-controller');
+const userController = require('../controllers/user-controller');
 const handleApiRequest = require('../controllers/api-controller');
+const parseJsonBody = require('../utils/parse-json-body');
 
 const parseQuery = (url) => {
     const query = {};
@@ -80,6 +82,11 @@ const apiRoutes = async (req, res) => {
         await mealController.deleteAllMeals(req, res);
     } else if (path === '/api/get-meal-times' && req.method === 'GET') {
         await mealController.getMealTimes(req, res);
+    } else if (path === '/api/get-non-admin-users' && req.method === 'GET') {
+        await userController.getNonAdminUsers(req, res);
+    } else if (path === '/api/ban-user' && req.method === 'POST') {
+        await parseJsonBody(req);
+        await userController.banUser(req, res);
     } else {
         handleApiRequest(req, res);
     }
