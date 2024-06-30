@@ -23,19 +23,21 @@ exports.addMeals = async (req, res) => {
     });
 
     req.on('end', async () => {
-        const { descriptions } = JSON.parse(body);
+        const { meals } = JSON.parse(body);
 
-        if (!descriptions || !Array.isArray(descriptions)) {
+        if (!meals || !Array.isArray(meals)) {
             res.writeHead(400, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({ message: 'Invalid descriptions' }));
+            res.end(JSON.stringify({ message: 'Invalid meals' }));
             return;
         }
 
         try {
-            const mealPromises = descriptions.map(description => {
+            const mealPromises = meals.map(meal => {
                 const newMeal = new Meal({
                     userId,
-                    description
+                    description: meal.description,
+                    startTime: meal.startTime,
+                    endTime: meal.endTime
                 });
                 return newMeal.save();
             });
@@ -86,6 +88,52 @@ exports.resetMealForm = async (req, res) => {
         });
 
         res.end(JSON.stringify({ message: 'Meal form reset successfully' }));
+    } catch (error) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ message: 'Server error' }));
+    }
+};
+
+exports.deleteAllMeals = async (req, res) => {
+    const token = req.headers.authorization.split(' ')[1];
+    let userId;
+
+    try {
+        const decodedToken = jwt.verify(token, JWT_SECRET);
+        userId = decodedToken.userId;
+    } catch (error) {
+        res.writeHead(401, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ message: 'Unauthorized' }));
+        return;
+    }
+
+    try {
+        await Meal.deleteMany({ userId });
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ message: 'All meal records deleted successfully' }));
+    } catch (error) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ message: 'Server error' }));
+    }
+};
+
+exports.getMealTimes = async (req, res) => {
+    const token = req.headers.authorization.split(' ')[1];
+    let userId;
+
+    try {
+        const decodedToken = jwt.verify(token, JWT_SECRET);
+        userId = decodedToken.userId;
+    } catch (error) {
+        res.writeHead(401, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ message: 'Unauthorized' }));
+        return;
+    }
+
+    try {
+        const meals = await Meal.find({ userId }).lean();
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(meals));
     } catch (error) {
         res.writeHead(500, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ message: 'Server error' }));

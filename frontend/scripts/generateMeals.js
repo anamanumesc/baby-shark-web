@@ -19,7 +19,7 @@ function isValidToken(token) {
     return true;
 }
 
-function parseJwt (token) {
+function parseJwt(token) {
     const base64Url = token.split('.')[1];
     if (!base64Url) {
         throw new Error('Invalid token');
@@ -75,6 +75,26 @@ document.getElementById('generateButton').addEventListener('click', function() {
         mealInput.required = true;
         mealDescriptionsContainer.appendChild(mealInput);
 
+        var startTimeLabel = document.createElement('label');
+        startTimeLabel.textContent = 'Meal ' + i + ' start time:';
+        mealDescriptionsContainer.appendChild(startTimeLabel);
+
+        var startTimeInput = document.createElement('input');
+        startTimeInput.type = 'time';
+        startTimeInput.name = 'startTime' + i;
+        startTimeInput.required = true;
+        mealDescriptionsContainer.appendChild(startTimeInput);
+
+        var endTimeLabel = document.createElement('label');
+        endTimeLabel.textContent = 'Meal ' + i + ' end time:';
+        mealDescriptionsContainer.appendChild(endTimeLabel);
+
+        var endTimeInput = document.createElement('input');
+        endTimeInput.type = 'time';
+        endTimeInput.name = 'endTime' + i;
+        endTimeInput.required = true;
+        mealDescriptionsContainer.appendChild(endTimeInput);
+
         mealDescriptionsContainer.appendChild(document.createElement('br'));
     }
 
@@ -87,14 +107,22 @@ document.getElementById('generateButton').addEventListener('click', function() {
 document.getElementById('submitButton').addEventListener('click', async function(event) {
     event.preventDefault();
     console.log('Submit button clicked');
-    var descriptions = [];
+    var meals = [];
     var mealInputs = document.querySelectorAll('#mealDescriptionsContainer textarea');
+    var startTimeInputs = document.querySelectorAll('#mealDescriptionsContainer input[type="time"][name^="startTime"]');
+    var endTimeInputs = document.querySelectorAll('#mealDescriptionsContainer input[type="time"][name^="endTime"]');
 
-    mealInputs.forEach(input => descriptions.push(input.value));
-    console.log('Meal descriptions:', descriptions);
+    for (var i = 0; i < mealInputs.length; i++) {
+        meals.push({
+            description: mealInputs[i].value,
+            startTime: startTimeInputs[i].value,
+            endTime: endTimeInputs[i].value
+        });
+    }
+    console.log('Meals:', meals);
 
-    if (descriptions.some(description => description.trim() === '')) {
-        alert('Meal description cannot be empty');
+    if (meals.some(meal => meal.description.trim() === '' || meal.startTime.trim() === '' || meal.endTime.trim() === '')) {
+        alert('Meal description, start time, and end time cannot be empty');
         return;
     }
 
@@ -107,7 +135,7 @@ document.getElementById('submitButton').addEventListener('click', async function
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
-            body: JSON.stringify({ descriptions })
+            body: JSON.stringify({ meals })
         });
 
         if (response.ok) {
