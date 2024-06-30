@@ -7,10 +7,10 @@ async function resetForm(formType) {
     }
 
     const endpoint = formType === 'meal' ? '/api/reset-meal-form' : '/api/reset-sleep-form';
-    const deleteEndpoint = '/api/delete-sleep-naps';
+    const deleteEndpoint = formType === 'meal' ? '/api/delete-meals' : '/api/delete-sleep-naps';
 
     try {
-        // Send DELETE request to delete sleep and naps
+        // Send DELETE request to delete meals or sleep and naps
         const deleteResponse = await fetch(deleteEndpoint, {
             method: 'DELETE',
             headers: {
@@ -20,7 +20,7 @@ async function resetForm(formType) {
 
         if (!deleteResponse.ok) {
             const deleteResult = await deleteResponse.json();
-            alert('Error deleting sleep and naps: ' + deleteResult.message);
+            alert('Error deleting records: ' + deleteResult.message);
             return;
         }
 
