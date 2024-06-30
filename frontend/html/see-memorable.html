@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Memorable Photos/Videos</title>
     <link rel="stylesheet" href="../styles/see-memorable.css">
+    <script defer src="../scripts/see-memorable.js"></script>
 </head>
 <body>
     <div class="grid-box">
@@ -16,35 +17,14 @@
         <div class="grid-section title-section">
             <div class="grid-title">Memorable Moments!</div>
         </div>
-        <div class="grid-section media-section">
-            <div class="invisible-element"></div>
-            <div class="image-container">
-                <div class="image-info">
-                    <div class="date first-date">Date: January 1, 2022 <span class="tag">Tag: @Giovanni</span></div>
-                    <div class="description first-description">Description: Chuck after taking a shower.</div>
-                </div>
-                <div class="image">
-                    <img src="../images/baby-photo1.jpg" alt="Memorable Photo">
-                </div>
-            </div>
-            <div class="image-container">
-                <div class="image-info">
-                    <div class="date">Date: Janauary 2, 2022 <span class="tag"></span></div>
-                    <div class="description">Description: Chuck after taking another shower.</div>
-                </div>
-                <div class="image">
-                    <img src="../images/baby-photo1.jpg" alt="Memorable Photo">
-                </div>
-            </div>
-            <div class="image-container">
-                <div class="image-info">
-                    <div class="date">Date: Janauary 3, 2022 <span class="tag">Tag: @Mirela</span></div>
-                    <div class="description">Description: Chuck just took another shower. They grow so fast...</div>
-                </div>
-                <div class="image">
-                    <img src="../images/baby-photo1.jpg" alt="Memorable Photo">
-                </div>
-            </div>
+        <div class="grid-section search-section">
+            <form id="searchForm">
+                <input type="text" id="friendTag" name="friendTag" placeholder="@user#code" required>
+                <button type="submit">See Moments</button>
+            </form>
+        </div>
+        <div class="grid-section media-section" id="mediaSection">
+            <!-- Media content will be inserted here by JavaScript -->
         </div>
     </div>
 </body>

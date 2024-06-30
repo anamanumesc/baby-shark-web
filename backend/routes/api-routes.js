@@ -1,14 +1,28 @@
-const handleApiRequest = require('../controllers/api-controller');
-const { upload, handleUpload } = require('../controllers/upload-controller');
-const { getUploads } = require('../controllers/upload-controller');
+const { upload, handleUpload, getUploads } = require('../controllers/upload-controller');
+const { getMemorableMoments } = require('../controllers/see-memorable-controller');
 const jwt = require('jsonwebtoken');
 const JWT_SECRET = 'baby-shark';
 const sleepController = require('../controllers/sleep-controller');
 const napController = require('../controllers/nap-controller');
 const mealController = require('../controllers/meal-controller');
+const handleApiRequest = require('../controllers/api-controller');
+
+const parseQuery = (url) => {
+    const query = {};
+    const [path, queryString] = url.split('?');
+    if (queryString) {
+        queryString.split('&').forEach(pair => {
+            const [key, value] = pair.split('=');
+            query[decodeURIComponent(key)] = decodeURIComponent(value);
+        });
+    }
+    return { path, query };
+};
 
 const apiRoutes = async (req, res) => {
-    if (req.url === '/api/upload' && req.method === 'POST') {
+    const { path, query } = parseQuery(req.url);
+
+    if (path === '/api/upload' && req.method === 'POST') {
         try {
             const cookieHeader = req.headers.cookie;
             if (!cookieHeader) throw new Error('Authorization header is missing');
@@ -30,7 +44,7 @@ const apiRoutes = async (req, res) => {
             res.writeHead(401, { 'Content-Type': 'application/json' });
             return res.end(JSON.stringify({ error: 'Unauthorized' }));
         }
-    } else if (req.url.startsWith('/api/uploads') && req.method === 'GET') {
+    } else if (path.startsWith('/api/uploads') && req.method === 'GET') {
         try {
             const cookieHeader = req.headers.cookie;
             if (!cookieHeader) throw new Error('Authorization header is missing');
@@ -46,17 +60,25 @@ const apiRoutes = async (req, res) => {
             res.writeHead(401, { 'Content-Type': 'application/json' });
             return res.end(JSON.stringify({ error: 'Unauthorized' }));
         }
-    } else if (req.url === '/api/get-sleep-times' && req.method === 'GET') {
+    } else if (path === '/api/see-memorable' && req.method === 'GET') {
+        const { friendTag } = query;
+        if (friendTag) {
+            getMemorableMoments(friendTag, res);
+        } else {
+            res.writeHead(400, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ error: 'friendTag query parameter is missing' }));
+        }
+    } else if (path === '/api/get-sleep-times' && req.method === 'GET') {
         await sleepController.getSleepTimes(req, res);
-    } else if (req.url === '/api/get-nap-times' && req.method === 'GET') {
+    } else if (path === '/api/get-nap-times' && req.method === 'GET') {
         await napController.getNapTimes(req, res);
-    } else if (req.url === '/api/delete-sleep-naps' && req.method === 'DELETE') {
+    } else if (path === '/api/delete-sleep-naps' && req.method === 'DELETE') {
         await sleepController.deleteAllSleepNaps(req, res);
-    } else if (req.url === '/api/meals' && req.method === 'POST') {
+    } else if (path === '/api/meals' && req.method === 'POST') {
         await mealController.addMeals(req, res);
-    } else if (req.url === '/api/delete-meals' && req.method === 'DELETE') {
+    } else if (path === '/api/delete-meals' && req.method === 'DELETE') {
         await mealController.deleteAllMeals(req, res);
-    } else if (req.url === '/api/get-meal-times' && req.method === 'GET') {
+    } else if (path === '/api/get-meal-times' && req.method === 'GET') {
         await mealController.getMealTimes(req, res);
     } else {
         handleApiRequest(req, res);
