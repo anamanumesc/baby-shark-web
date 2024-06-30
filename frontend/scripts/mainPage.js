@@ -60,10 +60,21 @@ document.addEventListener("DOMContentLoaded", function() {
             const formData = new FormData(uploadForm);
             const token = getCookie('clientToken');
 
-            // Handle empty tags
+            // Handle multiple tags
             const tagsField = document.getElementById('tags');
-            if (!tagsField.value.trim()) {
-                formData.set('tags', '');
+            let tags = tagsField.value.split(',').map(tag => tag.trim()).filter(tag => tag);
+            if (tags.length === 0) {
+                tags = []; // Set tags to an empty array if no tags are provided
+            }
+            formData.set('tags', JSON.stringify(tags));
+
+            // Resize image before uploading
+            const fileInput = document.getElementById('file');
+            const file = fileInput.files[0];
+
+            if (file && file.type.startsWith('image/')) {
+                const resizedFile = await resizeImage(file, 300, 300);
+                formData.set('file', resizedFile, file.name);
             }
 
             try {
@@ -97,6 +108,47 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
+function resizeImage(file, maxWidth, maxHeight) {
+    return new Promise((resolve, reject) => {
+        const img = document.createElement('img');
+        img.src = URL.createObjectURL(file);
+
+        img.onload = () => {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+
+            let width = img.width;
+            let height = img.height;
+
+            if (width > height) {
+                if (width > maxWidth) {
+                    height = Math.round((height *= maxWidth / width));
+                    width = maxWidth;
+                }
+            } else {
+                if (height > maxHeight) {
+                    width = Math.round((width *= maxHeight / height));
+                    height = maxHeight;
+                }
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+            ctx.drawImage(img, 0, 0, width, height);
+
+            canvas.toBlob(
+                (blob) => {
+                    resolve(new File([blob], file.name, { type: file.type }));
+                },
+                file.type,
+                0.9
+            );
+        };
+
+        img.onerror = (err) => reject(err);
+    });
+}
+
 async function fetchUploads(token) {
     try {
         const response = await fetch('/api/uploads', {
@@ -121,9 +173,15 @@ function displayUploads(uploads) {
     const squareContainer = document.querySelector('.square-container');
     squareContainer.innerHTML = ''; // Clear existing content
 
-    uploads.forEach(upload => {
+    uploads.reverse().forEach(upload => { // Reverse to show newest uploads first
         const square = document.createElement('div');
         square.className = 'square';
+
+        const description = document.createElement('p');
+        description.textContent = upload.description;
+
+        const taggedUsers = document.createElement('p');
+        taggedUsers.textContent = 'Tagged: ' + (upload.tags.length ? upload.tags.map(tag => `@${tag.name}#${tag.code}`).join(', ') : 'No tags');
 
         const fileLink = document.createElement('a');
         fileLink.href = `/uploads/${upload.filePath}`;
@@ -134,13 +192,13 @@ function displayUploads(uploads) {
             const img = document.createElement('img');
             img.src = `/uploads/${upload.filePath}`;
             img.alt = upload.description;
-            img.style.width = "100%"; // Ensure the image fits within the div
-            img.style.height = "auto"; // Maintain aspect ratio
+            img.className = 'upload-image'; // Add a class for consistent styling
             fileLink.appendChild(img);
         } else if (['mp4', 'webm', 'ogg'].includes(fileType)) {
             const video = document.createElement('video');
             video.src = `/uploads/${upload.filePath}`;
             video.controls = true;
+            video.className = 'upload-video'; // Add a class for consistent styling
             fileLink.appendChild(video);
         } else if (['mp3', 'wav', 'ogg'].includes(fileType)) {
             const audio = document.createElement('audio');
@@ -151,8 +209,10 @@ function displayUploads(uploads) {
             fileLink.textContent = upload.description;
         }
 
+        square.appendChild(description);
+        square.appendChild(taggedUsers);
         square.appendChild(fileLink);
-        squareContainer.appendChild(square);
+        squareContainer.prepend(square); // Prepend to show the newest uploads first
     });
 }
 
@@ -192,3 +252,16 @@ function validateSignature(token, secret) {
 
     return signature === expectedSignature;
 }
+
+function openPopup() {
+    var modal = document.getElementById("myModal");
+    modal.style.display = "block";
+}
+
+function closePopup() {
+    var modal = document.getElementById("myModal");
+    modal.style.display = "none";
+}
+
+document.getElementById("addButton").addEventListener("click", openPopup);
+document.getElementById("closeButton").addEventListener("click", closePopup);

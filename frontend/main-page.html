@@ -46,12 +46,13 @@
             <form id="uploadForm" enctype="multipart/form-data">
                 <label for="description">Description:</label>
                 <textarea id="description" name="description" required></textarea>
-                <label for="tags">Tags (use @username#code, optional):</label>
-                <input type="text" id="tags" name="tags" placeholder="@username#code">
+                <label for="tags">Tags (use @username#code, separated by commas):</label>
+                <input type="text" id="tags" name="tags" placeholder="@username#code, @anotheruser#code">
                 <label for="file" class="buttons">Choose a file:</label>
                 <input type="file" id="file" name="file" accept="image/*,video/*,audio/*" required>
                 <input type="submit" value="Submit" class="buttons">
             </form>
+            
         </div>
     </div>
 </body>

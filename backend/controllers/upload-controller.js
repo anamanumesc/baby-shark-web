@@ -37,44 +37,47 @@ const handleUpload = async (req, res) => {
         let friendIds = [];
 
         if (tags && tags.trim()) {
-            const tagList = tags.split(',').map(tag => {
-                const [name, code] = tag.split('#');
-                return { name: name.replace('@', '').trim(), code: code.trim() };
-            });
-
-            console.log('Processed tag list:', tagList);
-
-            const users = await User.find({
-                $or: tagList.map(tag => ({ name: tag.name, code: tag.code }))
-            });
-
-            console.log('Found users:', users);
-
-            if (users.length === 0) {
-                console.log('No matching users found for tags.');
-            }
-
-            for (const user of users) {
-                const isFriend = await Friend.findOne({
-                    $or: [
-                        { 'user1._id': userId, 'user2._id': user._id, status: 'accepted' },
-                        { 'user1._id': user._id, 'user2._id': userId, status: 'accepted' }
-                    ]
+            const tagList = JSON.parse(tags); // Parse JSON string
+            if (tagList.length > 0) {
+                const processedTags = tagList.map(tag => {
+                    const [name, code] = tag.split('#');
+                    return { name: name.replace('@', '').trim(), code: code.trim() };
                 });
 
-                console.log(`Checking friendship between ${userId} and ${user._id}:`, isFriend);
+                console.log('Processed tag list:', processedTags);
 
-                if (isFriend) {
-                    friendIds.push(user._id);
-                } else {
-                    console.log(`User ${user.name}#${user.code} is not a friend.`);
+                const users = await User.find({
+                    $or: processedTags.map(tag => ({ name: tag.name, code: tag.code }))
+                });
+
+                console.log('Found users:', users);
+
+                if (users.length === 0) {
+                    console.log('No matching users found for tags.');
                 }
-            }
 
-            if (friendIds.length === 0) {
-                console.log('None of the tagged users are friends');
-                res.writeHead(400, { 'Content-Type': 'application/json' });
-                return res.end(JSON.stringify({ error: 'None of the tagged users are friends' }));
+                for (const user of users) {
+                    const isFriend = await Friend.findOne({
+                        $or: [
+                            { 'user1._id': userId, 'user2._id': user._id, status: 'accepted' },
+                            { 'user1._id': user._id, 'user2._id': userId, status: 'accepted' }
+                        ]
+                    });
+
+                    console.log(`Checking friendship between ${userId} and ${user._id}:`, isFriend);
+
+                    if (isFriend) {
+                        friendIds.push(user._id);
+                    } else {
+                        console.log(`User ${user.name}#${user.code} is not a friend.`);
+                    }
+                }
+
+                if (friendIds.length === 0) {
+                    console.log('None of the tagged users are friends');
+                    res.writeHead(400, { 'Content-Type': 'application/json' });
+                    return res.end(JSON.stringify({ error: 'None of the tagged users are friends' }));
+                }
             }
         }
 
