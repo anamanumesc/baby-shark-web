@@ -20,7 +20,7 @@ mongoose.connection.on('error', (err) => {
 });
 
 const server = http.createServer((req, res) => {
-  if (req.url.startsWith('/frontend') || req.url.startsWith('/uploads')) {
+  if (req.url.startsWith('/view') || req.url.startsWith('/uploads')) {
     staticRoutes(req, res);
   } else {
     routes(req, res);

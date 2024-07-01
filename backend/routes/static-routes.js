@@ -52,11 +52,11 @@ const staticRoutes = (req, res) => {
   console.log(`Request URL: ${req.url}`);
 
   const publicPaths = [
-    '/frontend/html/start-page.html',
-    '/frontend/styles',
-    '/frontend/scripts',
-    '/frontend/images',
-    '/frontend/logo'
+    '/views/start-page.html',
+    '/public/styles',
+    '/public/scripts',
+    '/public/images',
+    '/public/logo'
   ];
 
   if (publicPaths.some(path => req.url.startsWith(path)) || req.url.startsWith('/uploads')) {
@@ -64,7 +64,7 @@ const staticRoutes = (req, res) => {
     if (req.url.startsWith('/uploads')) {
       filePath = path.join(__dirname, '../uploads', req.url.replace('/uploads', ''));
     } else {
-      filePath = path.join(__dirname, '../../', req.url);
+      filePath = path.join(__dirname, '../', req.url);
     }
 
     const contentType = req.url.endsWith('.css') ? 'text/css' :
@@ -83,13 +83,13 @@ const staticRoutes = (req, res) => {
     serveStaticFile(filePath, contentType, res);
   } else {
     if (
-      req.url === '/frontend/main-page.html' ||
-      req.url === '/frontend/html/eating-schedule-form.html' ||
-      req.url === '/frontend/html/sleeping-schedule-form.html'
+      req.url === '/views/main-page.html' ||
+      req.url === '/views/eating-schedule-form.html' ||
+      req.url === '/views/sleeping-schedule-form.html'
     ) {
       if (!checkAuth(req, res)) return;
     }
-    const filePath = path.join(__dirname, '../../', req.url);
+    const filePath = path.join(__dirname, '../', req.url);
     console.log(`Serving file: ${filePath}`);
     serveStaticFile(filePath, 'text/html', res);
   }
