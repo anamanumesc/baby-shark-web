@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", function() {
         return;
     }
 
-    // Retrieve token from cookies
     const token = getCookie('clientToken');
 
     if (!token) {
@@ -18,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function() {
     try {
         const decodedToken = JSON.parse(atob(token.split('.')[1]));
         const username = decodedToken.userName;
-        const isAdmin = decodedToken.admin; // Get the admin field from the token
+        const isAdmin = decodedToken.admin;
 
         if (!username) {
             console.error('Username not found in decoded token:', decodedToken);
@@ -39,7 +38,6 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
 
-        // Fetch and display uploads
         fetchUploads(token);
     } catch (e) {
         console.error('Error decoding token:', e);
@@ -47,34 +45,31 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     const uploadForm = document.getElementById('uploadForm');
-    let isSubmitting = false; // Prevent double submission
+    let isSubmitting = false;
 
     if (uploadForm) {
         uploadForm.addEventListener('submit', async function(event) {
-            event.preventDefault(); // Prevent default form submission
+            event.preventDefault();
 
             if (isSubmitting) {
                 console.log('Form is already being submitted.');
-                return; // If already submitting, prevent another submission
+                return;
             }
             isSubmitting = true;
 
-            // Disable the submit button to prevent multiple submissions
             const submitButton = uploadForm.querySelector('input[type="submit"]');
             submitButton.disabled = true;
 
             const formData = new FormData(uploadForm);
             const token = getCookie('clientToken');
 
-            // Handle multiple tags
             const tagsField = document.getElementById('tags');
             let tags = tagsField.value.split(',').map(tag => tag.trim()).filter(tag => tag);
             if (tags.length === 0) {
-                tags = []; // Set tags to an empty array if no tags are provided
+                tags = [];
             }
             formData.set('tags', JSON.stringify(tags));
 
-            // Resize image before uploading
             const fileInput = document.getElementById('file');
             const file = fileInput.files[0];
 
@@ -97,7 +92,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 if (response.ok) {
                     alert('File uploaded successfully');
-                    // Refresh uploads after successful upload
                     fetchUploads(token);
                 } else {
                     alert('Error: ' + result.error);
@@ -106,7 +100,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 console.error('Error uploading file:', error);
                 alert('An error occurred while uploading the file');
             } finally {
-                // Re-enable the submit button
                 submitButton.disabled = false;
                 isSubmitting = false;
             }
@@ -177,9 +170,9 @@ async function fetchUploads(token) {
 
 function displayUploads(uploads) {
     const squareContainer = document.querySelector('.square-container');
-    squareContainer.innerHTML = ''; // Clear existing content
+    squareContainer.innerHTML = '';
 
-    uploads.reverse().forEach(upload => { // Reverse to show newest uploads first
+    uploads.reverse().forEach(upload => {
         const square = document.createElement('div');
         square.className = 'square';
 
@@ -198,13 +191,13 @@ function displayUploads(uploads) {
             const img = document.createElement('img');
             img.src = `/uploads/${upload.filePath}`;
             img.alt = upload.description;
-            img.className = 'upload-image'; // Add a class for consistent styling
+            img.className = 'upload-image';
             fileLink.appendChild(img);
         } else if (['mp4', 'webm', 'ogg'].includes(fileType)) {
             const video = document.createElement('video');
             video.src = `/uploads/${upload.filePath}`;
             video.controls = true;
-            video.className = 'upload-video'; // Add a class for consistent styling
+            video.className = 'upload-video';
             fileLink.appendChild(video);
         } else if (['mp3', 'wav', 'ogg'].includes(fileType)) {
             const audio = document.createElement('audio');
@@ -223,7 +216,7 @@ function displayUploads(uploads) {
         square.appendChild(taggedUsers);
         square.appendChild(fileLink);
         square.appendChild(deleteButton);
-        squareContainer.prepend(square); // Prepend to show the newest uploads first
+        squareContainer.prepend(square);
     });
 }
 
@@ -249,7 +242,6 @@ async function deletePost(postId) {
 
         if (response.ok) {
             alert('Post deleted successfully');
-            // Refresh uploads after successful deletion
             fetchUploads(token);
         } else {
             alert('Error: ' + result.error);

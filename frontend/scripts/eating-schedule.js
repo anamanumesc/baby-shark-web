@@ -17,14 +17,12 @@ document.addEventListener('DOMContentLoaded', function() {
             try {
                 const token = getCookie('clientToken');
 
-                // Fetch meal times
                 const mealResponse = await fetch('/api/get-meal-times', {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
                 });
 
-                // Check if the meal response is okay
                 if (!mealResponse.ok) {
                     throw new Error(`Meal API error! status: ${mealResponse.status}`);
                 }
@@ -39,7 +37,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 const events = [];
 
-                // Add meal events
                 mealTimes.forEach(mealTime => {
                     const startTimeHour = extractHour(mealTime.startTime);
                     const endTimeHour = extractHour(mealTime.endTime);
@@ -48,9 +45,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     if (startTimeHour >= endTimeHour) {
                         console.log('Interval passes through midnight');
-                        // Split event: before and after midnight
                         events.push({
-                            title: mealTime.description, // Use description as the title
+                            title: mealTime.description,
                             startTime: '00:00:00',
                             endTime: mealTime.endTime,
                             startRecur: fetchInfo.startStr,
@@ -60,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             backgroundColor: '#FF6347'
                         });
                         events.push({
-                            title: mealTime.description, // Use description as the title
+                            title: mealTime.description,
                             startTime: mealTime.startTime,
                             endTime: '23:59:59',
                             startRecur: fetchInfo.startStr,
@@ -73,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         console.log('Interval within a single day');
                         // Normal event
                         events.push({
-                            title: mealTime.description, // Use description as the title
+                            title: mealTime.description,
                             startTime: mealTime.startTime,
                             endTime: mealTime.endTime,
                             startRecur: fetchInfo.startStr,

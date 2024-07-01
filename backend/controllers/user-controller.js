@@ -33,7 +33,7 @@ async function signUp(req, res) {
             password: hashedPassword,
             sleepForm: false,
             mealForm: false,
-            admin: false // Set default admin field to false
+            admin: false
         });
 
         await newUser.save();

@@ -39,10 +39,9 @@ document.getElementById('submitButton').addEventListener('click', async function
         });
     }
 
-    // Swapping the values here
     const sleep = {
-        goToSleepTime: document.getElementById('wakeUpTime').value,  // Swapped
-        wakeUpTime: document.getElementById('sleepTime').value      // Swapped
+        goToSleepTime: document.getElementById('wakeUpTime').value,
+        wakeUpTime: document.getElementById('sleepTime').value 
     };
 
     console.log("Form data before sending:");

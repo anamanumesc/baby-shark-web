@@ -36,7 +36,6 @@ function validateSignature(token, secret) {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-    // Retrieve token from cookies
     const token = getCookie('clientToken');
 
     if (!token) {

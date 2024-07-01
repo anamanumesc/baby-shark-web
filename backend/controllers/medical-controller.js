@@ -6,7 +6,7 @@ const addMedicalVisit = async (req, res) => {
     const file = req.file;
 
     const fileName = file ? file.originalname : null;
-    const filePath = file ? file.path : null;
+    const filePath = file ? `uploads/${file.filename}` : null;
 
     try {
         const newMedicalVisit = new MedicalVisit({

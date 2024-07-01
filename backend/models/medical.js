@@ -5,8 +5,8 @@ const medicalVisitSchema = new mongoose.Schema({
     dateOfVisit: { type: Date, required: true },
     doctor: { type: String, required: true },
     description: { type: String, required: true },
-    pdfName: { type: String },
-    pdfPath: { type: String },
+    fileName: { type: String },
+    filePath: { type: String },
     createdAt: { type: Date, default: Date.now }
 });
 

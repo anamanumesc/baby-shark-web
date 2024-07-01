@@ -112,7 +112,7 @@ async function banUser(username, code) {
 
         if (response.ok) {
             alert('User banned successfully');
-            fetchNonAdminUsers(); // Refresh the list of non-admin users
+            fetchNonAdminUsers();
         } else {
             const result = await response.json();
             alert('Error: ' + result.error);

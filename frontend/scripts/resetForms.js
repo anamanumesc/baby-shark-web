@@ -10,7 +10,6 @@ async function resetForm(formType) {
     const deleteEndpoint = formType === 'meal' ? '/api/delete-meals' : '/api/delete-sleep-naps';
 
     try {
-        // Send DELETE request to delete meals or sleep and naps
         const deleteResponse = await fetch(deleteEndpoint, {
             method: 'DELETE',
             headers: {
@@ -24,7 +23,6 @@ async function resetForm(formType) {
             return;
         }
 
-        // Send POST request to reset form
         const response = await fetch(endpoint, {
             method: 'POST',
             headers: {
