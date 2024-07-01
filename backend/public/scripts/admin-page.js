@@ -30,7 +30,7 @@ function parseJwt(token) {
 document.addEventListener("DOMContentLoaded", function() {
     const token = getCookie('clientToken');
     if (!token || !isValidToken(token)) {
-        window.location.href = '../html/401.html';
+        window.location.href = '../../views/401.html';
         return;
     }
 
@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const isAdmin = decodedToken.admin;
 
         if (!isAdmin) {
-            window.location.href = '../html/401.html';
+            window.location.href = '../../views/401.html';
             return;
         }
 
@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function() {
             logoutButton.addEventListener('click', function(event) {
                 event.preventDefault();
                 deleteCookie('clientToken');
-                window.location.href = '/frontend/html/start-page.html';
+                window.location.href = '../../views/start-page.html';
             });
         }
 
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function() {
         fetchNonAdminUsers();
 
     } catch (e) {
-        window.location.href = '../html/401.html';
+        window.location.href = '.../../views/401.html';
     }
 });
 
@@ -112,7 +112,7 @@ async function banUser(username, code) {
 
         if (response.ok) {
             alert('User banned successfully');
-            fetchNonAdminUsers(); // Refresh the list of non-admin users
+            fetchNonAdminUsers();
         } else {
             const result = await response.json();
             alert('Error: ' + result.error);

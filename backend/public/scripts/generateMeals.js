@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function() {
     console.log('Retrieved token:', token);
     if (!token || !isValidToken(token)) {
         console.error('Invalid or missing token');
-        window.location.href = '../html/401.html';
+        window.location.href = '../../views/401.html';
         return;
     }
 
@@ -48,12 +48,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
         if (!username) {
             console.error('Username not found in decoded token:', decodedToken);
-            window.location.href = '../html/401.html';
+            window.location.href = '../../views/401.html';
             return;
         }
     } catch (e) {
         console.error('Error decoding token:', e);
-        window.location.href = '../html/401.html';
+        window.location.href = '../../views/401.html';
     }
 });
 
@@ -140,7 +140,7 @@ document.getElementById('submitButton').addEventListener('click', async function
 
         if (response.ok) {
             alert('Meals added successfully');
-            window.location.href = '../html/eating-schedule.html';
+            window.location.href = '../../views/eating-schedule.html';
         } else {
             const result = await response.json();
             alert('Error: ' + result.message);

@@ -21,6 +21,6 @@ function isValidToken(token) {
 document.addEventListener("DOMContentLoaded", function() {
     const token = getCookie('clientToken');
     if (token && isValidToken(token)) {
-        window.location.href = '/frontend/main-page.html';
+        window.location.href = '/views/main-page.html';
     }
 });

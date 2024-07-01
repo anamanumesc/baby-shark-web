@@ -33,7 +33,7 @@ function parseJwt(token) {
 document.addEventListener("DOMContentLoaded", function() {
     const token = getCookie('clientToken');
     if (!token || !isValidToken(token)) {
-        window.location.href = '../html/401.html';
+        window.location.href = '../../views/401.html';
         return;
     }
 
@@ -47,17 +47,17 @@ document.addEventListener("DOMContentLoaded", function() {
         const currentPage = window.location.pathname;
 
         if (sleepForm && currentPage.includes('sleeping-schedule-form.html')) {
-            window.location.href = '../html/sleeping-schedule.html';
+            window.location.href = '../../views/sleeping-schedule.html';
             return;
         }
 
         if (mealForm && currentPage.includes('eating-schedule-form.html')) {
-            window.location.href = '../html/eating-schedule.html';
+            window.location.href = '../../views/eating-schedule.html';
             return;
         }
 
         if (medicalForm && currentPage.includes('medical-form.html')) {
-            window.location.href = '../html/medical.html';
+            window.location.href = '../../views/medical.html';
             return;
         }
 
@@ -68,6 +68,6 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
     } catch (e) {
-        window.location.href = '../html/401.html';
+        window.location.href = '../../views/401.html';
     }
 });

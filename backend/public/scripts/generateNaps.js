@@ -68,7 +68,7 @@ document.getElementById('submitButton').addEventListener('click', async function
 
         if (response.ok) {
             alert('Naps and sleep added successfully');
-            window.location.href = '../html/sleeping-schedule.html';
+            window.location.href = '../../views/sleeping-schedule.html';
         } else {
             const result = await response.json();
             alert('Error: ' + result.message);
@@ -83,7 +83,7 @@ async function resetForm(formType) {
     const token = getCookie('clientToken');
     if (!token) {
         console.error('Token cookie not found');
-        window.location.href = '../html/401.html';
+        window.location.href = '../../views/401.html';
         return;
     }
 

@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (!token) {
         console.error('Token cookie not found');
-        window.location.href = '../html/401.html';
+        window.location.href = '../../views/401.html';
         return;
     }
 
@@ -51,18 +51,18 @@ document.addEventListener("DOMContentLoaded", function() {
 
         if (!username) {
             console.error('Username not found in decoded token:', decodedToken);
-            window.location.href = '../html/401.html';
+            window.location.href = '../../views/401.html';
             return;
         }
 
         const secret = 'baby-shark';
         if (!validateSignature(token, secret)) {
-            window.location.href = '../html/401.html';
+            window.location.href = '../../views/401.html';
             return;
         }
 
     } catch (e) {
         console.error('Error decoding token:', e);
-        window.location.href = '../html/401.html';
+        window.location.href = '../../views/401.html';
     }
 });

@@ -17,26 +17,22 @@ document.addEventListener('DOMContentLoaded', function() {
             try {
                 const token = getCookie('clientToken');
 
-                // Fetch sleep times
                 const sleepResponse = await fetch('/api/get-sleep-times', {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
                 });
 
-                // Check if the sleep response is okay
                 if (!sleepResponse.ok) {
                     throw new Error(`Sleep API error! status: ${sleepResponse.status}`);
                 }
 
-                // Fetch nap times
                 const napResponse = await fetch('/api/get-nap-times', {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
                 });
 
-                // Check if the nap response is okay
                 if (!napResponse.ok) {
                     throw new Error(`Nap API error! status: ${napResponse.status}`);
                 }
@@ -51,14 +47,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     throw new Error('Expected sleepTimes and napTimes to be arrays');
                 }
 
-                // Function to extract hour as a number from a time string in HH:MM format
                 function extractHour(timeStr) {
                     return Number(timeStr.split(':')[0]);
                 }
 
                 const events = [];
 
-                // Add sleep events
                 sleepTimes.forEach(sleepTime => {
                     const goToSleepTimeHour = extractHour(sleepTime.goToSleepTime);
                     const wakeUpTimeHour = extractHour(sleepTime.wakeUpTime);
@@ -67,7 +61,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     if (goToSleepTimeHour >= wakeUpTimeHour) {
                         console.log('Interval passes through midnight');
-                        // Split event: before and after midnight
                         events.push({
                             title: 'Sleep',
                             startTime: '00:00:00',
@@ -90,7 +83,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         });
                     } else {
                         console.log('Interval within a single day');
-                        // Normal event
                         events.push({
                             title: 'Sleep',
                             startTime: sleepTime.goToSleepTime,
@@ -104,7 +96,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 });
 
-                // Add nap events
                 napTimes.forEach(napTime => {
                     const startNapTimeHour = extractHour(napTime.startNapTime);
                     const endNapTimeHour = extractHour(napTime.endNapTime);
@@ -113,7 +104,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     if (startNapTimeHour >= endNapTimeHour) {
                         console.log('Interval passes through midnight');
-                        // Split event: before and after midnight
                         events.push({
                             title: 'Nap',
                             startTime: '00:00:00',
@@ -136,7 +126,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         });
                     } else {
                         console.log('Interval within a single day');
-                        // Normal event
                         events.push({
                             title: 'Nap',
                             startTime: napTime.startNapTime,
