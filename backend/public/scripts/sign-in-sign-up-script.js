@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const result = await response.json();
             if (response.ok) {
                 alert('Signup successful');
-                window.location.href = '/frontend/main-page.html';
+                window.location.href = '/views/main-page.html';
             } else {
                 alert('Signup failed: ' + result.error);
             }

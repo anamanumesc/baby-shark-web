@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
         logoutButton.addEventListener('click', function(event) {
             event.preventDefault();
             deleteCookie('clientToken');
-            window.location.href = '/frontend/html/start-page.html';
+            window.location.href = '/views/start-page.html';
         });
     }
 });

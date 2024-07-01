@@ -2,7 +2,7 @@ async function resetForm(formType) {
     const token = getCookie('clientToken');
     if (!token) {
         console.error('Token cookie not found');
-        window.location.href = '../html/401.html';
+        window.location.href = '../../views/401.html';
         return;
     }
 
@@ -10,7 +10,6 @@ async function resetForm(formType) {
     const deleteEndpoint = formType === 'meal' ? '/api/delete-meals' : '/api/delete-sleep-naps';
 
     try {
-        // Send DELETE request to delete meals or sleep and naps
         const deleteResponse = await fetch(deleteEndpoint, {
             method: 'DELETE',
             headers: {
@@ -24,7 +23,6 @@ async function resetForm(formType) {
             return;
         }
 
-        // Send POST request to reset form
         const response = await fetch(endpoint, {
             method: 'POST',
             headers: {
@@ -34,7 +32,7 @@ async function resetForm(formType) {
 
         if (response.ok) {
             const targetFormPage = formType === 'meal' ? 'eating-schedule-form.html' : 'sleeping-schedule-form.html';
-            window.location.href = `../html/${targetFormPage}`;
+            window.location.href = `../views/${targetFormPage}`;
         } else {
             const result = await response.json();
             alert('Error: ' + result.message);
