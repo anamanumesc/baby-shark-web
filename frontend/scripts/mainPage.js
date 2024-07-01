@@ -215,12 +215,52 @@ function displayUploads(uploads) {
             fileLink.textContent = upload.description;
         }
 
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.onclick = () => confirmDelete(upload._id);
+
         square.appendChild(description);
         square.appendChild(taggedUsers);
         square.appendChild(fileLink);
+        square.appendChild(deleteButton);
         squareContainer.prepend(square); // Prepend to show the newest uploads first
     });
 }
+
+function confirmDelete(postId) {
+    const confirmation = confirm('Are you sure you want to delete this post?');
+    if (confirmation) {
+        deletePost(postId);
+    }
+}
+
+async function deletePost(postId) {
+    const token = getCookie('clientToken');
+
+    try {
+        const response = await fetch(`/api/uploads/${postId}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            alert('Post deleted successfully');
+            // Refresh uploads after successful deletion
+            fetchUploads(token);
+        } else {
+            alert('Error: ' + result.error);
+        }
+    } catch (error) {
+        console.error('Error deleting post:', error);
+        alert('An error occurred while deleting the post');
+    }
+}
+
+
 
 function getCookie(name) {
     const cookies = document.cookie.split(';');

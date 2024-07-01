@@ -127,4 +127,36 @@ const getUploads = async (req, res) => {
     }
 };
 
-module.exports = { upload, handleUpload, getUploads };
+
+const deletePost = async (req, res) => {
+    try {
+        const { postId } = req.params;
+
+        // Check if the post exists
+        const post = await Post.findById(postId);
+        if (!post) {
+            res.writeHead(404, { 'Content-Type': 'application/json' });
+            return res.end(JSON.stringify({ error: 'Post not found' }));
+        }
+
+        // Verify that the user is the uploader of the post
+        if (post.uploader.toString() !== req.userId) {
+            res.writeHead(403, { 'Content-Type': 'application/json' });
+            return res.end(JSON.stringify({ error: 'Unauthorized to delete this post' }));
+        }
+
+        // Delete the post from the database
+        await Post.findByIdAndDelete(postId);
+
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ message: 'Post deleted successfully' }));
+    } catch (error) {
+        console.error('Error deleting post:', error.message);
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Internal server error' }));
+    }
+};
+
+
+module.exports = { upload, handleUpload, getUploads, deletePost };
+
