@@ -9,7 +9,7 @@ body, html {
 .grid-box {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: auto auto auto 1fr;
+  grid-template-rows: auto auto 1fr;
   height: 100vh;
 }
 
@@ -43,61 +43,94 @@ body, html {
   grid-row: 2;
   width: 80%;
   margin: 0 auto;
+  text-align: center; /* Center align the content */
 }
 
 .grid-title {
   font-size: 24px;
+  margin-bottom: 10px; /* Add some spacing below the title */
 }
 
-.search-section {
-  grid-row: 3;
-  width: 80%;
-  margin: 0 auto;
+#searchForm {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: center; /* Center align the form */
+  gap: 10px; /* Add some spacing between the input and button */
 }
 
-.search-section form {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-
-.search-section input {
-  padding: 10px;
+#friendTag {
+  padding: 5px;
   font-size: 16px;
-  width: 70%;
-  margin-right: 10px;
+  width: 200px; /* Adjust width as needed */
 }
 
-.search-section button {
-  padding: 10px 20px;
+#searchForm button {
+  padding: 5px 10px;
   font-size: 16px;
-  background-color: #007BFF;
-  color: white;
-  border: none;
-  border-radius: 5px;
   cursor: pointer;
 }
 
-.search-section button:hover {
-  background-color: #0056b3;
+.media-container-section {
+  grid-row: 3;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-y: auto;
+  padding-top: 10px; /* Add some padding to avoid overlap with title section */
 }
 
 .media-section {
-  grid-row: 4;
-  overflow-y: auto;
+  width: 80%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.media-section img,
-.media-section video,
-.media-section audio {
+.media-section img {
+  display: flex;
+  flex-direction: column;
+  padding-top: 3vh;
   max-width: 100%;
   height: auto;
+}
+
+.media-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-bottom: 20px;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.date, .description {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.upload-image,
+.upload-video,
+.upload-audio {
+  max-width: 100%;
+  max-height: 300px;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+  .media-section {
+      padding: 0 1vw;
+  }
+
+  .media-section img {
+      margin: 3px 0;
+  }
+
+  .media-container {
+      padding: 5vw;
+  }
 }

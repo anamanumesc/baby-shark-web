@@ -62,13 +62,22 @@ const apiRoutes = async (req, res) => {
             res.writeHead(401, { 'Content-Type': 'application/json' });
             return res.end(JSON.stringify({ error: 'Unauthorized' }));
         }
-    } else if (path === '/api/see-memorable' && req.method === 'GET') {
-        const { friendTag } = query;
-        if (friendTag) {
-            getMemorableMoments(friendTag, res);
-        } else {
-            res.writeHead(400, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({ error: 'friendTag query parameter is missing' }));
+    } else  if (req.url.startsWith('/api/see-memorable') && req.method === 'GET') {
+        try {
+            const friendTag = new URL(req.url, `http://${req.headers.host}`).searchParams.get('friendTag');
+            const cookieHeader = req.headers.cookie;
+            if (!cookieHeader) throw new Error('Authorization header is missing');
+            const token = cookieHeader.split(';').find(c => c.trim().startsWith('clientToken='));
+            if (!token) throw new Error('Token not found in cookies');
+            const tokenValue = token.split('=')[1];
+            const decodedToken = jwt.verify(tokenValue, JWT_SECRET);
+            req.userId = decodedToken.userId;
+
+            await getMemorableMoments(friendTag, req.userId, res);
+        } catch (error) {
+            console.error('Error verifying token:', error.message);
+            res.writeHead(401, { 'Content-Type': 'application/json' });
+            return res.end(JSON.stringify({ error: 'Unauthorized' }));
         }
     } else if (path === '/api/get-sleep-times' && req.method === 'GET') {
         await sleepController.getSleepTimes(req, res);

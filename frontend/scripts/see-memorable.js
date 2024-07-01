@@ -26,33 +26,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
         posts.forEach(post => {
             const container = document.createElement('div');
-            container.className = 'image-container';
+            container.className = 'media-container';
 
             const info = document.createElement('div');
-            info.className = 'image-info';
+            info.className = 'media-info';
             info.innerHTML = `
-                <div class="date">Date: ${new Date(post.createdAt).toLocaleDateString()} <span class="tag">Tag: ${post.tags.map(tag => `@${tag.name}#${tag.code}`).join(', ')}</span></div>
+                <div class="date">Date: ${new Date(post.createdAt).toLocaleDateString()}</div>
                 <div class="description">Description: ${post.description}</div>
             `;
 
             const media = document.createElement('div');
-            media.className = 'image';
+            media.className = 'media';
 
             const fileType = post.filePath.split('.').pop().toLowerCase();
             if (['jpg', 'jpeg', 'png', 'gif'].includes(fileType)) {
                 const img = document.createElement('img');
                 img.src = `/uploads/${post.filePath}`;
                 img.alt = post.description;
+                img.className = 'upload-image';
                 media.appendChild(img);
             } else if (['mp4', 'webm', 'ogg'].includes(fileType)) {
                 const video = document.createElement('video');
                 video.src = `/uploads/${post.filePath}`;
                 video.controls = true;
+                video.className = 'upload-video';
                 media.appendChild(video);
             } else if (['mp3', 'wav', 'ogg'].includes(fileType)) {
                 const audio = document.createElement('audio');
                 audio.src = `/uploads/${post.filePath}`;
                 audio.controls = true;
+                audio.className = 'upload-audio';
                 media.appendChild(audio);
             } else {
                 media.textContent = 'Unsupported file type';

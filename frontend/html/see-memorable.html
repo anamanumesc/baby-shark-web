@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Memorable Photos/Videos</title>
+    <title>Memorable Moments</title>
     <link rel="stylesheet" href="../styles/see-memorable.css">
     <script defer src="../scripts/see-memorable.js"></script>
 </head>
@@ -16,15 +16,15 @@
         </div>
         <div class="grid-section title-section">
             <div class="grid-title">Memorable Moments!</div>
-        </div>
-        <div class="grid-section search-section">
             <form id="searchForm">
-                <input type="text" id="friendTag" name="friendTag" placeholder="@user#code" required>
+                <input type="text" id="friendTag" name="friendTag" placeholder="Enter friend's tag (e.g., @username#code)" required>
                 <button type="submit">See Moments</button>
             </form>
         </div>
-        <div class="grid-section media-section" id="mediaSection">
-            <!-- Media content will be inserted here by JavaScript -->
+        <div class="grid-section media-container-section">
+            <div class="media-section" id="mediaSection">
+                <!-- Media content will be dynamically inserted here -->
+            </div>
         </div>
     </div>
 </body>
