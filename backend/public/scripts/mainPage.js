@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", function() {
         return;
     }
 
-    // Retrieve token from cookies
     const token = getCookie('clientToken');
 
     if (!token) {
@@ -18,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function() {
     try {
         const decodedToken = JSON.parse(atob(token.split('.')[1]));
         const username = decodedToken.userName;
-        const isAdmin = decodedToken.admin; // Get the admin field from the token
+        const isAdmin = decodedToken.admin; 
 
         if (!username) {
             console.error('Username not found in decoded token:', decodedToken);
@@ -39,7 +38,6 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
 
-        // Fetch and display uploads
         fetchUploads(token);
     } catch (e) {
         console.error('Error decoding token:', e);

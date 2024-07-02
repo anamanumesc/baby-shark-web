@@ -76,7 +76,7 @@ body, html {
   justify-content: center;
   align-items: flex-start;
   overflow-y: auto;
-  padding-top: 10px; /* Add some padding to avoid overlap with title section */
+  padding-top: 10px; 
 }
 
 .media-section {

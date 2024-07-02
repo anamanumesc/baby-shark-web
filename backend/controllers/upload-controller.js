@@ -37,7 +37,7 @@ const handleUpload = async (req, res) => {
         let friendIds = [];
 
         if (tags && tags.trim()) {
-            const tagList = JSON.parse(tags); // Parse JSON string
+            const tagList = JSON.parse(tags); 
             if (tagList.length > 0) {
                 const processedTags = tagList.map(tag => {
                     const [name, code] = tag.split('#');
@@ -139,13 +139,11 @@ const deletePost = async (req, res) => {
             return res.end(JSON.stringify({ error: 'Post not found' }));
         }
 
-        // Verify that the user is the uploader of the post
         if (post.uploader.toString() !== req.userId) {
             res.writeHead(403, { 'Content-Type': 'application/json' });
             return res.end(JSON.stringify({ error: 'Unauthorized to delete this post' }));
         }
 
-        // Delete the post from the database
         await Post.findByIdAndDelete(postId);
 
         res.writeHead(200, { 'Content-Type': 'application/json' });

@@ -18,7 +18,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         start: `2023-01-01T${sleepTime.goToSleepTime}`,
                         end: `2023-01-01T${sleepTime.wakeUpTime}`,
                         allDay: false,
-                        // Add recurrence rule here
                         rrule: {
                             freq: 'daily'
                         }

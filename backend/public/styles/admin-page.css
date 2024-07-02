@@ -15,8 +15,8 @@ header {
     padding: 10px;
     width: 100%;
     box-sizing: border-box;
-    text-align: center; /* Center align the content */
-    position: relative; /* Position relative to center the logout button */
+    text-align: center; 
+    position: relative; 
 }
 
 nav {
@@ -71,15 +71,15 @@ main {
     flex-wrap: wrap;
     justify-content: center;
     margin-top: 2em;
-    flex-direction: column; /* Center align the content */
+    flex-direction: column; 
 }
 
 .search-column {
     text-align: center;
     display: flex;
-    flex-direction: column; /* Align buttons in a column */
-    align-items: center; /* Center align the buttons */
-    margin-right: 2em; /* Add margin to separate from users list column */
+    flex-direction: column; 
+    align-items: center; 
+    margin-right: 2em; 
 }
 
 .users-list-column {
