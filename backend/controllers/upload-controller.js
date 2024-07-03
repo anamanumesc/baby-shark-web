@@ -132,7 +132,6 @@ const deletePost = async (req, res) => {
     try {
         const { postId } = req.params;
 
-        // Check if the post exists
         const post = await Post.findById(postId);
         if (!post) {
             res.writeHead(404, { 'Content-Type': 'application/json' });

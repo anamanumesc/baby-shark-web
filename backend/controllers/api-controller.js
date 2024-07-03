@@ -8,7 +8,7 @@ const medicalController = require('./medical-controller');
 const sleepController = require('./sleep-controller');
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
-const JWT_SECRET = 'baby-shark'; // Hardcoded JWT secret
+const JWT_SECRET = 'baby-shark';//hardcodat ca nu mergea in .env
 
 const handleApiRequest = async (req, res) => {
     if (req.url === '/api/signup' && req.method === 'POST') {

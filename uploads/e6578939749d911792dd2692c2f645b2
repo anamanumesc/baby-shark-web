@@ -1,0 +1,36 @@
+REST = representational state transfer
+
+CORS = cross origin resource sharing
+
+API = application programming interface - connects apps together
+
+HTTP = hypertext transfer protocol
+is responsible for request-response cycle for the user and the server
+
+HTTP message:
+
+*start line
+*headers
+*body
+
+Start line -> Method (GET, POST etc) URI (Uniform Resource Identifier exemplu /api/login) HTTP version
+Headers -> name-value pairs like host, accept, keep-alive
+
+For replies, the start line only contains the HTTP version and the server code (200 - ok, 400- user error, 500 - server error)
+
+CORS = cross origin resource sharing
+(basically you cant request data from one server to another)
+same origin policy	
+
+DOM = document object model
+
+AJAX = asynchronous javascript and xml - used for getting information on a page piece by piece
+asynchronous = communicate with the server without reloading
+JavaScript communicates with the server via XHR = xml http request
+
+Promises = objects that represent the eventual completion or failure of an asynchronous operation
+await = pauses the execution of an asynchronous function until a promise is settled (success or failure)
+!!When you fetch something, it always returns a promise
+.then(res  => res.json())  response (ex. res.ok = success)
+	.then(data => console.log(data)) prints out the body
+.catch(error =>) -very rarely happens because 404 not found for example is still successful 

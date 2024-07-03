@@ -70,8 +70,7 @@ const apiRoutes = async (req, res) => {
                 const tokenValue = token.split('=')[1];
                 const decodedToken = jwt.verify(tokenValue, JWT_SECRET);
                 req.userId = decodedToken.userId;
-    
-                // Extract postId from the URL
+
                 const postId = path.split('/').pop();
                 req.params = { postId };
     
