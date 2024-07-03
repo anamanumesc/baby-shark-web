@@ -39,7 +39,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 const events = [];
 
-                // Add meal events
                 mealTimes.forEach(mealTime => {
                     const startTimeHour = extractHour(mealTime.startTime);
                     const endTimeHour = extractHour(mealTime.endTime);
