@@ -1,8 +1,12 @@
-# Baby Shark Web
+## Baby Shark Web
 <sup> Bordeianu Ana Maria & Popa Cosmin </sup>
 
-This is a web application that allows authenticated users -- eventually, families or couples -- to manage resources related to the care of a child (from baby and preschooler to puberty). The application will target the following: feeding schedule, sleep schedule, various multimedia resources (photos, videos, audio recordings,...) regarding the child's development, medical history, relationship with other children (e.g., cousins, kindergarten/school classmates) etc. The application will provide a chronological view of the most important moments captured for each child. The system functionalities will also be exposed through a REST API. 
+This web application allows authenticated users—such as families, couples, or nannies—to manage child care resources from infancy to puberty. It covers feeding and sleep schedules, medical history, and enables the uploading of multimedia (photos, videos, audio) into a feed where friends can be tagged. Users can also track the relationships between children by selecting specific friends (e.g., cousins, kindergarten/school classmates). The app provides an overview of important moments captured for each friend. All functionalities are exposed through a REST API and secured with JWT token-based authentication.
 
-• Authentification system with JWT tokens
+Exposed to: HTTP, JavaScript, noSQL, HTML5, CSS, MongoDB, Mongoose
 
-Exposed to: **JavaScript, noSQL, HTML5, CSS, MongoDB, Mongoose**
+
+
+
+
+
